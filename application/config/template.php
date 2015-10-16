@@ -1,0 +1,114 @@
+<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+/*
+|--------------------------------------------------------------------------
+| Active template
+|--------------------------------------------------------------------------
+|
+| The $template['active_template'] setting lets you choose which template 
+| group to make active.  By default there is only one group (the 
+| "default" group).
+|
+*/
+$template['active_template'] = 'default';
+
+/*
+|--------------------------------------------------------------------------
+| Explaination of template group variables
+|--------------------------------------------------------------------------
+|
+| ['template'] The filename of your master template file in the Views folder.
+|   Typically this file will contain a full XHTML skeleton that outputs your
+|   full template or region per region. Include the file extension if other
+|   than ".php"
+| ['regions'] Places within the template where your content may land. 
+|   You may also include default markup, wrappers and attributes here 
+|   (though not recommended). Region keys must be translatable into variables 
+|   (no spaces or dashes, etc)
+| ['parser'] The parser class/library to use for the parse_view() method
+|   NOTE: See http://codeigniter.com/forums/viewthread/60050/P0/ for a good
+|   Smarty Parser that works perfectly with Template
+| ['parse_template'] FALSE (default) to treat master template as a View. TRUE
+|   to user parser (see above) on the master template
+|
+| Region information can be extended by setting the following variables:
+| ['content'] Must be an array! Use to set default region content
+| ['name'] A string to identify the region beyond what it is defined by its key.
+| ['wrapper'] An HTML element to wrap the region contents in. (We 
+|   recommend doing this in your template file.)
+| ['attributes'] Multidimensional array defining HTML attributes of the 
+|   wrapper. (We recommend doing this in your template file.)
+|
+| Example:
+| $template['default']['regions'] = array(
+|    'header' => array(
+|       'content' => array('<h1>Welcome</h1>','<p>Hello World</p>'),
+|       'name' => 'Page Header',
+|       'wrapper' => '<div>',
+|       'attributes' => array('id' => 'header', 'class' => 'clearfix')
+|    )
+| );
+|
+*/
+
+/*
+|--------------------------------------------------------------------------
+| Default Template Configuration (adjust this or create your own)
+|--------------------------------------------------------------------------
+*/
+//
+//message search template start here
+$template['message_search']['template'] = 'message_search_template.php';
+$template['message_search']['regions'] = array(
+   'header',
+  'title',
+  'content',
+  'sidebar',
+  'footer',
+);
+$template['message_search']['parser'] = 'parser';
+$template['message_search']['parser_method'] = 'parse';
+$template['message_search']['parse_template'] = FALSE;
+//message search template end here
+$template['static_front']['template'] = 'static_front_template.php';
+$template['home']['template'] = 'home_template.php';
+$template['dashboard']['template'] = 'dashboard_template.php';
+$template['static_front']['regions'] = array(
+   'header',
+  'title',
+  'content',
+  'sidebar',
+  'footer',
+);
+//static front template
+$template['static_front']['parser'] = 'parser';
+$template['static_front']['parser_method'] = 'parse';
+$template['static_front']['parse_template'] = FALSE;
+
+//front template design changes
+$template['front']['template'] = 'front_template.php';
+$template['front']['regions'] = array(
+   'header',
+  'title',
+  'content',
+  'sidebar',
+  'footer',
+);
+$template['front']['parser'] = 'parser';
+$template['front']['parser_method'] = 'parse';
+$template['front']['parse_template'] = FALSE;
+//admin template
+$template['default']['template'] = 'template.php';
+$template['default']['regions'] = array(
+   'header',
+  'title',
+  'content',
+  'sidebar',
+  'footer',
+);
+$template['default']['parser'] = 'parser';
+$template['default']['parser_method'] = 'parse';
+$template['default']['parse_template'] = FALSE;
+//$template['default']['regions']['header'] = array('content' => array('<h1>CI Rocks!</h1>'));
+//$template['default']['regions']['footer'] = array('content' => array('<p id="copyright">© Our Company Inc.</p>'));
+/* End of file template.php */
+/* Location: ./system/application/config/template.php */
