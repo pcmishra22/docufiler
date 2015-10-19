@@ -26,6 +26,26 @@ class Users extends MX_Controller{
 	  {
 		  $this->load->view('forgetpassword');
 	  }
+	  //logout method calling
+	  public function logout()
+	  {
+		  echo 'Logout';
+	  }
+	  //dashboard method calling
+	  public function dashboard()
+	  {
+		$this->template->set_template('front');
+		$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+		$this->template->write_view('content', 'dashboard');
+		$this->template->render();
+	  }
+	  //details category page
+	  public function details()
+	  {
+		  $this->load->view('categorydetails');
+	  }
+	  //
+	  
 }
  /* End of file member.php */
 /* Location: ./application/controllers/welcome.php */

@@ -153,8 +153,98 @@ body.color-login{
            width: 45%;
     margin-left: 19%; 
         }										
-		
-		
+		.color-blue{background-color:#1787aa;}
+		.tab-blue{list-style-type: none;
+    margin: 0;
+    padding: 0;
+   }
+		.tab-blue li{float:left}
+		.tab-blue li a{color: #fff;
+    display: block;
+    padding: 6px;
+    font-size: 20px;
+    padding-left: 42.5px;
+    padding-right: 42.75px;
+    border-right: 1px solid #fff;}
+    
+   
+   .tab-blue li a:hover{background-color:#f9b623; text-decoration:none;}
+   .boxx{border-radius:4px; border:2px solid #7c7c7c; background-color:#f2f2f2;-moz-box-shadow: 0px 4px 10px #000000;
+    -webkit-box-shadow: 0px 4px 10px #000000;
+    box-shadow: 0px 3px 4px #000000;}
+   .margin{margin:0 auto;}
+   .all-boxes{padding: 15px;}
+   .all-catogeries{padding-top: 6%;
+    padding-bottom: 6%;
+    padding-left: 3%;
+    padding-right: 3%;}
+   .green{color:#0afd0a;}
+   .top{padding-top:8%;}
+   .bottomm{padding-bottom: 5%;}
+   .text-grey{color:#a1a1a1;}
+   .marg{margin-bottom:0px;}
+   .margg{margin-top:-2px;}
+	
+	/*********************************************************************
+						Inner-page
+	**********************************************************************/
+	.radius-box-innerpage{padding-top: 4%;
+    padding-left: 2%;
+    padding-right: 2%;
+	padding-bottom: 4%;
+    border-radius: 20px; border:2px solid #7c7c7c; background-color:#f2f2f2; -moz-box-shadow: 0px 4px 10px #000000;
+    -webkit-box-shadow: 0px 4px 10px #000000;
+    box-shadow: 0px 3px 4px #000000;}						
+	.box-inner{border:1px solid #000; cursor: pointer; font-size: 16px;
+    font-weight: bold;padding: 2%;     margin-bottom: 0;}
+	.move-icon{ padding-right:9%}
+	.move-icon-two{padding-left:9%;}
+	.pdf{border:2px solid grey; width:100%;}
+	.font{font-size: 13px !important;}
+	.date{margin-bottom: 0;
+    font-size: 13px;
+    font-weight: 600;
+    padding-top: 0%;}
+	.change{padding-left:0; padding-right:0;}
+	.all-boxess{padding:10px;}
+	.alert-box{background-color: #f9b623;}
+	.topp{padding-top:4%;}
+	.arrange{margin-top: 9px;}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**************************************************
 			Login and sign up
 	**************************************************/
