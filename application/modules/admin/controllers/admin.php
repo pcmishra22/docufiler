@@ -70,12 +70,14 @@ class Admin extends MX_Controller
 		$this->template->write_view('content', 'dashboard');
 		$this->template->render();
 	}
+	
 	//Logout function
 	function logout()
 	{
 		$this->session->sess_destroy();
 		redirect('admin/index');
 	}
+	
 	//list users
 	public function listuser()
 	{
@@ -85,11 +87,48 @@ class Admin extends MX_Controller
 		$this->template->write_view('content', 'listuser',$data);
 		$this->template->render();
 	}
+	
+	//list users
+	public function listtemplate()
+	{
+		$this->checkloginadmin();
+		$data['alltemplates']=$this->users_model->listAlltemplates();
+		$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+		$this->template->write_view('content', 'listtemplate',$data);
+		$this->template->render();
+	}
+	
 	//checklogin admin
 	public function checkloginadmin()
 	{	
 	   if(!$this->session->userdata('user_name')=='admin')
 		redirect('admin');
+	}
+	
+	//delete template
+	public function delettemplate($id)
+	{
+		$this->users_model->deleteTemplate($id);
+		$this->session->set_flashdata('flash_message', 'deleted');
+		redirect('admin/listtemplate');	
+	}
+	//delete user
+	public function deleteuser($id)
+	{
+		$this->users_model->deleteUser($id);
+		$this->session->set_flashdata('flash_message', 'deleted');
+		redirect('admin/listuser');	
+	}
+	//edit template
+	public function addtemplate($id='')
+	{
+		$data=array();
+		$this->checkloginadmin();
+		if($id!='')
+			$data['templatedetails']=$this->users_model->listTemplateById($id);
+		$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+		$this->template->write_view('content', 'addtemplate',$data);
+		$this->template->render();
 	}
 }
 ?>

@@ -132,6 +132,21 @@
                             <a href="#"><span class="icon16 icomoon-icon-table-2"></span>User</a>
                             <ul class="sub">
                                 <li><a href="<?php echo base_url()?>admin/listuser"><span class="icon16 icomoon-icon-arrow-right-3"></span>List Users</a></li>
+                                 <li><a href="<?php echo base_url()?>admin/adduser"><span class="icon16 icomoon-icon-arrow-right-3"></span>Add User</a></li>
+                            </ul>
+                        </li>
+                         <li>
+                            <a href="#"><span class="icon16 icomoon-icon-table-2"></span>Email Template</a>
+                            <ul class="sub">
+                                <li><a href="<?php echo base_url()?>admin/listtemplate"><span class="icon16 icomoon-icon-arrow-right-3"></span>List Templates</a></li>
+                                <li><a href="<?php echo base_url()?>admin/addtemplate"><span class="icon16 icomoon-icon-arrow-right-3"></span>Add Template</a></li>
+                            </ul>
+                        </li>
+                          <li>
+                            <a href="#"><span class="icon16 icomoon-icon-table-2"></span>Files</a>
+                            <ul class="sub">
+                                <li><a href="<?php echo base_url()?>admin/listfile"><span class="icon16 icomoon-icon-arrow-right-3"></span>List Files</a></li>
+                                <li><a href="<?php echo base_url()?>admin/addfile"><span class="icon16 icomoon-icon-arrow-right-3"></span>Add File</a></li>
                             </ul>
                         </li>
 

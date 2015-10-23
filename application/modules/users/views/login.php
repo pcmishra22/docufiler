@@ -45,6 +45,10 @@
                     password: {
                         required: true,
                         minlength: 5
+                    },
+					 captcha: {
+                        required: true,
+                        minlength: 6
                     }
                 },
                 messages: {
@@ -52,6 +56,10 @@
                     password: {
                         required: "Please provide password",
                         minlength: "Your password must be at least 5 characters long"
+                    },
+					 captcha: {
+                        required: "Please provide captcha",
+                        minlength: "Your captcha must be at least 6 characters long"
                     }
                 },
                 submitHandler: function(form) {
@@ -80,9 +88,19 @@
                   
 				<form action="<?php echo base_url()?>users/dashboard" method="post" name="login" id="login">
 						<input type="text" class="input" placeholder="Enter your username" name="username" id="username">
-						<input type="password" class="input" placeholder="Enter your password" name="password" id="password">
+						<input type="password" class="input" placeholder="Enter your password" name="password" id="password"> 
+                        <label for="captcha"><?php echo $captcha['image']; ?></label>
+    <br>
+                        <input type="text" class="input" placeholder="Enter no written in above image" name="captcha" id="captcha">
+                       <?php
+					    if($this->session->flashdata('flash_message') == 'mismatch')
+        				{
+							echo '<label for="captcha" generated="true" class="error">Captcha Mismatch</label>';
+						}
+					   ?>
+
 						<div class="submit">
-							<input type="submit" class="submitt" name="submit" id="submit" onclick="myFunction()" value="LOGIN" >
+							<input type="submit" class="submitt" name="submit" id="submit" value="LOGIN" >
 					</div>	
 					<p><a href="<?php echo base_url();?>users/forgetpassword">Forgot Password ?</a></p>
                     
