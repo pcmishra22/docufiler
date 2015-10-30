@@ -21,7 +21,7 @@ a.hover:hover{background-color:transparent !important; }
 
 
 
-.grey{background-color:#f2f2f2; min-height: 677px !important;
+.grey{background-color:#f2f2f2; min-height: 640px !important;
 }
 .Download{padding-right:1%}
 .border-bottom{border-top:1px solid black;}
@@ -104,7 +104,7 @@ span.right{padding-left: 1%;
     cursor: pointer;}
 span.left{padding-right: 1%;
     cursor: pointer;}		 
-.footer{background-color:#333333; border-top:4px solid #666666; clear:both; z-index:999;}
+.footer{background-color:#1787AA; border-top:4px solid #1787AA; clear:both; z-index:999;}
 
 .footer-list{color:#fff; list-style-type:none;margin: 0;
     padding: 0;}
@@ -200,13 +200,13 @@ body.color-login{
     -webkit-box-shadow: 0px 4px 10px #000000;
     box-shadow: 0px 3px 4px #000000;}
    .margin{margin:0 auto;}
-   .all-boxes{padding: 15px;}
-   .all-catogeries{padding-top: 6%;
+   .all-boxes{padding: 45px;}
+   .all-catogeries{padding-top: 2%;
     padding-bottom: 6%;
     padding-left: 3%;
     padding-right: 3%;}
    .green{color:#0afd0a;}
-   .top{padding-top:8%;}
+   .top{padding-top:4%;}
    .bottomm{padding-bottom: 5%;}
    .text-grey{color:#a1a1a1;}
    .marg{margin-bottom:0px;}
@@ -275,29 +275,40 @@ body.color-login{
 	.backgroud-color-one{    background-color: beige;}
 	.backgroud-color-two{background: azure;}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	/*top header*/
+.docufilier-header{border-bottom-width: 5px;
+margin-bottom:10px;
+    border-bottom-style: solid;
+    border-bottom-color: #999;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d3d3d3+1,ffffff+100 */
+background: #d3d3d3; /* Old browsers */
+background: -moz-linear-gradient(top,  #d3d3d3 1%, #ffffff 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#d3d3d3), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #d3d3d3 1%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #d3d3d3 1%,#ffffff 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #d3d3d3 1%,#ffffff 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #d3d3d3 1%,#ffffff 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d3d3d3', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+-webkit-box-shadow: -5px 1px 3px 5px rgba(0, 211, 0, 1); /* WebKit */
+-moz-box-shadow: -5px 1px 3px 5px rgba(0, 211, 0, 1); /* Firefox */
+box-shadow: -5px 1px 3px 5px rgba(23, 135, 170, .8); /* Standard */
+}
+.upper{padding-top:2%; }
+ul.docufilier-about-us{list-style-type:none;padding-top: 13px;padding-right: 2%;}
+ul.docufilier-about-us li{float:left;}
+ul.docufilier-about-us li a{font-size: 10px;
+    text-transform: uppercase;
+    color: #999; padding: 1px 8px;}
+ul.docufilier-about-us li a.first-child{border-right:1px solid #999;}
+ul.docufilier-navigation-bar{list-style-type:none; }
+ul.docufilier-navigation-bar li{float:left;}
+ul.docufilier-navigation-bar li a{padding: 6px 21px;
+    font-weight: 500;
+    color: #000;}
+ul.docufilier-navigation-bar li a:hover{text-decoration:none; background-color:#d3d3d3;}
+
+/*top header*/
+
 	
 	
 	

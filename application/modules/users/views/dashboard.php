@@ -114,14 +114,14 @@
             	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 all-boxes zero-padding">
                 	<div class="boxx text-center">
                     	<img src="<?php echo base_url();?>images/frontend/add-catetogery.png" class="img-responsive margin top"  />
-                        <h3 class="green bottomm"><b>Add Category</b></h3>
+                        <h4 class="green bottomm"><b>Add Category</b></h4>
                     </div>
                 </div>
                 
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 all-boxes zero-padding">
                 	<div class="boxx text-center">
                     	<img src="<?php echo base_url();?>images/frontend/Automobile.png" class="img-responsive margin top"  />
-                        <h3 class="text-grey marg">Automobiles</h3>
+                        <h4 class="text-grey marg">Automobiles</h4>
                         <h6 class="text-grey margg">3,564 Files</h6>
                     </div>
                 </div>

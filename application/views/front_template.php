@@ -13,8 +13,37 @@
 
 </body>
 </html>
+<div class="docufilier-header">
+	<div class="container upper">
+    	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 zero-padding">
+        	<div class="peShiner">
+            <a href="#"><img src="<?php echo base_url();?>images/frontend/logo.png" class="img-responsive margin" data-color="sepia" data-reverse="false" data-duration="7" alt="DocuFiler - Document Management Solutions" />
+            </a>
+        	</div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 zero-padding">
+        	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding pull-right">
+            	<ul class="pull-right docufilier-about-us" >
+                	<li><a href="#" class="first-child">ABOUT US</a></li>
+                    <li><a href="#">CONTACT US</a></li>
+                </ul>    
+            </div>
+            
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding pull-right">
+            	<ul class="pull-right docufilier-navigation-bar" >
+                	<li><a href="#" class="">HOME</a></li>
+                    <li><a href="#">FEATURES</a></li>
+                     <li><a href="#">HOW ITS WORKS</a></li>
+                      <li><a href="#">SECURE</a></li>
+                </ul>    
+            </div>
+        </div>
+    </div>
+</div>
 <!--=====================Yellow Header Section================================-->
+
 <header>
+
 	<div class="header clearfix">
     	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
         	<nav class="navbar navbar-default" style="background-color:transparent; border:0px; margin-bottom:0px; ">
@@ -237,9 +266,7 @@
                             USA<br />
                   </address> 
                   
-                  <address class="address differ">EMAIL ADDRESS:
-											info@docufiler.com
-                      </address>                              
+                                            
             </div>
     	</div>
         
