@@ -35,6 +35,22 @@ class Users_model extends CI_Model {
         }
 
 	}
+	//check user details by id
+	function userDetailsById($id)
+	{
+			$sql = "SELECT * FROM doc_user where id='$id'" ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}
+	//check email exists
+	function register_email_exists($email)
+	{
+			$sql = "SELECT * FROM doc_user where email='$email'" ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}
 	//fetch settings data
 	
 	function fetchSettingsData()
@@ -43,6 +59,14 @@ class Users_model extends CI_Model {
 			$query = $this->db->query($sql);
 			$result = $query->result_array();
 			return @$result;
+	}
+	//update data
+	function updateData($field,$value,$tablename,$data)
+	{
+		$this->db->where($field, $value);
+		$this->db->update($tablename, $data);
+		$id = $this->db->insert_id(); 
+		return @$id;
 	}	
 	//save data
 	function saveData($tablename,$data)
@@ -51,24 +75,18 @@ class Users_model extends CI_Model {
 		$id = $this->db->insert_id(); 
 		return @$id;
 	}
-	function getQuestionIds($subject)
+	//check user
+	function checkUser($user,$pass)
 	{
-		if($subject=='aptitude')
-		{
-			$sql = "SELECT id FROM exam_question where type='a'"; 
-		}
-		else
-		{
-			$sql = "SELECT id FROM exam_question where type='t'"; 
-		}
-        	
+		    $sql = "SELECT * FROM doc_user where email='$user' and password=md5('$pass')"; 
             $query = $this->db->query($sql);
             $result = $query->result_array();
             return @$result;
 	}
-	function getQuestionById($id='')
+	//check user details
+	function checkcodedata($code)
 	{
-        	$sql = "SELECT * FROM exam_question where id=".$id; 
+			$sql = "SELECT * FROM doc_user where passwordreset='$code'"; 
             $query = $this->db->query($sql);
             $result = $query->result_array();
             return @$result;

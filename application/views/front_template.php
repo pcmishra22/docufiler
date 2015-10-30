@@ -139,35 +139,36 @@
                 </ul>
               </li>
               
+              <li class="dropdown"> <a href="#" class="dropdown-toggle hvr-sweep-to-bottom padd" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="right-arrow"><img src="<?php echo base_url();?>images/frontend/download.png" /></span><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Inbox</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#">Compose Message</a></li>
+                </ul>
+                </li>
+               
               
-               <li><a href="#" class="padd hover"><img src="<?php echo base_url();?>images/frontend/download.png" class="message"/></a></li>
             </ul>
-            
-           
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            <ul class="nav navbar-nav pull-right">
-            	<li class="dropdown"> <a href="#" class="dropdown-toggle hvr-sweep-to-bottom padd" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="right-arrow"><img src="<?php echo base_url();?>images/frontend/admin.png" /></span>Admin <span class="caret"></span></a>
+            <ul class="nav navbar-nav pull-right" style="padding-right:30px;">
+           		<li class="dropdown"> <a href="#" class="dropdown-toggle hvr-sweep-to-bottom padd" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="right-arrow"><img src="<?php echo base_url();?>images/frontend/admin.png" /></span>Hi <?php echo $this->session->userdata('firstname');?> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
+				  <li><a href="<?php echo base_url();?>users/accountinfo">Accout Information</a></li>
                   <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">One more separated link</a></li>
+                  <li><a href="<?php echo base_url();?>users/mailingaddress">Mailing Address</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="<?php echo base_url();?>users/billingaddress">Billing Address</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="<?php echo base_url();?>users/cardinfo">Credit Card Information</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="<?php echo base_url();?>users/accesspermission">Access Permission</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="<?php echo base_url();?>users/securityquestion">Security Question</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="<?php echo base_url();?>users/logout">Logout</a></li>
                 </ul>
                 </li>
-                
                 <li class="dropdown"> <a href="#" class="dropdown-toggle hvr-sweep-to-bottom padd" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="right-arrow"><img src="<?php echo base_url();?>images/frontend/setting.png" /></span>Setting <span class="caret"></span></a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu setting-dropdown-position">
                   <li><a href="#">Action</a></li>
                   <li><a href="#">Another action</a></li>
                   <li><a href="#">Something else here</a></li>
@@ -177,7 +178,8 @@
                   <li><a href="#">One more separated link</a></li>
                 </ul>
                 </li>
-            </ul>
+             </ul>
+            
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
@@ -192,9 +194,75 @@
 
 <!--end of middle section-->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="<?php echo base_url();?>js/frontend/bootstrap.min.js"></script>
-<script>
+<div class="footer clearfix">
+	<div class="container clearfix">
+    		<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 zero-padding">
+            	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 zero-padding">
+            	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding white-text text-center">
+                	<h3>Company</h3>
+                    	<ul class="footer-list">
+                        	<li><a href="#">About Us</a></li>
+                        </ul>    
+                </div>	
+               
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding white-text text-center">
+                	<h3>Costumer Service</h3>
+                    	<ul class="footer-list">
+                        	<li><a href="#">Contact Us</a></li>
+                        </ul>    
+                </div>	
+                
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding white-text text-center">
+                	<h3>My Account</h3>
+                    	<ul class="footer-list">
+                        	<li><a href="#">About Us</a></li>
+                        </ul>    
+                </div>	
+                
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding white-text text-center">
+                	<h3>Support</h3>
+                    	<ul class="footer-list">
+                        	<li><a href="#">Videos</a></li>
+                        </ul>    
+                </div>	
+                
+            </div>
+            
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 zero-padding white-text text-center">
+            	<h3>Company</h3>
+                <img src="<?php echo base_url();?>images/frontend/world-map.png" class="img-responsive margin world-map" />
+                <address class="address">OFFICE ADDRESS:<br />
+                            105 N Ketch Dr, <br />
+                            Sunrise, FL 33326 <br />
+                            USA<br />
+                  </address> 
+                  
+                  <address class="address differ">EMAIL ADDRESS:
+											info@docufiler.com
+                      </address>                              
+            </div>
+    	</div>
+        
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 zero-padding white-text text-left">
+        	<h3 class="facebook-page">Like us on Facebook</h3>
+            <img src="<?php echo base_url();?>images/frontend/screenshot.png" class="img-responsive margin"/>
+        </div>
+        
+        
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding white-text border-top-copyright">
+    	<div class="container">
+        	<p class="copyright" align="center">COPYRIGHT © 2015 DOCUFILER.COM ALL RIGHTS RESERVED.</p>
+        </div>
+    </div>
+</div>
+
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    
+    <script src="<?php echo base_url();?>js/frontend/bootstrap.min.js"></script>
+    
+    <script>
 $('ul.nav-left-ml').toggle();
 $('label.nav-toggle span').click(function () {
   $(this).parent().parent().children('ul.nav-left-ml').toggle(300);

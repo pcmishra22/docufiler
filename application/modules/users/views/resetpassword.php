@@ -38,15 +38,26 @@
             //form validation rules
             $("#register-form").validate({
                 rules: {
-
-                    email: {
+                    password: {
                         required: true,
-                        email: true
+                        minlength: 5
+                    },
+					 conpass: {
+                        required: true,
+                        minlength: 5,
+						equalTo: "#password"
                     }
-
                 },
                 messages: {
-                    email: "Please enter a valid email address"
+                    password: {
+                        required: "Please provide password",
+                        minlength: "Your password must be at least 5 characters long"
+                    },
+					conpass: {
+                        required: "Please provide confirmed password",
+                        minlength: "Your password must be at least 5 characters long",
+						equalTo: "Password and confirmed password should be same"
+                    }
                 },
                 submitHandler: function(form) {
                     form.submit();
@@ -63,34 +74,36 @@
 })(jQuery, window, document);
 </script>
 </head>
-
+<?php
+if(isset($checkdetails) && ($checkdetails[0]['email']!=''))
+{
+?>
 <body class="color-login">
 	 <!-----start-main---->
 	 <div class="main">
 		<div class="login-form">
-			<h1>Forget Password</h1>
+			<h1>Reset Password</h1>
             
 					<div class="head sign-up">
 						<img src="<?php echo base_url();?>images/frontend/sihnin.png" alt=""/>
 					</div>
                      <?php
-					    if($this->session->flashdata('flash_message') == 'emailsent')
+					    if($this->session->flashdata('flash_message') == 'emailexists')
         				{
-							echo '<div  style="color:red;" align="center" class="alert alert-danger"><strong>Please check your email, Click the link to reset your password</strong></div>';
-						}
-						if($this->session->flashdata('flash_message') == 'emailnotexists')
-        				{
-							echo '<div  style="color:red;" align="center" class="alert alert-danger"><strong>Email not exist !</strong></div>';
+							echo '<div  style="color:red;" align="center" class="alert alert-danger"><strong>Email already exist !</strong></div>';
 						}
 					   ?>
 				<form action="" method="post" id="register-form" novalidate>
 						
-                        <input type="text"  placeholder="Enter your email" class="input" name="email" id="email">
+                        <input type="text"  placeholder="Enter your email" class="input" name="email" id="email" value="<?php echo $checkdetails[0]['email'];?>" readonly>
+						<input type="password" placeholder="Enter your password" class="input" name="password" id="password">
+                        <input type="password" placeholder="Enter Confirmed Password" class="input" name="conpass" id="conpass">
+                       
 						<div class="submit">
                         
 							<input type="submit" class="submitt" name="submit" id="submit" value="Submit" >
 					</div>	
-					
+					<p><a href="<?php echo base_url();?>users/forgetpassword">Forgot Password ?</a></p>
                     
                     <p><a href="<?php echo base_url();?>users/login">Login</a></p>
 				</form>
@@ -105,4 +118,43 @@
 			 <!-----//end-main---->
 		 		
 </body>
+<?php
+}
+else
+{
+	
+	?>
+    <body class="color-login">
+	 <!-----start-main---->
+	 <div class="main">
+		<div class="login-form">
+			<h1>Reset Password</h1>
+            
+					<div class="head sign-up">
+						<img src="<?php echo base_url();?>images/frontend/sihnin.png" alt=""/>
+					</div>
+                     <?php
+					  
+							echo '<div  style="color:red;" align="center" class="alert alert-danger"><strong>Unauthrised access !</strong></div>';
+						
+					   ?>
+				<form action="" method="post" id="register-form" novalidate>
+						
+                       
+						
+				</form>
+			</div>
+			<!--//End-login-form-->
+			 <!-----start-copyright---->
+   					<div class="copy-right">
+						<p>Files save in <a href="<?php echo base_url();?>">DOCUFILER</a></p> 
+					</div>
+				<!-----//end-copyright---->
+		</div>
+			 <!-----//end-main---->
+		 		
+</body>
+    <?php
+}
+?>
 </html>

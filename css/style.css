@@ -1,4 +1,5 @@
-body{font-family:Raleway;}
+
+body{font-family:Raleway; background-color:#f2f2f2;}
 /**************************************************************
                             Header
 **************************************************************/							
@@ -8,7 +9,7 @@ header{background-color:#f5d079;}
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
     color: #fff;
     background-color: #f9b623;}
-.padd{padding-top:35px !important; padding-bottom:35px !important;}
+.padd{padding-top:15px !important; padding-bottom:15px !important;}
 .navbar-default .navbar-nav > li > a {
     color: #fff;
     font-weight: 600;}
@@ -20,7 +21,7 @@ a.hover:hover{background-color:transparent !important; }
 
 
 
-.grey{background-color:#f2f2f2; min-height: 683px !important;
+.grey{background-color:#f2f2f2; min-height: 677px !important;
 }
 .Download{padding-right:1%}
 .border-bottom{border-top:1px solid black;}
@@ -40,8 +41,10 @@ a.hover:hover{background-color:transparent !important; }
 	
 .dark-grey{background-color:#d9d9d9;}
 .white-text{color:#fff;}
-.bottom{    min-height: 684px !important;}
-.color{color:#fff !important; }
+.bottom{    min-height: 677px !important;}
+.nav > li > a.color{color:grey !important; border:1px solid transparent !important;}
+.nav > li > a:focus{background-color:#fff; border:1px solid #f6cf76 !important;}
+.top-header:focus{border:1px solid #f6cf76 !important;}
 
 .right-bar-head{background-color:#e3e3e3;}
 .border-left{border-right:1px solid #cdcdcd;}
@@ -61,9 +64,11 @@ a.hover:hover{background-color:transparent !important; }
 
 
 
-.nav-list{padding-right:15px;padding-left:15px;margin-bottom:0;}
+.nav-list{padding-right:15px;padding-left:15px;margin-bottom:0; margin: 0;
+    padding: 0;}
 .nav-list-main{padding-left:0px;padding-right:0px;margin-bottom:0;}
-span.nav-toggle-icon{font-size:15px !important;top:-2px !important;}
+span.nav-toggle-icon{font-size: 11px !important;
+    top: -1px !important;}
 
 /**.nav-list-main li>label.nav-toggle::before {
   position: absolute;
@@ -88,7 +93,7 @@ span.nav-toggle-icon{font-size:15px !important;top:-2px !important;}
   border-left-color: rgba(0, 0, 0, 0.4);
   content: '';
 }*/
-.top-header{ width:100%;border:1px solid transparent; font-family:lighte !important; border: 1px solid transparent !important;}  
+.top-header{ width:100%;border:1px solid transparent; font-family:lighte !important; border: 1px solid transparent !important;     font-size: 20px;}  
 .top-header:hover{background-color:#fff; width:100%; color:#000 !important; border:1px solid #f6cf76 !important;}
 .top-header:focus{background-color:#fff !important; width:100% !important; color:#000 !important;}
 .top-header:visted{background-color:#fff !important; width:100% !important; color:#000 !important;}
@@ -98,10 +103,30 @@ span.nav-toggle-icon{font-size:15px !important;top:-2px !important;}
 span.right{padding-left: 1%;
     cursor: pointer;}
 span.left{padding-right: 1%;
-    cursor: pointer;}		
+    cursor: pointer;}		 
+.footer{background-color:#333333; border-top:4px solid #666666; clear:both; z-index:999;}
 
+.footer-list{color:#fff; list-style-type:none;margin: 0;
+    padding: 0;}
+.footer-list li{}
 		
-		
+.footer-list li a{color:#fff;}
+.footer-list li a:hover{text-decoration:none; background-color:#fff; color:#000; padding: 3%;
+    padding-left: 6%;
+    padding-right: 6%;}
+.address{text-align: left;
+    padding-top: 13%;
+    padding-left: 27%;
+    letter-spacing: 1px;}
+.world-map{padding-top:5%;}
+.differ{padding-top:0;}
+.facebook-page{padding-left: 9.5%;}
+.border-top-copyright{border-top:1px solid #fff;}
+.copyright{padding-top: 1%;
+    font-size: 13px;}
+.link-kartik-system{color:#fff;} 
+.link-kartik-system:hover{color:#f5d079;}	
+.white-backgroud{background-color:#fff;}			
 		
 		
 		
@@ -110,28 +135,29 @@ span.left{padding-right: 1%;
 **********************************************************************/
 body.color-login{
 	background:#f9b623;}
-.dark-yellow-box{background-color:#f9b623; color:#fff; padding-top: 2%;
-    padding-bottom: 2%;
+.dark-yellow-box{background-color:#f9b623; color:#fff; padding-top: 1%;
+    padding-bottom: 1%;
     padding-left: 3%;
 }
-.text-size{font-size:35px;}
+.text-size{font-size: 27px;}
 .files-number{padding-right:7%;}
 #search-text-input{
-           
+           position: relative;
+    left: 25%;
               color: #000;  
            outline: 0;
     border: 0;
     border-bottom-left-radius: 7px;
     border-top-left-radius: 7px;
     float: left;
-    height: 50px;
-    margin: .8em 0 0 .5em;
+    height: 26px;
+     margin: .4em 0 0 .5em;
     outline: 0;
     padding: .4em 0 .4em .6em;
-    width: 82%;
+    width: 60%;
     font-size: 14px;
-    padding-bottom: 20px;
-    padding-top: 20px;
+   padding-bottom: 19px;
+    padding-top: 19px;
         }
          
         #button-holder{
@@ -141,12 +167,13 @@ body.color-login{
     border-left: 3px solid #adadad;
     cursor: pointer;
     float: left;
-    height: 50px;
-    margin: 12px 0 0 0;
+    height: 38px;
+    margin: 6px 0 4px 0;
     text-align: center;
     width: 8%;
     padding-bottom: 0px;
-    padding-top: 12px;
+    padding-top: 8px;position: relative;
+    left: 25%;
         }
          
         #button-holder img{
@@ -211,10 +238,42 @@ body.color-login{
 	.topp{padding-top:4%;}
 	.arrange{margin-top: 9px;}
 	
-	
-	
-	
-	
+	/***********************************************
+					Sign-up-information
+	***********************************************/
+	.sign-up-information{background-color:silver; min-height: 529px; z-index: 1;}
+	.width{width:62% !important; margin-bottom:7% !important; box-shadow:none !important;  }
+	.account-infomation{color:#676767; font-size:25px; padding-top: 3%;
+    padding-bottom: 3%;}
+	.input-account-infomation{width: 62%;
+    border-radius: 4px;
+    height: 37px;
+    border: 0; margin-bottom: 3%; padding-left: 3%;}
+	.correction{width: 38% !important;
+    padding:1% !important; margin-bottom:4% !important;}
+	.security{padding-top:10%; padding-bottom:6%;}
+	.accounts-availability{margin: 0;
+    list-style-type: none;
+    text-align: left; padding:0;}
+	.accounts-availability li{float:left;}
+	.acoount-single{color:#000; color: #000;
+    display: block;
+    padding-bottom: 6%;}
+	.account-security-head{    float: left;
+    padding-right: 6%;
+    padding-left: 6%;}
+	.paddd{padding-bottom: 19%;}
+	.padddd{    padding-bottom: 0%;
+    float: left;
+    padding-right: 0%;}
+	.account-security-headd{padding-left: 3%;
+    padding-right: 1%;}
+	.pa{padding-left: 7%;padding-right: 8%;}
+	.as-usaul{padding-bottom:2%;}
+	.nornal{padding-bottom: 0%;
+    padding-top: 1%;}				
+	.backgroud-color-one{    background-color: beige;}
+	.backgroud-color-two{background: azure;}
 	
 	
 	
@@ -257,6 +316,7 @@ body.color-login{
  	-webkit-border-radius: 0.4em;
 	-o-border-radius: 0.4em;
 	-moz-border-radius: 0.4em;
+	
  	box-shadow: rgba(249, 192, 66, 0.33) 1px 1px, rgba(249, 192, 66, 0.33) 2px 2px, rgba(249, 192, 66, 0.33) 3px 3px, rgba(249, 192, 66, 0.33) 4px 4px, rgba(249, 192, 66, 0.33) 5px 5px, rgba(249, 192, 66, 0.33) 6px 6px, rgba(249, 192, 66, 0.33) 7px 7px, rgba(249, 192, 66, 0.33) 8px 8px, rgba(249, 192, 66, 0.33) 9px 9px, rgba(249, 192, 66, 0.33) 10px 10px, rgba(249, 192, 66, 0.33) 11px 11px, rgba(249, 192, 66, 0.33) 12px 12px, rgba(249, 192, 66, 0.33) 13px 13px, rgba(249, 192, 66, 0.33) 14px 14px, rgba(249, 192, 66, 0.33) 15px 15px, rgba(249, 192, 66, 0.33) 16px 16px, rgba(249, 192, 66, 0.33) 17px 17px, rgba(249, 192, 66, 0.33) 18px 18px, rgba(249, 192, 66, 0.33) 19px 19px, rgba(249, 192, 66, 0.33) 20px 20px, rgba(249, 192, 66, 0.33) 21px 21px, rgba(249, 192, 66, 0.33) 22px 22px, rgba(249, 192, 66, 0.33) 23px 23px, rgba(249, 192, 66, 0.33) 24px 24px, rgba(249, 192, 66, 0.33) 25px 25px, rgba(249, 192, 66, 0.33) 26px 26px, rgba(249, 192, 66, 0.33) 27px 27px, rgba(249, 192, 66, 0.33) 28px 28px, rgba(249, 192, 66, 0.33) 29px 29px, rgba(249, 192, 66, 0.33) 30px 30px, rgba(249, 192, 66, 0.33) 31px 31px, rgba(249, 192, 66, 0.33) 32px 32px, rgba(249, 192, 66, 0.33) 33px 33px, rgba(249, 192, 66, 0.33) 34px 34px, rgba(249, 192, 66, 0.33) 35px 35px, rgba(249, 192, 66, 0.33) 36px 36px, rgba(249, 192, 66, 0.33) 37px 37px, rgba(249, 192, 66, 0.33) 38px 38px, rgba(249, 192, 66, 0.33) 39px 39px, rgba(249, 192, 66, 0.33) 40px 40px, rgba(249, 192, 66, 0.33) 41px 41px, rgba(249, 192, 66, 0.33) 42px 42px, rgba(249, 192, 66, 0.33) 43px 43px, rgba(249, 192, 66, 0.33) 44px 44px, rgba(249, 192, 66, 0.33) 45px 45px, rgba(249, 192, 66, 0.33) 46px 46px, rgba(249, 192, 66, 0.33) 47px 47px, rgba(249, 192, 66, 0.33) 48px 48px, rgba(249, 192, 66, 0.33) 49px 49px, rgba(249, 192, 66, 0.33) 50px 50px, rgba(249, 192, 66, 0.33) 51px 51px, rgba(249, 192, 66, 0.33) 52px 52px, rgba(249, 192, 66, 0.33) 53px 53px, rgba(249, 192, 66, 0.33) 54px 54px, rgba(249, 192, 66, 0.33) 55px 55px, rgba(249, 192, 66, 0.33) 56px 56px, rgba(249, 192, 66, 0.33) 57px 57px, rgba(249, 192, 66, 0.33) 58px 58px, rgba(249, 192, 66, 0.33) 59px 59px, rgba(249, 192, 66, 0.33) 60px 60px, rgba(249, 192, 66, 0.33) 61px 61px, rgba(249, 192, 66, 0.33) 62px 62px, rgba(249, 192, 66, 0.33) 63px 63px, rgba(249, 192, 66, 0.33) 64px 64px, rgba(249, 192, 66, 0.33) 65px 65px, rgba(249, 192, 66, 0.33) 66px 66px, rgba(249, 192, 66, 0.33) 67px 67px, rgba(249, 192, 66, 0.33) 68px 68px, rgba(249, 192, 66, 0.33) 69px 69px, rgba(249, 192, 66, 0.33) 70px 70px, rgba(249, 192, 66, 0.33) 71px 71px, rgba(249, 192, 66, 0.33) 72px 72px, rgba(249, 192, 66, 0.33) 73px 73px, rgba(249, 192, 66, 0.33) 74px 74px, rgba(249, 192, 66, 0.33) 75px 75px, rgba(249, 192, 66, 0.33) 76px 76px, rgba(249, 192, 66, 0.33) 77px 77px, rgba(249, 192, 66, 0.33) 78px 78px, rgba(249, 192, 66, 0.33) 79px 79px, rgba(249, 192, 66, 0.33) 80px 80px, rgba(249, 192, 66, 0.33) 81px 81px, rgba(249, 192, 66, 0.33) 82px 82px, rgba(249, 192, 66, 0.33) 83px 83px, rgba(249, 192, 66, 0.33) 84px 84px, rgba(249, 192, 66, 0.33) 85px 85px, rgba(249, 192, 66, 0.33) 86px 86px, rgba(249, 192, 66, 0.33) 87px 87px, rgba(249, 192, 66, 0.33) 88px 88px, rgba(249, 192, 66, 0.33) 89px 89px, rgba(249, 192, 66, 0.33)90px 90px, rgba(249, 192, 66, 0.33)91px 91px, rgba(249, 192, 66, 0.33)92px 92px, rgba(249, 192, 66, 0.33)93px 93px, rgba(249, 192, 66, 0.33)94px 94px, rgba(249, 192, 66, 0.33) 95px 95px, rgba(249, 192, 66, 0.33) 96px 96px, rgba(249, 192, 66, 0.33) 97px 97px, rgba(249, 192, 66, 0.33) 98px 98px, rgba(249, 192, 66, 0.33) 99px 99px, rgba(249, 192, 66, 0.33) 100px 100px, rgba(249, 192, 66, 0.33) 101px 101px, rgba(249, 192, 66, 0.33) 102px 102px, rgba(249, 192, 66, 0.33) 103px 103px, rgba(249, 192, 66, 0.33) 104px 104px, rgba(249, 192, 66, 0.33) 105px 105px, rgba(249, 192, 66, 0.33) 106px 106px, rgba(249, 192, 66, 0.33) 107px 107px, rgba(249, 192, 66, 0.33) 108px 108px, rgba(249, 192, 66, 0.33) 109px 109px, rgba(249, 192, 66, 0.33) 110px 110px, rgba(249, 192, 66, 0.33) 111px 111px, rgba(249, 192, 66, 0.33) 112px 112px, rgba(249, 192, 66, 0.33) 113px 113px, rgba(249, 192, 66, 0.33) 114px 114px, rgba(249, 192, 66, 0.33) 115px 115px, rgba(249, 192, 66, 0.33) 116px 116px, rgba(249, 192, 66, 0.33) 117px 117px, rgba(249, 192, 66, 0.33) 118px 118px, rgba(249, 192, 66, 0.33) 119px 119px, rgba(249, 192, 66, 0.33) 120px 120px, rgba(249, 192, 66, 0.33) 121px 121px, rgba(249, 192, 66, 0.33) 122px 122px, rgba(249, 192, 66, 0.33) 123px 123px, rgba(249, 192, 66, 0.33) 124px 124px, rgba(249, 192, 66, 0.33) 125px 125px, rgba(249, 192, 66, 0.33) 126px 126px, rgba(249, 192, 66, 0.33) 127px 127px, rgba(249, 192, 66, 0.33) 128px 128px, rgba(249, 192, 66, 0.33) 129px 129px, rgba(249, 192, 66, 0.33) 130px 130px, rgba(249, 192, 66, 0.33) 131px 131px, rgba(249, 192, 66, 0.33) 132px 132px, rgba(249, 192, 66, 0.33)133px 133px, rgba(249, 192, 66, 0.33)134px 134px, rgba(249, 192, 66, 0.33)135px 135px, rgba(249, 192, 66, 0.33) 136px 136px, rgba(249, 192, 66, 0.33) 137px 137px, rgba(249, 192, 66, 0.33) 138px 138px, rgba(249, 192, 66, 0.33) 139px 139px, rgba(249, 192, 66, 0.33) 140px 140px, rgba(249, 192, 66, 0.33) 141px 141px, rgba(249, 192, 66, 0.33) 142px 142px, rgba(249, 192, 66, 0.33) 143px 143px, rgba(249, 192, 66, 0.33) 144px 144px, rgba(249, 192, 66, 0.33) 145px 145px, rgba(249, 192, 66, 0.33) 146px 146px, rgba(249, 192, 66, 0.33) 147px 147px, rgba(249, 192, 66, 0.33) 148px 148px, rgba(249, 192, 66, 0.33) 149px 149px, rgba(249, 192, 66, 0.33) 150px 150px, rgba(249, 192, 66, 0.33) 151px 151px, rgba(249, 192, 66, 0.33) 152px 152px, rgba(249, 192, 66, 0.33) 153px 153px, rgba(249, 192, 66, 0.33) 154px 154px, rgba(249, 192, 66, 0.33) 155px 155px, rgba(249, 192, 66, 0.33) 156px 156px, rgba(249, 192, 66, 0.33) 157px 157px, rgba(249, 192, 66, 0.33) 158px 158px, rgba(249, 192, 66, 0.33) 159px 159px, rgba(249, 192, 66, 0.33) 160px 160px, rgba(249, 192, 66, 0.33) 161px 161px, rgba(249, 192, 66, 0.33) 162px 162px, rgba(249, 192, 66, 0.33) 163px 163px, rgba(249, 192, 66, 0.33) 164px 164px, rgba(249, 192, 66, 0.33) 165px 165px, rgba(249, 192, 66, 0.33) 166px 166px, rgba(249, 192, 66, 0.33) 167px 167px, rgba(249, 192, 66, 0.33) 168px 168px, rgba(249, 192, 66, 0.33) 169px 169px, rgba(249, 192, 66, 0.33) 170px 170px, rgba(249, 192, 66, 0.33) 171px 171px, rgba(249, 192, 66, 0.33) 172px 172px, rgba(249, 192, 66, 0.33) 173px 173px, rgba(249, 192, 66, 0.33) 174px 174px, rgba(249, 192, 66, 0.33) 175px 175px, rgba(249, 192, 66, 0.33) 176px 176px, rgba(249, 192, 66, 0.33) 177px 177px, rgba(249, 192, 66, 0.33) 178px 178px, rgba(249, 192, 66, 0.33) 179px 179px, rgba(249, 192, 66, 0.33) 180px 180px, rgba(249, 192, 66, 0.33) 181px 181px, rgba(249, 192, 66, 0.33) 182px 182px
 }
 
@@ -375,6 +435,41 @@ form p a:hover {
 .copy-right p a:hover{
 	color:#fff;
 }
+.captche{text-align: center;
+    padding-bottom: 3%;
+    background-color: #D3D3D3;
+    border-radius: 9px;
+    padding-top: 3%;margin-bottom: 6%;}
+.information-text{  font-size: 11px; margin: 0; color:#fff;}
+.type-box{border-radius: 10px; padding-left: 12% !important;
+    padding-right: 12% !important;
+    background-color: #3daacc;
+    padding: 5%;
+    margin-left: 5%; width:66%; float: left; padding-bottom:6%; }
+.text-box{width: 88%;
+    height: 25px;}
+.head {
+    position: absolute;
+    top: -10%;
+    left: 32%;
+}
+.captche-icons
+{float:left; backface-visibility:#fff; padding-left: 8%;}
+.one{border-top-left-radius: 4px;
+    border-top-right-radius: 4px;}
+.two{margin-top:-4px;}
+.three{margin-top:-4px; border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;}
+
+.setting-dropdown-position{position:absolute; left:-30px;}
+
+.setting-dropdown-position{position:absolute; left:-30px;}
+
+.padding-year-month{
+	padding-left:133px;
+	padding-bottom:25px;
+}
+
 /*-----start-responsive-design------*/
 @media (max-width:1440px){
 	.login-form {

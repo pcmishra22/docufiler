@@ -89,9 +89,16 @@
 	 <div class="main">
 		<div class="login-form">
 			<h1>Sign Up</h1>
+            
 					<div class="head sign-up">
 						<img src="<?php echo base_url();?>images/frontend/sihnin.png" alt=""/>
 					</div>
+                     <?php
+					    if($this->session->flashdata('flash_message') == 'emailexists')
+        				{
+							echo '<div  style="color:red;" align="center" class="alert alert-danger"><strong>Email already exist !</strong></div>';
+						}
+					   ?>
 				<form action="" method="post" id="register-form" novalidate>
 						<input type="text"  placeholder="Enter your firstname" name="firstname" id="firstname" class="input"  >
                         <input type="text"  placeholder="Enter your lastname" name="lastname" id="lastname" class="input"  >

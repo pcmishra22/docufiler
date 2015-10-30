@@ -110,22 +110,71 @@
         <!--end Tandsp-->
         
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding sign-up-information">
-        	<div class="all-catogeries clearfix">
-            	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 all-boxes zero-padding">
-                	<div class="boxx text-center">
-                    	<img src="<?php echo base_url();?>images/frontend/add-catetogery.png" class="img-responsive margin top"  />
-                        <h3 class="green bottomm"><b>Add Category</b></h3>
+        	<div class="login-form width text-center">
+            	<form>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding security">
+                	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding as-usaul">
+                    	<h4 class="account-security-head"><b>User Access</b></h4>
+                        <h4 class="account-security-head padddd"><b>Admin</b></h4>
+                        <h4 class="account-security-head padddd"><b>Read Write</b></h4>
+                        <h4 class="account-security-head padddd"><b>Read Only</b></h4>
+                        <h4 class="account-security-head padddd"><b>Files</b></h4>
+                                
+                    </div>
+                    
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding nornal backgroud-color-one">
+                    	
+                        	<ul class="accounts-availability">
+                                		<li class="account-security-headd"><a href="#" class="acoount-single">Sangulo@elemnetfree.com</a></li>
+                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
+                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
+                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
+                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd">All</a></li>
+                                       
+                                </ul>	
+                    </div>
+                    
+                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding nornal  backgroud-color-two">
+                    	
+                        	<ul class="accounts-availability">
+                                		<li class="account-security-headd"><a href="#" class="acoount-single">Sangulo@elemnetfree.com</a></li>
+                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
+                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
+                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
+                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd">All</a></li>
+                                       
+                                </ul>	
+                    </div>
+                    
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding nornal backgroud-color-one">
+                    	
+                        	<ul class="accounts-availability">
+                                		<li class="account-security-headd"><a href="#" class="acoount-single">Sangulo@elemnetfree.com</a></li>
+                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
+                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
+                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
+                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd">All</a></li>
+                                       
+                                </ul>	
+                    </div>
+                    
+                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding nornal backgroud-color-two">
+                    	
+                        	<ul class="accounts-availability">
+                                		<li class="account-security-headd"><a href="#" class="acoount-single">Sangulo@elemnetfree.com</a></li>
+                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
+                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
+                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
+                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd">All</a></li>
+                                       
+                                </ul>	
                     </div>
                 </div>
+                       <input type="submit" class="submitt correction" onclick="myFunction()" value="SUBMIT"/>
                 
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 all-boxes zero-padding">
-                	<div class="boxx text-center">
-                    	<img src="<?php echo base_url();?>images/frontend/Automobile.png" class="img-responsive margin top"  />
-                        <h3 class="text-grey marg">Automobiles</h3>
-                        <h6 class="text-grey margg">3,564 Files</h6>
-                    </div>
-                </div>
-                
+                </form>
+                <h6 class="dark-grey"><em>*Only Administrators can make changes to this page. Others will be read only.</em></h6>
+
             </div>
         </div>
         </div><!--col-lg-10-->

@@ -146,9 +146,9 @@ if ( ! function_exists('create_captcha'))
 		//  Assign colors
 		// -----------------------------------
 
-		$bg_color		= imagecolorallocate ($im, 255, 255, 255);
+		$bg_color		= imagecolorallocate ($im, 234,232,168);
 		$border_color	= imagecolorallocate ($im, 153, 102, 102);
-		$text_color		= imagecolorallocate ($im, 204, 153, 153);
+		$text_color		= imagecolorallocate ($im, 0, 0, 0);
 		$grid_color		= imagecolorallocate($im, 255, 255, 0);
 		$shadow_color	= imagecolorallocate($im, 255, 240, 240);
 
@@ -168,7 +168,7 @@ if ( ! function_exists('create_captcha'))
 		$circles	= 20;
 		$points		= 32;
 
-		for ($i = 0; $i < ($circles * $points) - 1; $i++)
+	for ($i = 0; $i < ($circles * $points) - 1; $i++)
 		{
 			$theta = $theta + $thetac;
 			$rad = $radius * ($i / $points );
@@ -190,13 +190,13 @@ if ( ! function_exists('create_captcha'))
 
 		if ($use_font == FALSE)
 		{
-			$font_size = 5;
+			$font_size = 10;
 			$x = rand(0, $img_width/($length/3));
 			$y = 0;
 		}
 		else
 		{
-			$font_size	= 16;
+			$font_size	= 18;
 			$x = rand(0, $img_width/($length/1.5));
 			$y = $font_size+2;
 		}

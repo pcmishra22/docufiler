@@ -5,7 +5,11 @@
 		<meta charset="utf-8">
 		<link href="<?php echo base_url();?>css/style.css" rel='stylesheet' type='text/css' />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		<script type="application/x-javascript"> 
+		addEventListener("load", function() 
+		{ setTimeout(hideURLbar, 0); }, false); 
+		function hideURLbar(){ window.scrollTo(0,1); } 
+        </script>
 		<!--webfonts-->
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,300,600,700' rel='stylesheet' type='text/css'>
 		<!--//webfonts-->
@@ -48,7 +52,7 @@
                     },
 					 captcha: {
                         required: true,
-                        minlength: 6
+                        minlength: 8
                     }
                 },
                 messages: {
@@ -59,7 +63,7 @@
                     },
 					 captcha: {
                         required: "Please provide captcha",
-                        minlength: "Your captcha must be at least 6 characters long"
+                        minlength: "Your captcha must be at least 8 characters long"
                     }
                 },
                 submitHandler: function(form) {
@@ -85,19 +89,42 @@
 					<div class="head">
 						<img src="<?php echo base_url();?>images/frontend/user.png" alt=""/>
 					</div>
-                  
+                   <?php
+					    if($this->session->flashdata('flash_message') == 'invaliduser')
+        				{
+							echo '<div  style="color:red;" align="center" class="alert alert-danger"><strong>Email or Password mismatch !</strong></div>';
+						}
+                         if($this->session->flashdata('flash_message') == 'changedpassword')
+        				{
+							echo '<div  style="color:red;" align="center" class="alert alert-danger"><strong>Password changed successfully !</strong></div>';
+						}
+					   ?>
 				<form action="<?php echo base_url()?>users/dashboard" method="post" name="login" id="login">
 						<input type="text" class="input" placeholder="Enter your username" name="username" id="username">
 						<input type="password" class="input" placeholder="Enter your password" name="password" id="password"> 
-                        <label for="captcha"><?php echo $captcha['image']; ?></label>
-    <br>
-                        <input type="text" class="input" placeholder="Enter no written in above image" name="captcha" id="captcha">
+                        
+                        
+                        <div class="captche">
+                            <?php echo $captcha['image']; ?>
+                            <div class="type-box">
+                            	<p class="information-text">you can type the words here:</p>
+                                <input type="text" name="captcha" id="captcha" class="text-box">
+                            </div>
+
+                            <!--<div class="image-recaptche">
+                            	<img src="Images/re-captche.png">
+                            </div>-->
+                            <div style="clear:both;"></div>
+                        </div>
+                       
                        <?php
-					    if($this->session->flashdata('flash_message') == 'mismatch')
+						if($this->session->flashdata('flash_message') == 'mismatch')
         				{
-							echo '<label for="captcha" generated="true" class="error">Captcha Mismatch</label>';
+							echo '<label for="captcha" generated="true" class="error">Captcha Mismatch !</label>';
 						}
 					   ?>
+
+
 
 						<div class="submit">
 							<input type="submit" class="submitt" name="submit" id="submit" value="LOGIN" >
