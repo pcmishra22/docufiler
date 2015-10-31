@@ -70,7 +70,7 @@ class Users extends MX_Controller{
 	  //reset password
 	  public function resetpassword($code)
 	  {
-			if($_REQUEST['email']!='')
+			if(isset($_REQUEST['email']) && $_REQUEST['email']!='')
 			{
 				//update password
 				$data=array(
