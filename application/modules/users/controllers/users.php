@@ -142,7 +142,7 @@ class Users extends MX_Controller{
 		</html>';
 				
 				 $admin=$this->config->item('adminEmail');
-                 $from="no-reply@inreturnstrategies.com";
+                 $from="admin@docufiler.com";
                 
 
 				$headers  = 'MIME-Version: 1.0' . "\r\n";
