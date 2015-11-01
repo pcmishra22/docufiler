@@ -14,7 +14,7 @@
 |
 */
 
-$config['base_url']	= "http://localhost:81/docufiler"; 
+$config['base_url']	= "http://localhost/docufiler"; 
 /*
 javascript files
 */
