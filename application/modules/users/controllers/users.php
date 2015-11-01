@@ -339,13 +339,41 @@ class Users extends MX_Controller{
 	  //accesspermission information
 	  public function securityquestion()
 	  {
-		  //get user details by id
-		  $data['userdetails']=$this->users_model->userDetailsById($this->session->userdata('userid'));
-		  //set data in session
-			$this->template->set_template('front');
-			$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
-			$this->template->write_view('content', 'securityquestion',$data);
-			$this->template->render();
+
+
+		  	if(isset($_REQUEST['question']) || isset($_REQUEST['answer']))
+			{
+				//update password
+				$data1=array(
+					'question' => $this->input->post('question'),
+					'answer' => $this->input->post('answer')
+					);
+				
+				$this->users_model->updateData('id',$this->session->userdata('userid'),'doc_user',$data1);
+				//redirected to login page
+				
+				//get user details by id
+		  		$data['userdetails']=$this->users_model->userDetailsById($this->session->userdata('userid'));
+		  		//set data in session
+				$this->session->set_flashdata('flash_message', 'updated');
+				$this->template->set_template('front');
+				$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+				$this->template->write_view('content','securityquestion',$data);
+				$this->template->render();
+			}
+			else
+			{
+		  		//get user details by id
+		  		$data['userdetails']=$this->users_model->userDetailsById($this->session->userdata('userid'));
+		  		//set data in session
+				$this->template->set_template('front');
+				$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+				$this->template->write_view('content','securityquestion',$data);
+				$this->template->render();
+			}
+	  
+	  
+	  
 	  }
 	  
 	  //logout method calling
