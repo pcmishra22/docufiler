@@ -161,6 +161,8 @@ public function invitefriend()
 		</table>
 		</body>
 		</html>';
+				
+		$admin=$this->config->item('adminEmail');
 
 		//email sender
                 $from=$this->session->userdata('email');
