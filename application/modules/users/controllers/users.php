@@ -70,6 +70,7 @@ class Users extends MX_Controller{
 	  //reset password
 	  public function resetpassword($code)
 	  {
+		  
 			if(isset($_REQUEST['email']) && $_REQUEST['email']!='')
 			{
 				//update password
@@ -103,6 +104,9 @@ class Users extends MX_Controller{
 //invite friend
 public function invitefriend()
 {
+				//check for user login
+			$this->loginCheck();
+			//check for user login end here
 	if(isset($_REQUEST['email']) && !empty($this->input->post('email')))
 	{
 	//check email exists	 
@@ -168,7 +172,7 @@ public function invitefriend()
 
 				$headers  = 'MIME-Version: 1.0' . "\r\n";
 				$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-				$headers .= "From: ".$from."\r\nReply-To: ".$admin; 
+				$headers .= "From: ".$from."\r\nReply-To: ".$from; 
 				
 				  
 				$email = $this->input->post('email');
@@ -284,6 +288,9 @@ public function invitefriend()
 	  //account information
 	  public function accountinfo()
 	  {
+		  			//check for user login
+			$this->loginCheck();
+			//check for user login end here
 		 if(isset($_REQUEST['email']) && $_REQUEST['email']!='')
 			{
 				//update password
@@ -319,7 +326,10 @@ public function invitefriend()
 	   //mailingaddress information
 	  public function mailingaddress()
 	  {
-		  	if(isset($_REQUEST['address']) || isset($_REQUEST['city']) || isset($_REQUEST['state']) || isset($_REQUEST['zip']))
+			//check for user login
+			$this->loginCheck();
+			//check for user login end here		 
+		 if(isset($_REQUEST['address']) || isset($_REQUEST['city']) || isset($_REQUEST['state']) || isset($_REQUEST['zip']))
 			{
 				//update password
 				$data1=array(
@@ -355,6 +365,9 @@ public function invitefriend()
 	   //billingaddress information
 	  public function billingaddress()
 	  {
+		  	//check for user login
+			$this->loginCheck();
+			//check for user login end here
 
 		  	if(isset($_REQUEST['address']) || isset($_REQUEST['city']) || isset($_REQUEST['state']) || isset($_REQUEST['zip']))
 			{
@@ -390,10 +403,93 @@ public function invitefriend()
 	  
 	  
 	  }
+	  //file upload ajax call
+	  public function upload()
+	  {
+		if(!empty($_FILES))
+		{
+				$sourcePath = $_FILES['file']['tmp_name']; 			// Storing source path of the file in a variable
+				$fileuniquename=time().'_'.$_FILES['file']['name'];	//fileuniquename
+				$targetPath = "uploads/".$fileuniquename; 			// Target path where file is to be stored
+				move_uploaded_file($sourcePath,$targetPath) ; // Moving Uploaded file
+				//data variable defined here
+				$folder='';
+				$device='';
+				$location='';
+				//save data to table
+				$data_to_store=array(
+					'userid' => $this->session->userdata('userid'),
+					'name' => $_FILES['file']['name'],
+					'uniquename' => $fileuniquename,
+					'folder' => $folder,
+					'device' => $device,
+					'filetype' =>$_FILES["file"]["type"],
+					'location' => $location,
+					'size' => $_FILES["file"]["size"],
+					'created_date' => date("Y-m-d H:i:s")
+				
+				);
+				$this->users_model->saveData('doc_user_files', $data_to_store);
+				//save data to table here
+		}
+	  }
+	  //delete files
+	  public function deletefile($id)
+	  {
+		  	//check for user login
+			$this->loginCheck();
+			//check for user login end here
+			
+			$this->users_model->deleteFile($id);
+			$this->session->set_flashdata('flash_message', 'deleted');
+			redirect('users/listfiles');
+	  }
+	  //user list files
+	  public function listfiles()
+	  {
+			//check for user login
+			$this->loginCheck();
+			//check for user login end here		
+		    //setting for pagination
+			$config = array();
+			$config["base_url"] = base_url() . "users/listfiles";
+			$config["total_rows"] = $this->users_model->record_count_total_files($this->session->userdata('userid'));
+			$config["per_page"] = 10;
+			$config["uri_segment"] = 3;
+
+			//pagination initialization
+			$this->pagination->initialize($config);
+			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			//get user details by id
+		  	$data['userdetails']=$this->users_model->userAllFiles($this->session->userdata('userid'),$config["per_page"], $page);
+			$data["links"] = $this->pagination->create_links();
+			
+
+			
+			//set data in session
+			$this->template->set_template('front');
+			$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+			$this->template->write_view('content','listfiles',$data);
+			$this->template->render();
+			
+	  }
+	  //file upload 
+	  public function uploadfiles()
+	  {
+		  		//get user details by id
+		  		$data['userdetails']=$this->users_model->userDetailsById($this->session->userdata('userid'));
+		  		//set data in session
+				$this->template->set_template('front');
+				$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+				$this->template->write_view('content','uploadfiles',$data);
+				$this->template->render();
+	  }
 	   //cardinfo information
 	  public function cardinfo()
 	  {
-
+			//check for user login
+			$this->loginCheck();
+			//check for user login end here
 		  	if(isset($_REQUEST['cardname']) || isset($_REQUEST['cardno']) || isset($_REQUEST['cardcvv']) || isset($_REQUEST['expirymonth']) || isset($_REQUEST['expiryyear']))
 			{
 				//update password
@@ -432,18 +528,39 @@ public function invitefriend()
 	  //accesspermission information
 	  public function accesspermission()
 	  {
-		  //get user details by id
-		  $data['userdetails']=$this->users_model->userDetailsById($this->session->userdata('userid'));
-			//set data in session
-			$this->template->set_template('front');
-			$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
-			$this->template->write_view('content', 'accesspermission',$data);
-			$this->template->render();
+			//check for user login
+			$this->loginCheck();
+			//check for user login end here
+			
+			if(isset($_REQUEST))
+			{
+				foreach($_REQUEST as $key=>$value)
+				{
+					$val= explode('_',$key);
+					$data=array('rights' => $value);
+					$this->users_model->updateData('id',$val[1],'doc_user_details',$data);
+					$this->session->set_flashdata('flash_message', 'updated');
+				}
+				
+			}	
+				//get user details by id
+				$data['userdetails']=$this->users_model->userDetailsById($this->session->userdata('userid'));
+				//all invited user list
+				$data['inviteduser']=$this->users_model->invitedUserById($this->session->userdata('userid'));
+				//set data in session
+				$this->template->set_template('front');
+				$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+				$this->template->write_view('content', 'accesspermission',$data);
+				$this->template->render();
+			
+
 	  }
 	  //accesspermission information
 	  public function securityquestion()
 	  {
-
+			//check for user login
+			$this->loginCheck();
+			//check for user login end here
 
 		  	if(isset($_REQUEST['question']) || isset($_REQUEST['answer']))
 			{
@@ -491,7 +608,9 @@ public function invitefriend()
 	  //dashboard method calling
 	  public function dashboard()
 	  {
-
+			//check for user login
+			//$this->loginCheck();
+			//check for user login end here
 		 	if($this->session->userdata('captchaWord')==$_REQUEST['captcha'])
 			{
 				$result=$this->users_model->checkUser($this->input->post('username'),$this->input->post('password'));
@@ -526,9 +645,18 @@ public function invitefriend()
 	  //details category page
 	  public function details()
 	  {
+		  	//check for user login
+			$this->loginCheck();
+			//check for user login end here
 		  $this->load->view('categorydetails');
 	  }
 	  //
+	  	public function loginCheck(){
+		//echo $_SERVER['REQUEST_URI'];exit;
+	    if(empty($this->session->userdata('email')))
+		redirect('users/login');
+
+	}
 	  
 }
  /* End of file member.php */

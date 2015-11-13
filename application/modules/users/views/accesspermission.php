@@ -34,7 +34,13 @@
         
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding sign-up-information">
         	<div class="login-form width text-center">
-            	<form>
+			    <?php
+					    if($this->session->flashdata('flash_message') == 'updated')
+        				{
+							echo '<div  style="color:red;" align="center" class="alert alert-danger"><strong>Records Updated Successfully !</strong></div>';
+						}
+				?>
+            	<form action="<?php echo base_url()?>users/accesspermission" method="post" name="login" id="login">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding security">
                 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding as-usaul">
                     	<h4 class="account-security-head"><b>User Access</b></h4>
@@ -45,55 +51,50 @@
                                 
                     </div>
                     
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding nornal backgroud-color-one">
+                    <?php
+					$cnt=0;
+					foreach($inviteduser as $user)
+					{
+						if($cnt%2==0)
+							$css='one';
+						else
+							$css='two';
+					?>
+                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding nornal backgroud-color-<?php echo $css;?>">
                     	
                         	<ul class="accounts-availability">
-                                		<li class="account-security-headd"><a href="#" class="acoount-single">Sangulo@elemnetfree.com</a></li>
-                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
-                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
-                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
-                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd">All</a></li>
+                               	<li class="account-security-headd" style="width:180px;">
+									<a href="#" class="acoount-single"><?php echo $user['email']?></a>
+								</li>
+                                <li class="account-security-headd pa">
+									<a href="#" class="acoount-single paddd">
+										<input type="radio" name='rights_<?php echo $user['id']?>' value='1' <?php if($user['rights']=='1'){echo 'checked';}?>/>
+									</a>
+								</li>
+                                <li class="account-security-headd pa">
+									<a href="#" class="acoount-single paddd">
+										<input type="radio" name='rights_<?php echo $user['id']?>' value='2' <?php if($user['rights']=='2'){echo 'checked';}?>/>
+									</a>
+								</li>
+                                <li class="account-security-headd pa">
+									<a href="#" class="acoount-single paddd">
+										<input type="radio" name='rights_<?php echo $user['id']?>' value='3' <?php if($user['rights']=='3'){echo 'checked';}?>/>
+									</a>
+								</li>
+                                <li class="account-security-headd pa">
+									<a href="#" class="acoount-single paddd">
+										All
+									</a>
+								</li>
                                        
-                                </ul>	
+                            </ul>	
                     </div>
-                    
-                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding nornal  backgroud-color-two">
-                    	
-                        	<ul class="accounts-availability">
-                                		<li class="account-security-headd"><a href="#" class="acoount-single">Sangulo@elemnetfree.com</a></li>
-                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
-                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
-                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
-                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd">All</a></li>
-                                       
-                                </ul>	
-                    </div>
-                    
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding nornal backgroud-color-one">
-                    	
-                        	<ul class="accounts-availability">
-                                		<li class="account-security-headd"><a href="#" class="acoount-single">Sangulo@elemnetfree.com</a></li>
-                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
-                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
-                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
-                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd">All</a></li>
-                                       
-                                </ul>	
-                    </div>
-                    
-                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding nornal backgroud-color-two">
-                    	
-                        	<ul class="accounts-availability">
-                                		<li class="account-security-headd"><a href="#" class="acoount-single">Sangulo@elemnetfree.com</a></li>
-                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
-                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
-                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd"><input type="checkbox" /></a></li>
-                                       <li class="account-security-headd pa"><a href="#" class="acoount-single paddd">All</a></li>
-                                       
-                                </ul>	
-                    </div>
+					<?php
+					$cnt++;
+					}
+					?>
                 </div>
-                       <input type="submit" class="submitt correction" onclick="myFunction()" value="SUBMIT"/>
+                       <input type="submit" class="submitt correction" onclick="myFunction()" value="UPDATE"/>
                 
                 </form>
                 <h6 class="dark-grey"><em>*Only Administrators can make changes to this page. Others will be read only.</em></h6>

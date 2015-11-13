@@ -35,6 +35,15 @@ class Users_model extends CI_Model {
         }
 
 	}
+	
+	//all invited user by user id
+	function invitedUserById($id)
+	{
+			$sql = "SELECT * FROM doc_user_details where user_id='$id'" ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}	
 	//check user details by id
 	function userDetailsById($id)
 	{
@@ -90,6 +99,42 @@ class Users_model extends CI_Model {
             $query = $this->db->query($sql);
             $result = $query->result_array();
             return @$result;
+	}
+	//user all files list
+
+	function userAllFiles($id,$limit,$start)
+	{
+		$this->db->select('id,userid,name,uniquename,folder,device,filetype,location,size,created_date');
+		$this->db->from('doc_user_files');
+		$this->db->limit($limit, $start);
+		$this->db->where('userid', $id);
+		$this->db->order_by("id","desc");
+		$query = $this->db->get("");
+		
+		$data1=array();
+		if ($query->num_rows() > 0) 
+		{
+			
+		foreach ($query->result() as $row)
+		{
+			$data1[] = $row;
+		}
+		}
+		return $data1;
+	}
+
+// total files	
+	function record_count_total_files($id)
+	{
+			$sql = "SELECT count(*) as total FROM doc_user_files where userid='$id'"; 
+            $query = $this->db->query($sql);
+            $result = $query->result_array();
+            return $result[0]['total'];
+	}
+//delete file
+	function deleteFile($id)
+	{
+		$this->db->delete('doc_user_files', array('id' => $id));
 	}
 	
 }

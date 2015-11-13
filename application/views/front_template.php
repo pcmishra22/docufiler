@@ -144,14 +144,11 @@
                 <a href="#" class="dropdown-toggle hvr-sweep-to-bottom padd" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <span class="right-arrow"><img src="<?php echo base_url();?>images/frontend/upload.png" /></span>Upload <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">One more separated link</a></li>
-                </ul>
+                <li><a href="<?php echo base_url();?>users/uploadfiles">Upload Files</a></li>
+					<li role="separator" class="divider"></li>
+				<li><a href="<?php echo base_url();?>users/listfiles">List Files</a></li>
+					<li role="separator" class="divider"></li>
+                  </ul>
               </li>
               
               <li class="dropdown">
@@ -281,11 +278,13 @@
         </div>
     </div>
 </div>
-
-
+     <script type="text/javascript">
+		var baseUrl="<?php echo base_url(); ?>";
+    </script>
+ 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    
-    <script src="<?php echo base_url();?>js/frontend/bootstrap.min.js"></script>
+ <script src="<?php echo base_url();?>js/frontend/bootstrap.min.js"></script>
+
     
     <script>
 $('ul.nav-left-ml').toggle();
