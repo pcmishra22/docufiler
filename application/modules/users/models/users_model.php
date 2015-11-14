@@ -35,7 +35,14 @@ class Users_model extends CI_Model {
         }
 
 	}
-	
+	//get file details by id
+	function getFile($id)
+	{
+			$sql = "SELECT * FROM doc_user_files where id='$id'" ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}
 	//all invited user by user id
 	function invitedUserById($id)
 	{

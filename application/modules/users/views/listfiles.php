@@ -91,12 +91,16 @@
                 	<h4 class="head-text"> Version</h4>
                 </div>
             </div>
-                    <?php
+            <?php
+			if($this->session->flashdata('flash_message') == 'filenotfound')
+        	{
+				echo '<div  style="color:red;" align="center" class="alert alert-danger"><strong>File not found. !</strong></div>';
+			}
 			if($this->session->flashdata('flash_message') == 'deleted')
         	{
 				echo '<div  style="color:red;" align="center" class="alert alert-danger"><strong>File deleted successfully !</strong></div>';
 			}
-?>
+			?>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding text-right pagementation">
 			<span class="right"><?php echo $links;?></span>
             </div><!--pagementation-->

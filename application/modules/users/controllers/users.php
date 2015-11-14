@@ -10,6 +10,7 @@ class Users extends MX_Controller{
 		$this->load->helper(array('form', 'url'));
 		$this->load->model('users/users_model');
 		$this->load->library("pagination");
+		$this->load->library('s3');
 	  }
 	  //signup page calling
 	  public function signup()
@@ -403,19 +404,39 @@ public function invitefriend()
 	  
 	  
 	  }
+	  //test upload
+	  public function testupload()
+	  {
+		$this->load->view('testupload');  
+	  }
 	  //file upload ajax call
 	  public function upload()
 	  {
 		if(!empty($_FILES))
 		{
-				$sourcePath = $_FILES['file']['tmp_name']; 			// Storing source path of the file in a variable
-				$fileuniquename=time().'_'.$_FILES['file']['name'];	//fileuniquename
-				$targetPath = "uploads/".$fileuniquename; 			// Target path where file is to be stored
-				move_uploaded_file($sourcePath,$targetPath) ; // Moving Uploaded file
-				//data variable defined here
-				$folder='';
-				$device='';
-				$location='';
+			//s3 upload code
+			
+			// Bucket Name
+			$bucket="docufiler";
+			//AWS access info
+			if (!defined('awsAccessKey')) define('awsAccessKey', 'AKIAI5R37UMKQTIKWIHA');
+			if (!defined('awsSecretKey')) define('awsSecretKey', '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');
+						
+			//instantiate the class
+			$s3 = new S3(awsAccessKey, awsSecretKey);
+
+			//$s3->putBucket($bucket, S3::ACL_PUBLIC_READ);
+			$sourcePath = $_FILES['file']['tmp_name']; 			// Storing source path of the file in a variable
+			$fileuniquename=time().'_'.$_FILES['file']['name'];	//fileuniquename
+			$targetPath = "uploads/".$fileuniquename; 			// Target path where file is to be stored
+			//move_uploaded_file($sourcePath,$targetPath) ; 		// Moving Uploaded file
+			//data variable defined here
+			$folder='';
+			$device='';
+			$location='';
+			if($s3->putObjectFile($sourcePath, $bucket , $fileuniquename, S3::ACL_PUBLIC_READ) )
+			{
+							
 				//save data to table
 				$data_to_store=array(
 					'userid' => $this->session->userdata('userid'),
@@ -431,6 +452,13 @@ public function invitefriend()
 				);
 				$this->users_model->saveData('doc_user_files', $data_to_store);
 				//save data to table here
+				
+			}
+			else
+			{
+				echo 'File not uploaded on S3.';
+			}
+			//s3 upload code here
 		}
 	  }
 	  //delete files
@@ -438,10 +466,29 @@ public function invitefriend()
 	  {
 		  	//check for user login
 			$this->loginCheck();
-			//check for user login end here
+			//get file details by id
+			$filedetails=$this->users_model->getFile($id);
+			$filename=$filedetails[0]['uniquename'];
+			// Bucket Name
+			$bucket="docufiler";
 			
-			$this->users_model->deleteFile($id);
-			$this->session->set_flashdata('flash_message', 'deleted');
+			//AWS access info
+			if (!defined('awsAccessKey')) define('awsAccessKey', 'AKIAI5R37UMKQTIKWIHA');
+			if (!defined('awsSecretKey')) define('awsSecretKey', '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');
+						
+			//instantiate the class
+			$s3 = new S3(awsAccessKey, awsSecretKey);
+
+			if ($s3->deleteObject($bucket, $filename))
+			{
+				$this->users_model->deleteFile($id);
+				$this->session->set_flashdata('flash_message', 'deleted');
+			}
+			else
+			{
+				$this->session->set_flashdata('flash_message', 'filenotfound');
+			}
+
 			redirect('users/listfiles');
 	  }
 	  //user list files
