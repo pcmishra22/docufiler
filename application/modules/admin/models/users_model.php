@@ -94,7 +94,22 @@ class Users_model extends CI_Model {
 			$result = $query->result_array();
 			return @$result;
 	}
-	
+	//list all filesize
+	function listAllFiles()
+	{
+		$sql = "SELECT * FROM doc_user_files" ; 
+		$query = $this->db->query($sql);
+		$result = $query->result_array();
+		return @$result;
+	}
+	//setting details
+	function getSettings()
+	{
+			$sql = "SELECT * FROM doc_settings" ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}
 	//list all users
 	function listAllusers()
 	{
@@ -103,7 +118,19 @@ class Users_model extends CI_Model {
 			$result = $query->result_array();
 			return @$result;
 	}
-	
+	//get file details by id
+	function getFile($id)
+	{
+			$sql = "SELECT * FROM doc_user_files where id='$id'" ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}
+	//delete file
+	function deleteFile($id)
+	{
+		$this->db->delete('doc_user_files', array('id' => $id));
+	}
 
 }
 

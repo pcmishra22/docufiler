@@ -143,7 +143,14 @@ class Users_model extends CI_Model {
 	{
 		$this->db->delete('doc_user_files', array('id' => $id));
 	}
-	
+	//setting details
+	function getSettings()
+	{
+			$sql = "SELECT * FROM doc_settings" ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}	
 }
 
 ?>

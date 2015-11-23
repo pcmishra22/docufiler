@@ -146,7 +146,6 @@
                             <a href="#"><span class="icon16 icomoon-icon-table-2"></span>Files</a>
                             <ul class="sub">
                                 <li><a href="<?php echo base_url()?>admin/listfile"><span class="icon16 icomoon-icon-arrow-right-3"></span>List Files</a></li>
-                                <li><a href="<?php echo base_url()?>admin/addfile"><span class="icon16 icomoon-icon-arrow-right-3"></span>Add File</a></li>
                             </ul>
                         </li>
 

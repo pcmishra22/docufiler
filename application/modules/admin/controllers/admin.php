@@ -87,7 +87,49 @@ class Admin extends MX_Controller
 		$this->template->write_view('content', 'listuser',$data);
 		$this->template->render();
 	}
-	
+	//
+	//delete files
+	  public function deletefile($id)
+	  {
+		  	//check for user login
+			$this->checkloginadmin();
+			//get file details by id
+			$filedetails=$this->users_model->getFile($id);
+			
+			$filename=$filedetails[0]['uniquename'];
+			// Bucket Name
+			$bucket="docufiler";
+			
+			//get accesskey from database
+			$appdetails=$this->users_model->getSettings();
+			//AWS access info
+			if (!defined('awsAccessKey')) define('awsAccessKey', $appdetails[0]['awsAccessKey']);
+			if (!defined('awsSecretKey')) define('awsSecretKey', $appdetails[0]['awsSecretKey']);
+						
+			//instantiate the class
+			$s3 = new S3(awsAccessKey, awsSecretKey);
+
+			if ($s3->deleteObject($bucket, $filename))
+			{
+				$this->users_model->deleteFile($id);
+				$this->session->set_flashdata('flash_message', 'deleted');
+			}
+			else
+			{
+				$this->session->set_flashdata('flash_message', 'filenotfound');
+			}
+
+			redirect('admin/listfile');
+	  }
+	//list filesize
+	public function listfile()
+	{
+		$this->checkloginadmin();
+		$data['allfiles']=$this->users_model->listAllFiles();
+		$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+		$this->template->write_view('content', 'listfile',$data);
+		$this->template->render();
+	}
 	//list users
 	public function listtemplate()
 	{
