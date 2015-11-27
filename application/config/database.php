@@ -50,7 +50,9 @@ $db['default']['username'] = 'root';
 $db['default']['password'] = '';
 */
 
-$db['default']['hostname'] = 'poc.cgsn9zsdibh6.us-west-2.rds.amazonaws.com';
+//$db['default']['hostname'] = 'poc.cgsn9zsdibh6.us-west-2.rds.amazonaws.com';
+
+$db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'Docudb';
 $db['default']['password'] = 'Docufiler1';
 
