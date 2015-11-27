@@ -3,7 +3,7 @@ if(!empty($userdetails[0]))
 {
 	$firstname=$userdetails[0]['firstname'];
 	$lastname=$userdetails[0]['lastname'];
-	$email=$userdetails[0]['email'];
+	$email=$userdetails[0]['emailid'];
 	$phone=$userdetails[0]['phone'];
 }
 else

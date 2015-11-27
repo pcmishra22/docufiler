@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  *
  */
-
+ 
 (function() {
   var Dropzone, Emitter, camelize, contentLoaded, detectVerticalSquash, drawImageIOSFix, noop, without,
     __slice = [].slice,
@@ -933,7 +933,7 @@
     };
 
     Dropzone.prototype.accept = function(file, done) {
-      if (file.size > this.options.maxFilesize * 1024 * 1024) {
+	  if (file.size > this.options.maxFilesize * 1024 * 1024) {
         return done(this.options.dictFileTooBig.replace("{{filesize}}", Math.round(file.size / 1024 / 10.24) / 100).replace("{{maxFilesize}}", this.options.maxFilesize));
       } else if (!Dropzone.isValidFile(file, this.options.acceptedFiles)) {
         return done(this.options.dictInvalidFileType);
@@ -1348,6 +1348,7 @@
     };
 
     Dropzone.prototype._finished = function(files, responseText, e) {
+		
       var file, _i, _len;
       for (_i = 0, _len = files.length; _i < _len; _i++) {
         file = files[_i];
@@ -1561,8 +1562,10 @@
     if (!acceptedFiles) {
       return true;
     }
+
     acceptedFiles = acceptedFiles.split(",");
     mimeType = file.type;
+	
     baseMimeType = mimeType.replace(/\/.*$/, "");
     for (_i = 0, _len = acceptedFiles.length; _i < _len; _i++) {
       validType = acceptedFiles[_i];

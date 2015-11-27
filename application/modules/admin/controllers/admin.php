@@ -130,6 +130,24 @@ class Admin extends MX_Controller
 		$this->template->write_view('content', 'listfile',$data);
 		$this->template->render();
 	}
+	//list settings
+	public function listsettings()
+	{
+		$this->checkloginadmin();
+		$data['allsettings']=$this->users_model->listAllSettings();
+		$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+		$this->template->write_view('content', 'listsettings',$data);
+		$this->template->render();
+	}
+	//
+	public function listpages()
+	{
+		$this->checkloginadmin();
+		$data['allpages']=$this->users_model->listAllpages();
+		$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+		$this->template->write_view('content', 'listpages',$data);
+		$this->template->render();
+	}
 	//list users
 	public function listtemplate()
 	{
@@ -146,7 +164,14 @@ class Admin extends MX_Controller
 	   if(!$this->session->userdata('user_name')=='admin')
 		redirect('admin');
 	}
+	//delete pages
 	
+	public function deletepage($id)
+	{
+		$this->users_model->deletePages($id);
+		$this->session->set_flashdata('flash_message', 'deleted');
+		redirect('admin/listpages');	
+	}
 	//delete template
 	public function delettemplate($id)
 	{
@@ -161,6 +186,50 @@ class Admin extends MX_Controller
 		$this->session->set_flashdata('flash_message', 'deleted');
 		redirect('admin/listuser');	
 	}
+	//add pages
+	public function addpage($id='')
+	{
+		if(isset($_REQUEST['submit']))
+		{
+			if($_REQUEST['id']!='')
+			{
+				$data = array(
+				'title' => $this->input->post('title'),
+				'content' => $this->input->post('con'),
+				'created_date' => date('Y-m-d h:i:s')
+				);
+				
+				//update data
+				
+				$this->users_model->updateData($_REQUEST['id'],'pages',$data);
+				$this->session->set_flashdata('flash_message', 'updated');				
+
+			}
+			else
+			{
+				$data = array(
+				'title' => $this->input->post('title'),
+				'content' => $this->input->post('con'),
+				'created_date' => date('Y-m-d h:i:s')
+				);
+				//save data
+				$this->users_model->saveData('pages',$data);
+				$this->session->set_flashdata('flash_message', 'added');				
+			}
+
+			redirect('admin/listpages');
+		}
+		else
+		{
+			$data=array();
+			if($id!='')
+				$data['pagedetails']=$this->users_model->listPageById($id);
+			$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+			$this->template->write_view('content', 'addpage',$data);
+			$this->template->render();
+		}
+
+	}
 	//edit template
 	public function addtemplate($id='')
 	{
@@ -170,6 +239,31 @@ class Admin extends MX_Controller
 			$data['templatedetails']=$this->users_model->listTemplateById($id);
 		$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
 		$this->template->write_view('content', 'addtemplate',$data);
+		$this->template->render();
+	}
+	//edit settings
+	public function editsettings()
+	{
+		$data=array();
+		$this->checkloginadmin();
+		
+		if(isset($_REQUEST['submit']))
+		{
+			$data1 = array(
+				'awsAccessKey' => $_REQUEST['accesskey'],
+				'awsSecretKey' => $_REQUEST['secretkey']
+			);
+			
+			$this->users_model->updateData($_REQUEST['id'],'settings',$data1);
+			$this->session->set_flashdata('flash_message', 'updated');
+			//after save data
+			redirect('admin/listsettings');
+		}
+
+		//load template
+		$data['settingsdetails']=$this->users_model->getSettingsDetails();
+		$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+		$this->template->write_view('content', 'editsetting',$data);
 		$this->template->render();
 	}
 }

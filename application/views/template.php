@@ -148,6 +148,20 @@
                                 <li><a href="<?php echo base_url()?>admin/listfile"><span class="icon16 icomoon-icon-arrow-right-3"></span>List Files</a></li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="#"><span class="icon16 icomoon-icon-table-2"></span>Settings</a>
+                            <ul class="sub">
+                                <li><a href="<?php echo base_url()?>admin/listsettings"><span class="icon16 icomoon-icon-arrow-right-3"></span>List Settings</a></li>
+                                <li><a href="<?php echo base_url()?>admin/editsettings"><span class="icon16 icomoon-icon-arrow-right-3"></span>Edit Settings</a></li>
+                            </ul>
+                        </li>
+						<li>
+                            <a href="#"><span class="icon16 icomoon-icon-table-2"></span>Pages</a>
+                            <ul class="sub">
+                                <li><a href="<?php echo base_url()?>admin/listpages"><span class="icon16 icomoon-icon-arrow-right-3"></span>List Pages</a></li>
+                                <li><a href="<?php echo base_url()?>admin/addpage"><span class="icon16 icomoon-icon-arrow-right-3"></span>Add Page</a></li>
+                            </ul>
+                        </li>
 
                     </ul>
                 </div>

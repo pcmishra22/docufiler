@@ -38,7 +38,7 @@ class Users_model extends CI_Model {
 	//get file details by id
 	function getFile($id)
 	{
-			$sql = "SELECT * FROM doc_user_files where id='$id'" ; 
+			$sql = "SELECT * FROM user_files where id='$id'" ; 
 			$query = $this->db->query($sql);
 			$result = $query->result_array();
 			return @$result;
@@ -46,7 +46,7 @@ class Users_model extends CI_Model {
 	//all invited user by user id
 	function invitedUserById($id)
 	{
-			$sql = "SELECT * FROM doc_user_details where user_id='$id'" ; 
+			$sql = "SELECT * FROM user_details where user_id='$id'" ; 
 			$query = $this->db->query($sql);
 			$result = $query->result_array();
 			return @$result;
@@ -54,7 +54,7 @@ class Users_model extends CI_Model {
 	//check user details by id
 	function userDetailsById($id)
 	{
-			$sql = "SELECT * FROM doc_user where id='$id'" ; 
+			$sql = "SELECT * FROM users where id='$id'" ; 
 			$query = $this->db->query($sql);
 			$result = $query->result_array();
 			return @$result;
@@ -62,7 +62,7 @@ class Users_model extends CI_Model {
 	//check email exists
 	function register_email_exists($email)
 	{
-			$sql = "SELECT * FROM doc_user where email='$email'" ; 
+			$sql = "SELECT * FROM users where emailid='$email'" ; 
 			$query = $this->db->query($sql);
 			$result = $query->result_array();
 			return @$result;
@@ -94,7 +94,7 @@ class Users_model extends CI_Model {
 	//check user
 	function checkUser($user,$pass)
 	{
-		    $sql = "SELECT * FROM doc_user where email='$user' and password=md5('$pass')"; 
+		    $sql = "SELECT * FROM users where emailid='$user' and password=md5('$pass')"; 
             $query = $this->db->query($sql);
             $result = $query->result_array();
             return @$result;
@@ -102,7 +102,7 @@ class Users_model extends CI_Model {
 	//check user details
 	function checkcodedata($code)
 	{
-			$sql = "SELECT * FROM doc_user where passwordreset='$code'"; 
+			$sql = "SELECT * FROM users where passwordreset='$code'"; 
             $query = $this->db->query($sql);
             $result = $query->result_array();
             return @$result;
@@ -112,7 +112,7 @@ class Users_model extends CI_Model {
 	function userAllFiles($id,$limit,$start)
 	{
 		$this->db->select('id,userid,name,uniquename,folder,device,filetype,location,size,created_date');
-		$this->db->from('doc_user_files');
+		$this->db->from('user_files');
 		$this->db->limit($limit, $start);
 		$this->db->where('userid', $id);
 		$this->db->order_by("id","desc");
@@ -133,7 +133,7 @@ class Users_model extends CI_Model {
 // total files	
 	function record_count_total_files($id)
 	{
-			$sql = "SELECT count(*) as total FROM doc_user_files where userid='$id'"; 
+			$sql = "SELECT count(*) as total FROM user_files where userid='$id'"; 
             $query = $this->db->query($sql);
             $result = $query->result_array();
             return $result[0]['total'];
@@ -141,7 +141,7 @@ class Users_model extends CI_Model {
 //delete file
 	function deleteFile($id)
 	{
-		$this->db->delete('doc_user_files', array('id' => $id));
+		$this->db->delete('user_files', array('id' => $id));
 	}
 	//setting details
 	function getSettings()

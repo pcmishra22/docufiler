@@ -7,58 +7,52 @@
         if($this->session->flashdata('flash_message') == 'deleted')
         {
 			echo '<div class="alert alert-danger fade in">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>User Deleted Successfully.</div>';       
+    <a href="#" class="close" data-dismiss="alert">&times;</a>Settings Deleted Successfully.</div>';       
         }
         if($this->session->flashdata('flash_message') == 'added')
         {
 			echo '<div class="alert alert-success fade in">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>User Added Successfully.</div>';       
+    <a href="#" class="close" data-dismiss="alert">&times;</a>Settings Added Successfully.</div>';       
         }
         if($this->session->flashdata('flash_message') == 'updated')
         {
 			echo '<div class="alert alert-success fade in">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>User Updated Successfully.</div>';       
+    <a href="#" class="close" data-dismiss="alert">&times;</a>Settings Updated Successfully.</div>';       
         }
   	  }
       ?>
                             <div class="panel panel-default gradient">
                                 <div class="panel-heading">
                                     <h4>
-                                        <span>List Users</span>
+                                        <span>List Settings</span>
                                     </h4>
                                 </div>
                                 <div class="panel-body noPad clearfix">
                                 	<?php
-if(count($allusers)>0)
+if(count($allsettings)>0)
 {
 	?>
                                     <table cellpadding="0" cellspacing="0" border="0" class="dynamicTable display table table-bordered" width="100%">
                                         <thead>
                                             <tr>
 		<th>Id</th>
-		<th>First Name</th>
-		<th>Last Name</th>
-		<th>Email</th>
-        <th>Created Date</th>
+		<th>Aws Access Key</th>
+		<th>Aws Secret Key</th>
 		<th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 
 	<?php
-	foreach($allusers as $users)
+	foreach($allsettings as $setting)
 	{
 		?>
 		<tr class="odd gradeX">
-		<td><?php echo $users['id']?></td>
-		<td><?php echo $users['firstname']?></td>
-		<td><?php echo $users['lastname']?></td>
-		<td><?php echo $users['emailid']?></td>
-		<td><?php echo $users['create_datetime']?></td>
+		<td><?php echo $setting['id']?></td>
+		<td><?php echo $setting['awsAccessKey']?></td>
+		<td><?php echo $setting['awsSecretKey']?></td>
 <td>
- <a title='remove' class="btn btn-remove" href="<?php echo base_url();?>admin/deleteuser/<?php echo $users['id']?>">
-  	<span class="icon12 icomoon-icon-remove"></span></a>  
- <a title='edit' class="btn btn-pencil" href="<?php echo base_url();?>admin/adduser/<?php echo $users['id']?>">
+ <a title='edit' class="btn btn-pencil" href="<?php echo base_url();?>admin/editsettings">
 	<span class="icon12 icomoon-icon-pencil"></span></a>        
 </td>
 		</tr>

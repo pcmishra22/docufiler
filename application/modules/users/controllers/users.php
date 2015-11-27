@@ -21,7 +21,7 @@ class Users extends MX_Controller{
 			$data_to_store = array(
                     'firstname' => $this->input->post('firstname'),
                     'lastname' => $this->input->post('lastname'),
-                    'email' => $this->input->post('email'),
+                    'emailid' => $this->input->post('email'),
                     'password' => md5($this->input->post('password')),
 					'create_datetime' => date("Y-m-d H:i:s")
                  ); 
@@ -37,7 +37,7 @@ class Users extends MX_Controller{
 				else
 				{
 					$this->session->set_flashdata('flash_message', 'success');
-					$this->users_model->saveData('doc_user', $data_to_store);
+					$this->users_model->saveData('users', $data_to_store);
 					redirect('users/login');
 				}
 		  }
@@ -80,7 +80,7 @@ class Users extends MX_Controller{
 					'passwordreset' =>''
 					);
 					
-				$this->users_model->updateData('email',$this->input->post('email'),'doc_user',$data);
+				$this->users_model->updateData('emailid',$this->input->post('email'),'users',$data);
 				//redirected to login page
 				$this->session->set_flashdata('flash_message', 'changedpassword');
 				redirect('users/login');
@@ -121,21 +121,21 @@ public function invitefriend()
 		//update user table
 		
 		$data=array(
-			'email' => $this->input->post('email'),
+			'emailid' => $this->input->post('email'),
             'usertype' => '1',
 			'create_datetime' => date("Y-m-d H:i:s")
 			
 		);
         //update user table
-		$this->users_model->saveData('doc_user',$data);
+		$this->users_model->saveData('users',$data);
         //update user details table 
 		$data=array(
-			'email' => $this->input->post('email'),
+			'emailid' => $this->input->post('email'),
 			'user_id' => $this->session->userdata('userid'),
 			'create_datetime' => date("Y-m-d H:i:s")
 			
 		);       
-        $this->users_model->saveData('doc_user_details',$data);
+        $this->users_model->saveData('user_details',$data);
 		//update user table
 		$body='';
 		$activation_url=base_url().'users/signup/'.urlencode($resetid);
@@ -224,7 +224,7 @@ public function invitefriend()
 					$resetid=time();		
 			   		//update user table
 					$data=array('passwordreset' => $resetid);
-					$this->users_model->updateData('email',$this->input->post('email'),'doc_user',$data);
+					$this->users_model->updateData('email',$this->input->post('email'),'users',$data);
 					//update user table
 					$body='';
 			   		$activation_url=base_url().'users/resetpassword/'.$resetid;
@@ -298,11 +298,11 @@ public function invitefriend()
 				$data1=array(
 					'firstname' => $this->input->post('firstname'),
 					'lastname' => $this->input->post('lastname'),
-					'email' => $this->input->post('email'),
+					'emailid' => $this->input->post('email'),
 					'phone' => $this->input->post('phone')
 					);
 				
-				$this->users_model->updateData('id',$this->session->userdata('userid'),'doc_user',$data1);
+				$this->users_model->updateData('id',$this->session->userdata('userid'),'users',$data1);
 				//redirected to login page
 				$this->session->set_flashdata('flash_message', 'updated');
 				//get user details by id
@@ -340,7 +340,7 @@ public function invitefriend()
 					'zip' => $this->input->post('zip')
 					);
 				
-				$this->users_model->updateData('id',$this->session->userdata('userid'),'doc_user',$data1);
+				$this->users_model->updateData('id',$this->session->userdata('userid'),'users',$data1);
 				//redirected to login page
 				$this->session->set_flashdata('flash_message', 'updated');
 				//get user details by id
@@ -380,7 +380,7 @@ public function invitefriend()
 					'bzip' => $this->input->post('zip')
 					);
 				
-				$this->users_model->updateData('id',$this->session->userdata('userid'),'doc_user',$data1);
+				$this->users_model->updateData('id',$this->session->userdata('userid'),'users',$data1);
 				//redirected to login page
 				$this->session->set_flashdata('flash_message', 'updated');
 				//get user details by id
@@ -415,7 +415,8 @@ public function invitefriend()
 		if(!empty($_FILES))
 		{
 			//s3 upload code
-			
+			 
+
 			// Bucket Name
 			$bucket="docufiler";
 			//AWS access info
@@ -432,25 +433,33 @@ public function invitefriend()
 			//move_uploaded_file($sourcePath,$targetPath) ; 		// Moving Uploaded file
 			//data variable defined here
 			$folder='';
-			$device='';
-			$location='';
+			$devicedetails=$_SERVER['HTTP_USER_AGENT'];
+			
+			$hostname = gethostbyaddr($_SERVER['REMOTE_ADDR']);
+			$srvname='https://s3-us-west-2.amazonaws.com/';
+			$location=$srvname.$bucket.'/'.$fileuniquename;
+			
+			$fcdt=date ("F d Y H:i:s.", filectime($_FILES['file']['name']));
+			$fldt=date ("F d Y H:i:s.", filemtime($_FILES['file']['name']));
+			
 			if($s3->putObjectFile($sourcePath, $bucket , $fileuniquename, S3::ACL_PUBLIC_READ) )
 			{
-							
 				//save data to table
 				$data_to_store=array(
 					'userid' => $this->session->userdata('userid'),
 					'name' => $_FILES['file']['name'],
 					'uniquename' => $fileuniquename,
 					'folder' => $folder,
-					'device' => $device,
+					'device' => $hostname,
+					'devicedetails' => $devicedetails,
 					'filetype' =>$_FILES["file"]["type"],
 					'location' => $location,
+					'file_created_date' => $fcdt,
+					'file_last_modified_date' => $fldt,
 					'size' => $_FILES["file"]["size"],
-					'created_date' => date("Y-m-d H:i:s")
-				
+					'created_date' => date("Y-m-d H:i:s")	
 				);
-				$this->users_model->saveData('doc_user_files', $data_to_store);
+				$this->users_model->saveData('user_files', $data_to_store);
 				//save data to table here
 				
 			}
@@ -524,7 +533,12 @@ public function invitefriend()
 	  //file upload 
 	  public function uploadfiles()
 	  {
-		  		//get user details by id
+		  //echo $hostname = gethostbyaddr($_SERVER['REMOTE_ADDR']);
+		  //echo '<pre>';
+		 // print_r($_SERVER);
+		  //echo '</pre>';
+		  //die;
+		  //get user details by id
 		  		$data['userdetails']=$this->users_model->userDetailsById($this->session->userdata('userid'));
 		  		//set data in session
 				$this->template->set_template('front');
@@ -549,7 +563,7 @@ public function invitefriend()
 					'expiryyear' => $this->input->post('expiryyear'),
 					);
 				
-				$this->users_model->updateData('id',$this->session->userdata('userid'),'doc_user',$data1);
+				$this->users_model->updateData('id',$this->session->userdata('userid'),'users',$data1);
 				//redirected to login page
 				$this->session->set_flashdata('flash_message', 'updated');
 				//get user details by id
@@ -586,7 +600,7 @@ public function invitefriend()
 				{
 					$val= explode('_',$key);
 					$data=array('rights' => $value);
-					$this->users_model->updateData('id',$val[1],'doc_user_details',$data);
+					$this->users_model->updateData('id',$val[1],'user_details',$data);
 					$this->session->set_flashdata('flash_message', 'updated');
 				}
 				
@@ -618,7 +632,7 @@ public function invitefriend()
 					'answer' => $this->input->post('answer')
 					);
 				
-				$this->users_model->updateData('id',$this->session->userdata('userid'),'doc_user',$data1);
+				$this->users_model->updateData('id',$this->session->userdata('userid'),'users',$data1);
 				//redirected to login page
 				
 				//get user details by id
@@ -662,11 +676,11 @@ public function invitefriend()
 		 	if($this->session->userdata('captchaWord')==$_REQUEST['captcha'])
 			{
 				$result=$this->users_model->checkUser($this->input->post('username'),$this->input->post('password'));
-				if(!empty($result[0]['email']))
+				if(!empty($result[0]['emailid']))
 				{
 					//set data in session
 						$this->session->set_userdata('userid', $result[0]['id']);
-						$this->session->set_userdata('email', $result[0]['email']);
+						$this->session->set_userdata('email', $result[0]['emailid']);
 						$this->session->set_userdata('firstname',$result[0]['firstname']);
 						$this->session->set_userdata('lastname', $result[0]['lastname']);
 					//set data in session

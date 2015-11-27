@@ -13,7 +13,7 @@ class Users_model extends CI_Model {
 	{
 		$this->db->where('user_name', $user_name);
 		$this->db->where('pass_word', $password);
-		$query = $this->db->get('doc_admin');
+		$query = $this->db->get('admin');
 		
 		if($query->num_rows == 1)
 		{
@@ -25,14 +25,14 @@ class Users_model extends CI_Model {
 	function deleteTemplate($id)
 	{
 		$this->db->where('id', $id);
-		$this->db->delete('doc_email_templates'); 	
+		$this->db->delete('email_templates'); 	
 	}
 	
 	//delete user
 	function deleteUser($id)
 	{
 		$this->db->where('id', $id);
-		$this->db->delete('doc_user'); 	
+		$this->db->delete('users'); 	
 	}
 
 	//delete data
@@ -78,18 +78,54 @@ class Users_model extends CI_Model {
 		}
 		return $user;
 	}
-	//list template by id
-	function listTemplateById($id)
+	//list all pages
+	
+	function listAllpages()
 	{
-			$sql = "SELECT * FROM doc_email_templates where id=".$id ; 
+			$sql = "SELECT * FROM pages" ; 
 			$query = $this->db->query($sql);
 			$result = $query->result_array();
 			return @$result;
 	}
+	//list all settings
+	
+	function listAllSettings()
+	{
+			$sql = "SELECT * FROM settings" ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}
+	//list pages by id
+	
+	function listPageById($id)
+	{
+			$sql = "SELECT * FROM pages where id=".$id ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}
+	//list template by id
+	function listTemplateById($id)
+	{
+			$sql = "SELECT * FROM email_templates where id=".$id ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}
+	//settings details
+	
+	function getSettingsDetails()
+	{
+			$sql = "SELECT * FROM settings" ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}	
 	//list all email templates
 	function listAlltemplates()
 	{
-			$sql = "SELECT * FROM doc_email_templates" ; 
+			$sql = "SELECT * FROM email_templates" ; 
 			$query = $this->db->query($sql);
 			$result = $query->result_array();
 			return @$result;
@@ -97,7 +133,7 @@ class Users_model extends CI_Model {
 	//list all filesize
 	function listAllFiles()
 	{
-		$sql = "SELECT * FROM doc_user_files" ; 
+		$sql = "SELECT * FROM user_files" ; 
 		$query = $this->db->query($sql);
 		$result = $query->result_array();
 		return @$result;
@@ -105,7 +141,7 @@ class Users_model extends CI_Model {
 	//setting details
 	function getSettings()
 	{
-			$sql = "SELECT * FROM doc_settings" ; 
+			$sql = "SELECT * FROM settings" ; 
 			$query = $this->db->query($sql);
 			$result = $query->result_array();
 			return @$result;
@@ -113,7 +149,7 @@ class Users_model extends CI_Model {
 	//list all users
 	function listAllusers()
 	{
-			$sql = "SELECT * FROM doc_user" ; 
+			$sql = "SELECT * FROM users" ; 
 			$query = $this->db->query($sql);
 			$result = $query->result_array();
 			return @$result;
@@ -121,15 +157,20 @@ class Users_model extends CI_Model {
 	//get file details by id
 	function getFile($id)
 	{
-			$sql = "SELECT * FROM doc_user_files where id='$id'" ; 
+			$sql = "SELECT * FROM user_files where id='$id'" ; 
 			$query = $this->db->query($sql);
 			$result = $query->result_array();
 			return @$result;
 	}
+	//delete pages
+	function deletePages($id)
+	{
+		$this->db->delete('pages', array('id' => $id));
+	}
 	//delete file
 	function deleteFile($id)
 	{
-		$this->db->delete('doc_user_files', array('id' => $id));
+		$this->db->delete('user_files', array('id' => $id));
 	}
 
 }
