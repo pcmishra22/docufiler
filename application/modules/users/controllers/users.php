@@ -414,15 +414,15 @@ public function invitefriend()
 	  {
 		if(!empty($_FILES))
 		{
-			//s3 upload code
-			 
-
 			// Bucket Name
 			$bucket="docufiler";
+			
+			//get accesskey from database
+			$appdetails=$this->users_model->getSettings();
 			//AWS access info
-			if (!defined('awsAccessKey')) define('awsAccessKey', 'AKIAI5R37UMKQTIKWIHA');
-			if (!defined('awsSecretKey')) define('awsSecretKey', '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');
-						
+			if (!defined('awsAccessKey')) define('awsAccessKey', $appdetails[0]['awsAccessKey']);
+			if (!defined('awsSecretKey')) define('awsSecretKey', $appdetails[0]['awsSecretKey']);
+			
 			//instantiate the class
 			$s3 = new S3(awsAccessKey, awsSecretKey);
 
