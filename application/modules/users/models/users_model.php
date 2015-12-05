@@ -59,6 +59,14 @@ class Users_model extends CI_Model {
 			$result = $query->result_array();
 			return @$result;
 	}
+	//email checks in account table
+	function register_email_exists_account($email)
+	{
+			$sql = "SELECT * FROM accounts where owneremailid='$email'" ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}
 	//check email exists
 	function register_email_exists($email)
 	{
@@ -138,7 +146,12 @@ class Users_model extends CI_Model {
             $result = $query->result_array();
             return $result[0]['total'];
 	}
-//delete file
+	//delete card
+	function deleteCard($id)
+	{
+		$this->db->delete('user_cardinfo', array('id' => $id));
+	}	
+	//delete file
 	function deleteFile($id)
 	{
 		$this->db->delete('user_files', array('id' => $id));
@@ -151,6 +164,22 @@ class Users_model extends CI_Model {
 			$result = $query->result_array();
 			return @$result;
 	}	
+	//user card list 
+	function userCardList($userid)
+	{
+			$sql = "SELECT * FROM user_cardinfo where userid=".$userid ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}
+	//card details by id 
+	function cardDetailsById($id)
+	{
+			$sql = "SELECT * FROM user_cardinfo where id=".$id ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}
 }
 
 ?>

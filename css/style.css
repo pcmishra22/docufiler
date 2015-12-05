@@ -481,6 +481,132 @@ form p a:hover {
 	padding-bottom:25px;
 }
 
+
+
+
+/********************************
+			PRICING
+********************************/
+.bule-text{color: #3185ad;
+    border-bottom: 2px dotted #31859B;
+    padding-bottom: 1%;
+    padding-top: 1%;
+    font-size: 37px;}
+.rate-tag-blue{background-color:#002060; border:3px solid #385d8a; margin-bottom:16%;}	
+.padding-one{padding: 1%;
+    padding-top: 7%;}
+.heading-ratetag{color: #fff;
+    background-color: #001848;
+    text-align: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    border-bottom: 3px solid #3b618e;
+    font-size: 17px; margin:0;}	
+.personal-plan{padding-top:15%; padding-bottom: 0; margin-bottom: -119px;}
+.rate{background-color: #4f81bd;
+    margin: 0;
+    text-align: center;
+    color: #fff;
+    font-size: 85px;
+    padding-top: 4%; margin:0}
+.Dollar{font-size: 31px;
+    padding-left: 7%;
+    color: #fff;}
+.per-month{background-color: #4f81bd;
+    margin: 0;
+    text-align: center;
+    color: #fff;
+    font-size: 22px;
+    padding-bottom: 15%;
+    }				
+.information-quality{margin:0; text-align:center;padding-top: 3%;padding-bottom: 3%; font-weight:bold;}
+.color-code-light-grey{color:#7f7f7f;}
+.color-code-grey{ color:#a6a6a6;}
+.button-personal-plan{background: #fff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    list-style-type: none; padding-top:16%;}
+.button-personal-plan li{display: inline-block;}
+.button-personal-plan li a{border: 2px solid #bfbfbf;
+    display: block;
+    padding: 7px 19px 6px 19px;
+    color: #7f7f7f;
+    font-size: 17px;} 
+.star{margin: 0 auto;
+    display: inherit;	margin-left: -8px;
+    padding-right: 8px;}
+.greenish{background-color:#9bbb59;}
+.border-greenish{border-bottom:3px solid #748c43;}	
+.middle-orange{padding-bottom: 5%;
+    padding-top: 4%;}
+.orangish{padding-bottom:25%;}
+.personal-plan-pad{padding-top:8%;}	
+.middle-orange-pad-two{padding-top:8%;}
+.whole-blue-pad{margin-bottom:-9%;}
+.border-orange{border-bottom: 3px solid #913c3a;}
+.orange{background-color: #c0504d;}
+.household-plan-a{color: #fff !important;
+    border: 2px solid #c0504d !important;
+	background:#c0504d !important;}
+.arrange-cardname-cardno
+{width: 24%;
+    padding: 0;
+    margin: 0;
+text-align: center;}
+.edit-option{float: left;
+    text-align: center;
+    padding-left: 29%;}	
+	
+	
+/*************************************
+				FINALIZE
+*************************************/
+.finalize-text{text-align: center;
+    padding-top: 1%;
+    padding-bottom: 5%;
+    font-size: 50px;}	
+.authorize{padding-top: 5%;
+    padding-bottom: 14%;}	
+.charged-annualy{padding-bottom:6%;}
+.Annually-monthly{padding-top:5%;}
+.diffrent-type-charges{padding-top:3%;}
+.text-charges{background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid grey;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
+    padding-right: 1%;}		
+.select{width: 100%;
+    padding-top: 0.8%;
+    padding-bottom: 0.8%;
+    border-radius: 5px;border: 1px solid grey;}
+.terms-condition{padding-top: 1%;
+    display: block;
+    width: 69%;
+    padding-bottom: 1%;
+    margin-top: 24px;
+    /* display: block; */
+    /* margin-top: 26%; */
+    float: left;
+    padding: 1%;
+    text-align: center;
+    border-radius: 6px;}
+.pricing-checkbox{width: 28px;
+    height: 21px;
+    margin-left: 58px !important;
+    /* float: right; */
+    margin-top: 35px !important; }
+.other-page{padding-top:8%; background:none;}
+.Promotional-code{margin-left: 3%;
+    margin-top: 3%;
+    border-radius: 5px;
+    padding: 1% 1% 1% 1%;
+    width: 81%;
+    font-size: 18px;}
+.analizing-page-mar{margin-bottom:0!important;}
+.radio-annually{margin-right:3% !important;}	
 /*-----start-responsive-design------*/
 @media (max-width:1440px){
 	.login-form {

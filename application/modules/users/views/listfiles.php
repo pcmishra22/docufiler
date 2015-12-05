@@ -35,42 +35,12 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding sign-up-information">
                 
     
-		<!--Folder tree menu-->
-    	<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 zero-padding dark-grey bottom">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 right-box white-text zero-padding">
-        	
-            <ul class="nav nav-list-main">
-      <li class=""><label class="nav-toggle nav-header top-header"><span class="nav-toggle-icon glyphicon glyphicon-chevron-right"></span> Header 1</label>
-            <ul class="nav nav-list nav-left-ml">
-                <li><a  class="color" href="#">Link</a></li>
-                <li><a  class="color" href="#">Link</a></li>
-                <li><label class="nav-toggle nav-header top-header"><span class="nav-toggle-icon glyphicon glyphicon-chevron-right"></span> Header 1.1</label>
-                    <ul class="nav nav-list nav-left-ml">
-                        <li><a class="color" href="#">Link</a></li>
-                        <li><a class="color" href="#">Link</a></li>
-                        <li><label class="nav-toggle nav-header top-header"><span class="nav-toggle-icon glyphicon glyphicon-chevron-right"></span> Header 1.1.1</label>
-                            <ul class="nav nav-list nav-left-ml">
-                                <li><a class="color" href="#">Link</a></li>
-                                <li><a class="color" href="#">Link</a></li>
-                            </ul><!--nav-left-ml-->
-                        </li><!--li blank-->
-                    </ul><!--nav-left-ml-->
-                </li><!--li blank-->
-            </ul><!--nav-left-ml-->
-        </li><!--li class-""-->
-        
-        
-    </ul><!--nav-list-main-->
-  
-
-
-        </div><!--white-text-->
-       </div><!--dark-grey-->
+	
 <!--end of folder tree menu-->
 
 
 	<!--Right-side-file-->
-		<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 zero-padding white-backgroud">
+		<div class="col-lg-12 col-md- col-sm-12 col-xs-12 zero-padding white-backgroud">
         	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding right-bar-head text-center">
             	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 zero-padding border-left">
                 	<h4 class="head-text"> Name</h4>

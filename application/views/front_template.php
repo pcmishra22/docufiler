@@ -183,7 +183,11 @@
                   <li role="separator" class="divider"></li>
                   <li><a href="<?php echo base_url();?>users/cardinfo">Credit Card Information</a></li>
                   <li role="separator" class="divider"></li>
- 		  <li><a href="<?php echo base_url();?>users/invitefriend">Invite Friend</a></li>
+				  <li><a href="<?php echo base_url();?>users/cardlist">Credit Card List</a></li>
+				  <li role="separator" class="divider"></li>
+				  <li><a href="<?php echo base_url();?>users/billingorder">Finalize and Authorised</a></li>
+				  <li role="separator" class="divider"></li>
+				  <li><a href="<?php echo base_url();?>users/invitefriend">Invite Friend</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="<?php echo base_url();?>users/accesspermission">Access Permission</a></li>
                   <li role="separator" class="divider"></li>

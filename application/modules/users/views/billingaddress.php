@@ -27,6 +27,19 @@ else
 		}
 		</style>
         <script type="text/javascript">
+		function getdata(val)
+		{
+			$.ajax
+			({
+				url: "<?=base_url();?>users/billingaddressdata",
+				type: "POST",
+				data: "id="+val,
+				success: function(data) 
+				{
+					$('#billadddiv').html(data);
+				}
+			});
+		}
 /**
   * Basic jQuery Validation Form Demo Code
   * Copyright Sam Deering 2012
@@ -110,14 +123,38 @@ else
 				echo '<div  style="color:red;" align="center" class="alert alert-danger"><strong>Record updated successfully !</strong></div>';
 			}
 ?>
+<style>
+ select {
+            width:434px;
+			height:40px;
+            border:none;
+            background:#fff;
+        }
+</style>
         <form action="" method="post" id="register-form" novalidate>
                 	       
               <h2 class="account-infomation">Billing Address</h2>
-              <input type="text" name="address" placeholder="Enter your Address" class="input-account-infomation"  value="<?php echo $address?>"/>
+			  <select name="cc" id="cc" align="left" onchange="getdata(this.value)">
+			  <option value="0" select>Credit Card Name</option>
+			  <?php
+			  foreach($carddetails as $cc)
+			  {
+			  ?>
+				<option value="<?php echo $cc['id']?>"><?php echo $cc['cardname']?></option>
+			  <?php
+			  }
+			  ?>
+			  </select>
+			  <br/><br/>
+              <span id='billadddiv'>
+			  <input type="text" name="address" placeholder="Enter your Address" class="input-account-infomation"  value="<?php echo $address?>"/>
               <input type="text" name="city" placeholder="Enter Your City" class="input-account-infomation"  value="<?php echo $city?>"/>
               <input type="text" name="state" placeholder="Enter Your State" class="input-account-infomation"  value="<?php echo $state?>"/>
               <input type="text" name="zip" placeholder="Enter Your Zip" class="input-account-infomation"  value="<?php echo $zip?>"/>
-              <input type="submit" class="submitt correction" onclick="myFunction()" value="UPDATE"/> 
+              </span>
+			  
+			  
+			  <input type="submit" class="submitt correction" onclick="myFunction()" value="UPDATE"/> 
                 
         </form>
             </div>

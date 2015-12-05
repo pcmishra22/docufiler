@@ -78,6 +78,26 @@ class Admin extends MX_Controller
 		redirect('admin/index');
 	}
 	
+	//list listplans
+	
+	public function listplans()
+	{
+		$this->checkloginadmin();
+		$data['allplans']=$this->users_model->listAllPlans();
+		$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+		$this->template->write_view('content', 'listplans',$data);
+		$this->template->render();
+	}
+	//list promotion
+	
+	public function listpromotion()
+	{
+		$this->checkloginadmin();
+		$data['allcodes']=$this->users_model->listAllPromoCodes();
+		$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+		$this->template->write_view('content', 'listpromotion',$data);
+		$this->template->render();
+	}
 	//list users
 	public function listuser()
 	{
@@ -164,6 +184,24 @@ class Admin extends MX_Controller
 	   if(!$this->session->userdata('user_name')=='admin')
 		redirect('admin');
 	}
+	
+	//delete plan
+	
+	public function deleteplan($id)
+	{
+		$this->users_model->deletePlan($id);
+		$this->session->set_flashdata('flash_message', 'deleted');
+		redirect('admin/listplans');	
+	}	
+	
+	//delete promotion
+	
+	public function deletepromotion($id)
+	{
+		$this->users_model->deletePromotion($id);
+		$this->session->set_flashdata('flash_message', 'deleted');
+		redirect('admin/listpromotion');	
+	}
 	//delete pages
 	
 	public function deletepage($id)
@@ -186,6 +224,105 @@ class Admin extends MX_Controller
 		$this->session->set_flashdata('flash_message', 'deleted');
 		redirect('admin/listuser');	
 	}
+	//add plan
+	public function addplan($id='')
+	{
+		if(isset($_REQUEST['submit']))
+		{	
+			if($_REQUEST['id']!='')
+			{
+				$data = array(
+				'name' => $this->input->post('name'),
+				'price' => $this->input->post('price'),
+				'files' => $this->input->post('files'),
+				'space' => $this->input->post('space'),
+				'usertype' => $this->input->post('usertype'),
+				'discount' => $this->input->post('discount')
+				);
+				
+				//update data
+				
+				$this->users_model->updateData($_REQUEST['id'],'plans',$data);
+				$this->session->set_flashdata('flash_message', 'updated');				
+
+			}
+			else
+			{
+				$data = array(
+				'name' => $this->input->post('name'),
+				'price' => $this->input->post('price'),
+				'files' => $this->input->post('files'),
+				'space' => $this->input->post('space'),
+				'usertype' => $this->input->post('usertype'),
+				'discount' => $this->input->post('discount')
+				);
+				//save data
+				$this->users_model->saveData('plans',$data);
+				$this->session->set_flashdata('flash_message', 'added');				
+			}
+
+			redirect('admin/listplans');
+		}
+		else
+		{
+			$data=array();
+			if($id!='')
+				$data['plandetails']=$this->users_model->listPlanById($id);
+			$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+			$this->template->write_view('content', 'addplan',$data);
+			$this->template->render();
+		}
+
+	}
+	//add promotion
+	public function addpromotion($id='')
+	{
+		if(isset($_REQUEST['submit']))
+		{
+			if($_REQUEST['id']!='')
+			{
+				$data = array(
+				'codename' => $this->input->post('codename'),
+				'percent' => $this->input->post('percent'),
+				'status' => $this->input->post('settingdiscount'),
+				'created_date' => date('Y-m-d h:i:s')
+				);
+				
+				//update data
+				
+				$this->users_model->updateData($_REQUEST['id'],'promotionalcode',$data);
+				$this->session->set_flashdata('flash_message', 'updated');				
+
+			}
+			else
+			{
+				$data = array(
+				'codename' => $this->input->post('codename'),
+				'percent' => $this->input->post('percent'),
+				'status' => $this->input->post('settingdiscount'),
+				'created_date' => date('Y-m-d h:i:s')
+				);
+				//save data
+				$this->users_model->saveData('promotionalcode',$data);
+				$this->session->set_flashdata('flash_message', 'added');				
+			}
+
+			redirect('admin/listpromotion');
+		}
+		else
+		{
+			$data=array();
+			if($id!='')
+				$data['promotiondetails']=$this->users_model->listPromotionById($id);
+			$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+			$this->template->write_view('content', 'addpromotion',$data);
+			$this->template->render();
+		}
+
+	}
+	
+	
+	
 	//add pages
 	public function addpage($id='')
 	{
@@ -249,9 +386,13 @@ class Admin extends MX_Controller
 		
 		if(isset($_REQUEST['submit']))
 		{
+
 			$data1 = array(
 				'awsAccessKey' => $_REQUEST['accesskey'],
-				'awsSecretKey' => $_REQUEST['secretkey']
+				'awsSecretKey' => $_REQUEST['secretkey'],
+				'discount' => $_REQUEST['discount'],
+				'discountactive' => $_REQUEST['settingdiscount'],
+				'paypalmerchanctemail' => $_REQUEST['meremail']
 			);
 			
 			$this->users_model->updateData($_REQUEST['id'],'settings',$data1);

@@ -162,6 +162,20 @@
                                 <li><a href="<?php echo base_url()?>admin/addpage"><span class="icon16 icomoon-icon-arrow-right-3"></span>Add Page</a></li>
                             </ul>
                         </li>
+						<li>
+                            <a href="#"><span class="icon16 icomoon-icon-table-2"></span>Promotion</a>
+                            <ul class="sub">
+                                <li><a href="<?php echo base_url()?>admin/listpromotion"><span class="icon16 icomoon-icon-arrow-right-3"></span>List Promotion</a></li>
+                                <li><a href="<?php echo base_url()?>admin/addpromotion"><span class="icon16 icomoon-icon-arrow-right-3"></span>Add Promotion</a></li>
+                            </ul>
+                        </li>
+						<li>
+                            <a href="#"><span class="icon16 icomoon-icon-table-2"></span>Plans</a>
+                            <ul class="sub">
+                                <li><a href="<?php echo base_url()?>admin/listplans"><span class="icon16 icomoon-icon-arrow-right-3"></span>List Plans</a></li>
+                                <li><a href="<?php echo base_url()?>admin/addplan"><span class="icon16 icomoon-icon-arrow-right-3"></span>Add Plan</a></li>
+                            </ul>
+                        </li>
 
                     </ul>
                 </div>

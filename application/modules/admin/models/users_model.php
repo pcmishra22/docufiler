@@ -78,6 +78,15 @@ class Users_model extends CI_Model {
 		}
 		return $user;
 	}
+	//list all promo code
+	
+	function listAllPromoCodes()
+	{
+			$sql = "SELECT * FROM promotionalcode" ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}
 	//list all pages
 	
 	function listAllpages()
@@ -92,6 +101,24 @@ class Users_model extends CI_Model {
 	function listAllSettings()
 	{
 			$sql = "SELECT * FROM settings" ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}
+	//list promotion by id
+	
+	function listPromotionById($id)
+	{
+			$sql = "SELECT * FROM promotionalcode where id=".$id ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}
+	//list plan by id
+	
+	function listPlanById($id)
+	{
+			$sql = "SELECT * FROM plans where id=".$id ; 
 			$query = $this->db->query($sql);
 			$result = $query->result_array();
 			return @$result;
@@ -146,6 +173,15 @@ class Users_model extends CI_Model {
 			$result = $query->result_array();
 			return @$result;
 	}
+	//list all plans
+	
+	function listAllPlans()
+	{
+			$sql = "SELECT * FROM plans" ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}
 	//list all users
 	function listAllusers()
 	{
@@ -161,6 +197,18 @@ class Users_model extends CI_Model {
 			$query = $this->db->query($sql);
 			$result = $query->result_array();
 			return @$result;
+	}
+	
+	//delete plans
+	function deletePlan($id)
+	{
+		$this->db->delete('plans', array('id' => $id));
+	}
+	
+	//delete promotionalcode
+	function deletePromotion($id)
+	{
+		$this->db->delete('promotionalcode', array('id' => $id));
 	}
 	//delete pages
 	function deletePages($id)

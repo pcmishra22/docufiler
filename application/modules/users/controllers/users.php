@@ -12,12 +12,47 @@ class Users extends MX_Controller{
 		$this->load->library("pagination");
 		$this->load->library('s3');
 	  }
+	  //select subscription
+	  public function subscription()
+	  {
+			//set data in session
+			$this->load->view('subscription');
+	  }
 	  //signup page calling
-	  public function signup()
+	  public function signup($id='')
 	  {
 		  if(isset($_REQUEST['submit']))
 		  {
-		  	
+				$planname='';
+				if($id==1)
+					$planname='personal';
+				if($id==2)
+					$planname='household';
+				if($id==3)
+					$planname='business';
+					
+				$data_to_store_account = array(
+                    'owneremailid' => $this->input->post('email'),
+                    'planname' => $planname,
+					'createddate' => date("Y-m-d H:i:s")
+                 ); 
+				
+				
+			//check email exists	 
+				$checkEmailAccount = $this->users_model->register_email_exists_account($this->input->post('email'));
+			//save data to table account
+				if(!empty($checkEmailAccount[0]))
+				{
+					$this->session->set_flashdata('flash_message', 'emailexists');
+					redirect('users/signup/'.$id);
+				}
+				else
+				{
+					$this->users_model->saveData('accounts', $data_to_store_account);
+				}
+				
+			//save data in users table	
+				
 			$data_to_store = array(
                     'firstname' => $this->input->post('firstname'),
                     'lastname' => $this->input->post('lastname'),
@@ -363,7 +398,42 @@ public function invitefriend()
 			}
 	  
 	  }
-	   //billingaddress information
+	  //billing order
+	  public function billingorder()
+	  {
+			$data=array();
+			$this->template->set_template('front');
+			$this->template->write('title', 'Welcome to the Docufiler Billing !');
+			$this->template->write_view('content','billingorder',$data);
+			$this->template->render();  
+	  }
+	  //billing address data
+	  public function billingaddressdata()
+	  {
+			$id=$this->input->post('id'); 
+			$carddetails=$this->users_model->cardDetailsById($id);
+			//initialize variables
+			$address='';
+			$city='';
+			$state='';
+			$zip='';
+			//
+			if(!empty($carddetails[0]))
+			{		
+				$address=$carddetails[0]['baddress'];
+				$city=$carddetails[0]['bcity'];
+				$state=$carddetails[0]['bstate'];
+				$zip=$carddetails[0]['bzip'];
+			}
+		?>
+			  <input type="text" name="address" placeholder="Enter your Address" class="input-account-infomation"  value="<?php echo $address?>"/>
+              <input type="text" name="city" placeholder="Enter Your City" class="input-account-infomation"  value="<?php echo $city?>"/>
+              <input type="text" name="state" placeholder="Enter Your State" class="input-account-infomation"  value="<?php echo $state?>"/>
+              <input type="text" name="zip" placeholder="Enter Your Zip" class="input-account-infomation"  value="<?php echo $zip?>"/>
+		
+		<?php
+	  }
+	   //billing address information
 	  public function billingaddress()
 	  {
 		  	//check for user login
@@ -380,11 +450,11 @@ public function invitefriend()
 					'bzip' => $this->input->post('zip')
 					);
 				
-				$this->users_model->updateData('id',$this->session->userdata('userid'),'users',$data1);
+				$this->users_model->updateData('id',$this->input->post('cc'),'user_cardinfo',$data1);
 				//redirected to login page
 				$this->session->set_flashdata('flash_message', 'updated');
 				//get user details by id
-		  		$data['userdetails']=$this->users_model->userDetailsById($this->session->userdata('userid'));
+		  		$data['carddetails']=$this->users_model->userCardList($this->session->userdata('userid'));
 		  		//set data in session
 				$this->template->set_template('front');
 				$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
@@ -394,7 +464,7 @@ public function invitefriend()
 			else
 			{
 		  		//get user details by id
-		  		$data['userdetails']=$this->users_model->userDetailsById($this->session->userdata('userid'));
+		  		$data['carddetails']=$this->users_model->userCardList($this->session->userdata('userid'));
 		  		//set data in session
 				$this->template->set_template('front');
 				$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
@@ -469,6 +539,13 @@ public function invitefriend()
 			}
 			//s3 upload code here
 		}
+	  }
+	  //delete card
+	  public function deletecard($id)
+	  {
+		$this->users_model->deleteCard($id);
+		$this->session->set_flashdata('flash_message', 'deleted'); 
+		redirect('users/cardlist');		
 	  }
 	  //delete files
 	  public function deletefile($id)
@@ -547,38 +624,51 @@ public function invitefriend()
 				$this->template->render();
 	  }
 	   //cardinfo information
-	  public function cardinfo()
+	  public function cardinfo($id='')
 	  {
+			$data=array();
 			//check for user login
 			$this->loginCheck();
-			//check for user login end here
+			//check for user login end here cardtype
 		  	if(isset($_REQUEST['cardname']) || isset($_REQUEST['cardno']) || isset($_REQUEST['cardcvv']) || isset($_REQUEST['expirymonth']) || isset($_REQUEST['expiryyear']))
 			{
 				//update password
 				$data1=array(
-					'cardname' => $this->input->post('name'),
+					'userid' => $this->session->userdata('userid'),
+					'cardname' => $this->input->post('cardtype'),
+					'cardholdername' => $this->input->post('name'),
 					'cardno' => $this->input->post('cardno'),
 					'cardcvv' => $this->input->post('cvv'),
 					'expirymonth' => $this->input->post('expirymonth'),
 					'expiryyear' => $this->input->post('expiryyear'),
+					'create_datetime' => date("Y-m-d H:i:s")	
 					);
 				
-				$this->users_model->updateData('id',$this->session->userdata('userid'),'users',$data1);
-				//redirected to login page
-				$this->session->set_flashdata('flash_message', 'updated');
-				//get user details by id
-		  		$data['userdetails']=$this->users_model->userDetailsById($this->session->userdata('userid'));
-		  		//set data in session
-				$this->template->set_template('front');
-				$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
-				$this->template->write_view('content','cardinfo',$data);
-				$this->template->render();
+				if($_REQUEST['id']!='')
+				{
+					//update data to table
+					$this->users_model->updateData('id',$id,'user_cardinfo',$data1);
+					//redirected to login page
+					$this->session->set_flashdata('flash_message', 'updated');
+				}
+				else
+				{
+					//save data to table
+					$this->users_model->saveData('user_cardinfo',$data1);
+					//redirected to login page
+					$this->session->set_flashdata('flash_message', 'added');
+				}
+
+				redirect('users/cardlist');
 			}
 			else
 			{
-		  		//get user details by id
-		  		$data['userdetails']=$this->users_model->userDetailsById($this->session->userdata('userid'));
-		  		//set data in session
+				//card details by id
+				if($id!='')
+					$data['carddetails']=$this->users_model->cardDetailsById($id);
+		  		
+
+				//set data in session
 				$this->template->set_template('front');
 				$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
 				$this->template->write_view('content','cardinfo',$data);
@@ -586,6 +676,16 @@ public function invitefriend()
 			}
 	  
 	  
+	  }
+	  //cardlist
+	  public function cardlist()
+	  {
+				$data=array();
+				$data['cardlist']=$this->users_model->userCardList($this->session->userdata('userid'));
+				$this->template->set_template('front');
+				$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+				$this->template->write_view('content', 'cardlist',$data);
+				$this->template->render();  
 	  }
 	  //accesspermission information
 	  public function accesspermission()
