@@ -51,18 +51,18 @@
                 	<div class="color-full-box-ratetag">
                     	<div class="color-full-box-ratetag">
                     	<h5 class="heading-ratetag">
-                        	Personal Plan
+                        	<?php echo $subscriptiondetails[0]['name'];?> Plan
                         </h5>
                         <h1 class="rate">
-                        	<b>4.99</b><small class="Dollar">$</small>
+                        	<b><?php echo $subscriptiondetails[0]['price'];?></b><small class="Dollar">$</small>
                         </h1>
                         <h5 class="per-month">
                         	<em>per month</em>
                         </h5>
-                        <p class="white-backgroud information-quality color-code-grey"> 5,000 Files</p>
-                        <p class="white-backgroud information-quality color-code-light-grey">10 MB Max File Storage</p>
-                        <p class="white-backgroud information-quality color-code-grey" >Single User</p>
-                        <p class="white-backgroud information-quality color-code-light-grey" >1 Month Free</p> 
+                        <p class="white-backgroud information-quality color-code-grey"> <?php echo number_format($subscriptiondetails[0]['files']);?> Files</p>
+                        <p class="white-backgroud information-quality color-code-light-grey"><?php echo $subscriptiondetails[0]['space'];?> Max File Storage</p>
+                        <p class="white-backgroud information-quality color-code-grey" ><?php if($subscriptiondetails[0]['usertype']==1){echo 'Single User';}?></p>
+                        <p class="white-backgroud information-quality color-code-light-grey" ><?php echo $subscriptiondetails[0]['discount'];?></p> 
                         <ul class="button-personal-plan personal-plan-pad">
                         	<li><a href="<?php echo base_url()?>users/signup/1"><span><img src="<?php echo base_url();?>images/frontend/star40.png" class="img-responsive star" </span>Get Personal Plan</a></li>
                         </ul>    
@@ -78,15 +78,15 @@
                         	Household Plan
                         </h5>
                         <h1 class="rate greenish orange">
-                        	<b>14.99</b><small class="Dollar">$</small>
+                        	<b><?php echo $subscriptiondetails[1]['price'];?></b><small class="Dollar">$</small>
                         </h1>
                         <h5 class="per-month greenish orangish orange">
                         	<em>per month</em>
                         </h5>
-                        <p class="white-backgroud information-quality color-code-grey"> 20,000 Files</p>
-                        <p class="white-backgroud information-quality color-code-light-grey">50 MB Max File Storage</p>
-                        <p class="white-backgroud information-quality color-code-grey" >2 User</p>
-                        <p class="white-backgroud information-quality color-code-light-grey" >3 Month Free</p> 
+                        <p class="white-backgroud information-quality color-code-grey"> <?php echo number_format($subscriptiondetails[1]['files']);?> Files</p>
+                        <p class="white-backgroud information-quality color-code-light-grey"><?php echo $subscriptiondetails[1]['filesize'];?> MB Max File Storage</p>
+                        <p class="white-backgroud information-quality color-code-grey" ><?php echo $subscriptiondetails[1]['usertype'];?> User</p>
+                        <p class="white-backgroud information-quality color-code-light-grey" ><?php echo $subscriptiondetails[1]['discount'];?></p> 
                         <ul class="button-personal-plan">
                         	<li><a href="<?php echo base_url()?>users/signup/2" class="household-plan-a"><span><img src="<?php echo base_url();?>images/frontend/tag25.png" class="img-responsive star" </span>Get Household  Plan</a></li>
                         </ul>    
@@ -102,15 +102,15 @@
                         	Buisness Plan
                         </h5>
                         <h1 class="rate greenish">
-                        	<b>29.99</b><small class="Dollar">$</small>
+                        	<b><?php echo $subscriptiondetails[2]['price'];?></b><small class="Dollar">$</small>
                         </h1>
                         <h5 class="per-month greenish">
                         	<em>per month</em>
                         </h5>
-                        <p class="white-backgroud information-quality color-code-grey"> 5o,000 Files</p>
-                        <p class="white-backgroud information-quality color-code-light-grey">No Max File Storage</p>
-                        <p class="white-backgroud information-quality color-code-grey" >5 User</p>
-                        <p class="white-backgroud information-quality color-code-light-grey" >3 Month Free</p> 
+                        <p class="white-backgroud information-quality color-code-grey"> <?php echo number_format($subscriptiondetails[2]['files']);?> Files</p>
+                        <p class="white-backgroud information-quality color-code-light-grey"><?php echo $subscriptiondetails[2]['space'];?> File Storage</p>
+                        <p class="white-backgroud information-quality color-code-grey" ><?php echo $subscriptiondetails[0]['usertype'];?> User</p>
+                        <p class="white-backgroud information-quality color-code-light-grey" ><?php echo $subscriptiondetails[0]['discount'];?></p> 
                         <ul class="button-personal-plan personal-plan-pad">
                         	<li><a href="<?php echo base_url()?>users/signup/3"><span><img src="<?php echo base_url();?>images/frontend/gear39.png" class="img-responsive star" </span>Get Buisness Plan</a></li>
                         </ul>    

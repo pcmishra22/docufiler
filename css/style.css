@@ -245,6 +245,14 @@ body.color-login{
 	.width{width:62% !important; margin-bottom:7% !important; box-shadow:none !important;  }
 	.account-infomation{color:#676767; font-size:25px; padding-top: 3%;
     padding-bottom: 3%;}
+	.master-card-setting{width: 62%;
+    text-align: center;
+    margin: 0 auto;
+    margin-left: 19%;
+    margin-bottom: 3%;
+    border: 0;
+    border-radius: 4px;
+    height: 37px; padding-left:3%;}
 	.input-account-infomation{width: 62%;
     border-radius: 4px;
     height: 37px;
@@ -607,6 +615,10 @@ text-align: center;}
     font-size: 18px;}
 .analizing-page-mar{margin-bottom:0!important;}
 .radio-annually{margin-right:3% !important;}	
+/*-------------------sucessful meassage-----*/
+.padd-check{padding-top:10%; padding-bottom:10%; }
+.message{color:white; text-align:center; text-shadow:5px 5px 5px #000000;}
+.tick{padding-right:2%}
 /*-----start-responsive-design------*/
 @media (max-width:1440px){
 	.login-form {

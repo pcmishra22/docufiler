@@ -77,7 +77,15 @@ class Admin extends MX_Controller
 		$this->session->sess_destroy();
 		redirect('admin/index');
 	}
-	
+	//list payments
+	public function listpayments()
+	{
+		$this->checkloginadmin();
+		$data['allpayments']=$this->users_model->listAllPayments();
+		$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+		$this->template->write_view('content', 'listpayments',$data);
+		$this->template->render();
+	}
 	//list listplans
 	
 	public function listplans()

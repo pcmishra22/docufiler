@@ -13,15 +13,20 @@
         <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 zero-padding">
         	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding dark-yellow-box">
             	<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 zero-padding text-size">
-                <span class="files-number"><img src="<?php echo base_url();?>images/frontend/no of files.png" /></span>3,765 Files
+                <span class="files-number"><img src="<?php echo base_url();?>images/frontend/no of files.png" /></span>
+				<?php
+				echo $totalfiles;
+				?> Files
                 </div>
                 
+    <form  name="searchform" id="searchform" action="<?php echo base_url();?>users/listfiles" method="post">
                 <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 zero-padding">
-                	<input type='text' placeholder='Search...' id='search-text-input' />
+                	<input type='text' name="searchfile" placeholder='Search...' id='search-text-input' />
                     <div id='button-holder'>
-                        <img src='<?php echo base_url();?>images/frontend/search.png' class="img-responsive" />
+                        <img src='<?php echo base_url();?>images/frontend/search.png' class="img-responsive" onclick="document.searchform.submit();";/>
                     </div>
                 </div>
+				</form>
             </div><!--dark-yellow-box-->
             
             
@@ -109,7 +114,7 @@
                     <span class="Download"><a href="#"><img src="<?php echo base_url();?>images/frontend/2nd.png" /></a></span>
                     <span class="Download"><a href="#"><img src="<?php echo base_url();?>images/frontend/3rd.png" /></a></span>
                     <span class="Download"><a href="<?php echo base_url();?>users/deletefile/<?php echo $id;?>"><img src="<?php echo base_url();?>images/frontend/4rth.png" /></a></span>
-                    <span class="Download"><a href="#"><img src="<?php echo base_url();?>images/frontend/5th.png" /></a></span></h5>
+                    <span class="Download"><a href="<?php echo base_url();?>users/downloadfile/<?php echo $id;?>"><img src="<?php echo base_url();?>images/frontend/5th.png" /></a></span></h5>
                 </div>
                 
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 zero-padding ">

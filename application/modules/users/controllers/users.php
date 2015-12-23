@@ -15,22 +15,48 @@ class Users extends MX_Controller{
 	  //select subscription
 	  public function subscription()
 	  {
-			//set data in session
-			$this->load->view('subscription');
+		$data=array();
+		$data['subscriptiondetails']=$this->users_model->subscriptionDetails();
+		$this->load->view('subscription',$data);
+	  }
+	  //promo details
+	  public function promodiscount()
+	  {
+		$details=$this->users_model->promoDiscount($this->input->post('code'));
+		$percent=$details[0]['percent'];
+		$total=$this->input->post('total');
+		$discount=($total*$percent)/100;
+		$dis=$total-$discount;
+		$str1="<div><div id='inner_1'>$".$discount."</div><div id='inner_2'>$".$dis."</div></div>";
+		echo $str1;
 	  }
 	  //signup page calling
 	  public function signup($id='')
 	  {
-		  if(isset($_REQUEST['submit']))
-		  {
-				$planname='';
-				if($id==1)
-					$planname='personal';
-				if($id==2)
-					$planname='household';
-				if($id==3)
-					$planname='business';
-					
+		if($id=='')
+			redirect('users/subscription');
+		
+		
+		$planname='';
+				
+		if($id==1)
+			$planname='personal';
+		if($id==2)
+			$planname='household';
+		if($id==3)
+			$planname='business';
+		
+		
+		if($this->session->userdata('userid')>0)
+		{
+			$this->session->set_userdata('planname',$planname);
+			redirect('users/billingorder');
+		}
+		
+		
+				
+		if(isset($_REQUEST['submit']))
+		{
 				$data_to_store_account = array(
                     'owneremailid' => $this->input->post('email'),
                     'planname' => $planname,
@@ -398,10 +424,217 @@ public function invitefriend()
 			}
 	  
 	  }
+	  // Function to convert NTP string to an array
+		function NVPToArray($NVPString)
+		{
+				$proArray = array();
+				while(strlen($NVPString))
+				{
+					// name
+					$keypos= strpos($NVPString,'=');
+					$keyval = substr($NVPString,0,$keypos);
+					// value
+					$valuepos = strpos($NVPString,'&') ? strpos($NVPString,'&'): strlen($NVPString);
+					$valval = substr($NVPString,$keypos+1,$valuepos-$keypos-1);
+					// decoding the respose
+					$proArray[$keyval] = urldecode($valval);
+					$NVPString = substr($NVPString,$valuepos+1,strlen($NVPString));
+				}
+				return $proArray;
+		}
+		//
+		public function test()
+		{
+				$this->template->set_template('front');
+				$this->template->write('title', 'Welcome to the Docufiler Billing !');
+				$this->template->write_view('content','payment');
+				$this->template->render();	
+		}	
+		//payment
+	  public function payment()
+	  {
+		//set data array	
+		
+		$carddetails=$this->users_model->cardDetailsById($_REQUEST['cardname']);
+		$substype=$_REQUEST['Annually'];
+		$price=$_REQUEST['dataprice'];
+		$discount=$_REQUEST['datadiscount'];
+		$total=$_REQUEST['datatotal'];
+		
+		//set data in session
+		
+		// Set sandbox (test mode) to true/false.
+		$sandbox = TRUE;
+
+		// Set PayPal API version and credentials.
+		$api_version = '85.0';
+		$api_endpoint = $sandbox ? 'https://api-3t.sandbox.paypal.com/nvp' : 'https://api-3t.paypal.com/nvp';
+		$api_username = $sandbox ? 'sonam92_api1.gmail.com' : 'LIVE_USERNAME_GOES_HERE';
+		$api_password = $sandbox ? '1401035965' : 'LIVE_PASSWORD_GOES_HERE';
+		$api_signature = $sandbox ? 'AFcWxV21C7fd0v3bYYYRCpSSRl31AgxPwfg-5AkhPp7C2E5vTUhEpjX6' : 'LIVE_SIGNATURE_GOES_HERE';
+		// Store request params in an array
+		$request_params = array
+					(
+					'METHOD' => 'DoDirectPayment', 
+					'USER' => $api_username, 
+					'PWD' => $api_password, 
+					'SIGNATURE' => $api_signature, 
+					'VERSION' => $api_version, 
+					'PAYMENTACTION' => 'Sale', 					
+					'IPADDRESS' => $_SERVER['REMOTE_ADDR'],
+					'CREDITCARDTYPE' => $carddetails[0]['cardname'], 
+					'ACCT' => $carddetails[0]['cardno'], 						
+					'EXPDATE' => $carddetails[0]['expirymonth'].$carddetails[0]['expiryyear'], 			
+					'CVV2' => $carddetails[0]['cardcvv'], 
+					'FIRSTNAME' => $carddetails[0]['cardholdername'], 
+					'LASTNAME' => $carddetails[0]['cardholdername'], 
+					'STREET' => $carddetails[0]['baddress'], 
+					'CITY' => $carddetails[0]['bcity'], 
+					'STATE' => $carddetails[0]['bstate'], 					
+					'COUNTRYCODE' => 'US', 
+					'ZIP' => $carddetails[0]['bzip'], 
+					'AMT' => $total, 
+					'CURRENCYCODE' => 'USD', 
+					'DESC' => 'Docufiler subscription payment' 
+					);
+
+		// Loop through $request_params array to generate the NVP string.
+		
+		$nvp_string = '';
+		foreach($request_params as $var=>$val)
+		{
+			$nvp_string .= '&'.$var.'='.urlencode($val);	
+		}
+
+		// Send NVP string to PayPal and store response
+		$curl = curl_init();
+				curl_setopt($curl, CURLOPT_VERBOSE, 1);
+				curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+				curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+				curl_setopt($curl, CURLOPT_URL, $api_endpoint);
+				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($curl, CURLOPT_POSTFIELDS, $nvp_string);
+
+		$result = curl_exec($curl);
+		//echo $result.'<br /><br />';
+		curl_close($curl);
+
+		// Parse the API response
+		$data['result_array'] = $this->NVPToArray($result);
+		//save data to database table
+		$data_to_store=array(
+			'transactionid' => $data['result_array']['TRANSACTIONID'],
+			'accountno' => $this->session->userdata('userid'), 
+			'userid' => $this->session->userdata('userid'),
+			'created_date' => date("Y-m-d H:i:s"),
+			'ccno' => $carddetails[0]['cardno'],
+			'ccname' => $carddetails[0]['cardname'],
+			'amt' => $total,
+			'status' => $data['result_array']['ACK']
+		);
+		//save transaction to database 
+		$this->users_model->saveData('billing', $data_to_store);
+		//email code
+		$body='';	   
+		$url_logo=base_url().'/images/frontend/logo.png';
+		$body.='<html><body><table width="700" border="0" cellpadding="7" cellspacing="7" bgcolor="#E6F0EF" align="center" style="font-family:arial;font-size:14px; font-weight:normal;">
+		  <tr><td align="left" bgcolor="#BAA786"><a href=""><img title="" alt="" src="'.$url_logo.'"></a></td>
+		  </tr>
+		  <tr>
+			<td align="left">Hi '.$this->session->userdata('firstname').',</td>
+		  </tr>
+		 
+		  <tr>
+			<td align="left">Thank you!</td>
+		  </tr>
+		  <tr>
+			<td align="left">We have received your order and created a new account for you in Docufiler. </td>
+		  </tr>
+		  <tr>
+			<td align="left">
+			you can start using your system automatically by going to https://app.docufiler.com
+			</td>
+		  </tr>
+		  <tr>
+			<td align="left">
+			Should you have any questions do not hesitate to reach out to us either by email at
+			team@docufiler.com, or by creating a case at https://support.docufiler.com (please 
+			make sure you use the same email you have on your account to open the case.)
+			
+			To learn more about Docufiler features you can access the documentation by going to
+			https://support.docufiler.com/FAQ
+			
+			
+			</td>
+		  </tr>
+		  <tr>
+			<td align="left">Your friends at Docufiler</td>
+		  </tr>
+		</table>
+		</body>
+		</html>';
+
+		//email sender
+                $from='team@docufiler.com';
+                
+				$headers  = 'MIME-Version: 1.0' . "\r\n";
+				$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+				$headers .= "From: ".$from."\r\nReply-To: ".$from; 
+				  
+				$email = $this->session->userdata('email');
+				
+				$subject = 'Thanks for your order';
+				
+				echo $body;exit;
+				
+				if(mail($email,$subject,$body,$headers)){
+						echo "email send";             
+				}
+				else
+				{
+					echo "email  not send ";
+				}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//template
+		$this->template->set_template('front');
+		$this->template->write('title', 'Welcome to the Docufiler Billing !');
+		$this->template->write_view('content','payment',$data);
+		$this->template->render();	
+
+	  }
 	  //billing order
 	  public function billingorder()
 	  {
+		  $name=$this->session->userdata('planname');
+		  if($name=='')
+			  redirect("users/subscription");
+
 			$data=array();
+			$data['subscriptiondetails']=$this->users_model->subscriptionDetails();	
+			$data['cardinfo']=$this->users_model->userCardList($this->session->userdata('userid'));				
 			$this->template->set_template('front');
 			$this->template->write('title', 'Welcome to the Docufiler Billing !');
 			$this->template->write_view('content','billingorder',$data);
@@ -578,28 +811,47 @@ public function invitefriend()
 
 			redirect('users/listfiles');
 	  }
+	  //download file
+	  public function downloadfile($id)
+	  {
+			$filedetails=$this->users_model->getFile($id);	 
+			$file=$filedetails[0]['location'];
+			header('Content-Description: File Transfer');
+			header('Content-Type: application/octet-stream');
+			header('Content-Disposition: attachment; filename="'.$file.'"');
+			header('Expires: 0');
+			header('Cache-Control: must-revalidate');
+			header('Pragma: public');
+			header('Content-Length: ' . filesize($file));
+			readfile($file);
+			exit;
+	  }
 	  //user list files
 	  public function listfiles()
 	  {
 			//check for user login
 			$this->loginCheck();
-			//check for user login end here		
-		    //setting for pagination
+			//check for user login end here	
+			$filename='';
+			if(isset($_REQUEST['searchfile']))
+				$filename=$_REQUEST['searchfile'];
+
+			//setting for pagination
 			$config = array();
 			$config["base_url"] = base_url() . "users/listfiles";
-			$config["total_rows"] = $this->users_model->record_count_total_files($this->session->userdata('userid'));
+			$config["total_rows"] = $this->users_model->record_count_total_files($this->session->userdata('userid'),$filename);
 			$config["per_page"] = 10;
 			$config["uri_segment"] = 3;
-
 			//pagination initialization
 			$this->pagination->initialize($config);
 			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 			//get user details by id
-		  	$data['userdetails']=$this->users_model->userAllFiles($this->session->userdata('userid'),$config["per_page"], $page);
+			$data['userdetails']=$this->users_model->userAllFiles($this->session->userdata('userid'),$config["per_page"], $page,$filename);
 			$data["links"] = $this->pagination->create_links();
 			
-
-			
+			//total files by user
+			$data['totalfiles']=$this->users_model->record_count_total_files($this->session->userdata('userid'));
+				
 			//set data in session
 			$this->template->set_template('front');
 			$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
@@ -636,7 +888,8 @@ public function invitefriend()
 				$data1=array(
 					'userid' => $this->session->userdata('userid'),
 					'cardname' => $this->input->post('cardtype'),
-					'cardholdername' => $this->input->post('name'),
+					'cardholderfname' => $this->input->post('fname'),
+					'cardholderlname' => $this->input->post('lname'),
 					'cardno' => $this->input->post('cardno'),
 					'cardcvv' => $this->input->post('cvv'),
 					'expirymonth' => $this->input->post('expirymonth'),
@@ -666,8 +919,8 @@ public function invitefriend()
 				//card details by id
 				if($id!='')
 					$data['carddetails']=$this->users_model->cardDetailsById($id);
-		  		
-
+		  		//total files by user
+				 $data['totalfiles']=$this->users_model->record_count_total_files($this->session->userdata('userid'));
 				//set data in session
 				$this->template->set_template('front');
 				$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
@@ -680,6 +933,9 @@ public function invitefriend()
 	  //cardlist
 	  public function cardlist()
 	  {
+				if($this->session->userdata('userid')=='')
+					redirect('users/login');
+				
 				$data=array();
 				$data['cardlist']=$this->users_model->userCardList($this->session->userdata('userid'));
 				$this->template->set_template('front');

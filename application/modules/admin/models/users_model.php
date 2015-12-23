@@ -173,6 +173,14 @@ class Users_model extends CI_Model {
 			$result = $query->result_array();
 			return @$result;
 	}
+	//list all payments
+	function listAllPayments()
+	{
+			$sql = "SELECT * FROM billing" ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}
 	//list all plans
 	
 	function listAllPlans()

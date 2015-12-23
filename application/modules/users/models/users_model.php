@@ -50,6 +50,15 @@ class Users_model extends CI_Model {
 			$query = $this->db->query($sql);
 			$result = $query->result_array();
 			return @$result;
+	}
+	//cardinfo by user
+	//sobscription details
+	function subscriptionDetails()
+	{
+		$sql = "SELECT * FROM plans"; 
+		$query = $this->db->query($sql);
+		$result = $query->result_array();
+		return @$result;	
 	}	
 	//check user details by id
 	function userDetailsById($id)
@@ -107,6 +116,15 @@ class Users_model extends CI_Model {
             $result = $query->result_array();
             return @$result;
 	}
+	//promotional discount
+	
+	function promoDiscount($code)
+	{
+			$sql = "SELECT * FROM promotionalcode where codename='$code'"; 
+            $query = $this->db->query($sql);
+            $result = $query->result_array();
+            return @$result;
+	}
 	//check user details
 	function checkcodedata($code)
 	{
@@ -117,12 +135,13 @@ class Users_model extends CI_Model {
 	}
 	//user all files list
 
-	function userAllFiles($id,$limit,$start)
+	function userAllFiles($id,$limit,$start,$fn)
 	{
 		$this->db->select('id,userid,name,uniquename,folder,device,filetype,location,size,created_date');
 		$this->db->from('user_files');
 		$this->db->limit($limit, $start);
 		$this->db->where('userid', $id);
+		$this->db->like('name', $fn); 
 		$this->db->order_by("id","desc");
 		$query = $this->db->get("");
 		
@@ -139,9 +158,9 @@ class Users_model extends CI_Model {
 	}
 
 // total files	
-	function record_count_total_files($id)
+	function record_count_total_files($id,$fn='')
 	{
-			$sql = "SELECT count(*) as total FROM user_files where userid='$id'"; 
+			$sql = "SELECT count(*) as total FROM user_files where userid='$id' and name like '%$fn%'"; 
             $query = $this->db->query($sql);
             $result = $query->result_array();
             return $result[0]['total'];

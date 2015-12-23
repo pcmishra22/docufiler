@@ -176,6 +176,13 @@
                                 <li><a href="<?php echo base_url()?>admin/addplan"><span class="icon16 icomoon-icon-arrow-right-3"></span>Add Plan</a></li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="#"><span class="icon16 icomoon-icon-table-2"></span>Payments</a>
+                            <ul class="sub">
+                                <li><a href="<?php echo base_url()?>admin/listpayments"><span class="icon16 icomoon-icon-arrow-right-3"></span>List Payments</a></li>
+                               
+                            </ul>
+                        </li>
 
                     </ul>
                 </div>

@@ -3,7 +3,8 @@ if(!empty($carddetails[0]))
 {
 	$id=$carddetails[0]['id'];
 	$cardname=$carddetails[0]['cardname'];
-	$cardholdername=$carddetails[0]['cardholdername'];
+	$cardholderfname=$carddetails[0]['cardholderfname'];
+	$cardholderlname=$carddetails[0]['cardholderlname'];
 	$cardno=$carddetails[0]['cardno'];
 	$cardcvv=$carddetails[0]['cardcvv'];
 	$expirymonth=$carddetails[0]['expirymonth'];
@@ -14,7 +15,8 @@ else
 {
 	$id='';
 	$cardname='';
-	$cardholdername='';
+	$cardholderfname='';
+	$cardholderlname='';
 	$cardno='';
 	$cardcvv='';
 	$expirymonth='';
@@ -93,15 +95,20 @@ else
         <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 zero-padding">
         	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding dark-yellow-box">
             	<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 zero-padding text-size">
-                <span class="files-number"><img src="<?php echo base_url();?>images/frontend/no of files.png" /></span>3,765 Files
+                <span class="files-number"><img src="<?php echo base_url();?>images/frontend/no of files.png" /></span>
+				<?php
+				echo $totalfiles;
+				?>
+				 Files
                 </div>
-                
+                <form  name="searchform" id="searchform" action="<?php echo base_url();?>users/listfiles" method="post">
                 <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 zero-padding">
-                	<input type='text' placeholder='Search...' id='search-text-input' />
+                	<input type='text' name="searchfile" placeholder='Search...' id='search-text-input' />
                     <div id='button-holder'>
-                        <img src='<?php echo base_url();?>images/frontend/search.png' class="img-responsive" />
+                        <img src='<?php echo base_url();?>images/frontend/search.png' class="img-responsive" onclick="document.searchform.submit();";/>
                     </div>
                 </div>
+				</form>
             </div><!--dark-yellow-box-->
             
             
@@ -123,9 +130,18 @@ else
 			<form action="" method="post" id="register-form" novalidate>
 					
                 	<h2 class="account-infomation">Credit Card</h2>
+					
 					<input type="hidden" name="id" value="<?php echo $id;?>">
-					<input type="text" name="cardtype" placeholder="Card name" class="input-account-infomation" value="<?php echo $cardname?>"/>
-                    <input type="text" name="name" placeholder="Card holder name" class="input-account-infomation" value="<?php echo $cardholdername?>"/>
+				
+				<select class="form-control master-card-setting col-sm-2" name="cardtype" id="cardtype">
+                <option value="MasterCard" <?php if($cardname=='MasterCard'){echo 'selected="selected"';}?>>MasterCard</option>
+                <option value="visa" <?php if($expirymonth=='02'){echo 'selected="selected"';}?>>Visa</option>
+                <option value="discover" <?php if($expirymonth=='03'){echo 'selected="selected"';}?>>Discover</option>
+                <option value="amex" <?php if($expirymonth=='04'){echo 'selected="selected"';}?>>Amex</option>
+				</select>
+
+                    <input type="text" name="fname" placeholder="Card holder first name" class="input-account-infomation" value="<?php echo $cardholderfname?>"/>
+					<input type="text" name="lname" placeholder="Card holder last name" class="input-account-infomation" value="<?php echo $cardholderlname?>"/>
                     <input type="text" name="cardno" placeholder="Card no" class="input-account-infomation" value="<?php echo $cardno?>"/>
                     <input type="text" name="cvv" placeholder="CVV no" class="input-account-infomation" value="<?php echo $cardcvv?>"/>
                     
@@ -149,17 +165,17 @@ else
             </div>
             <div class="col-xs-3">
               <select class="form-control" name="expiryyear">
-              	<option value="15" <?php if($expiryyear=='15'){echo 'selected="selected"';}?>>2015</option>
-                <option value="16" <?php if($expiryyear=='16'){echo 'selected="selected"';}?>>2016</option>
-                <option value="17" <?php if($expiryyear=='17'){echo 'selected="selected"';}?>>2017</option>
-                <option value="18" <?php if($expiryyear=='18'){echo 'selected="selected"';}?>>2018</option>
-                <option value="19" <?php if($expiryyear=='19'){echo 'selected="selected"';}?>>2019</option>
-                <option value="20" <?php if($expiryyear=='20'){echo 'selected="selected"';}?>>2020</option>
-                <option value="21" <?php if($expiryyear=='21'){echo 'selected="selected"';}?>>2021</option>
-                <option value="22" <?php if($expiryyear=='22'){echo 'selected="selected"';}?>>2022</option>
-                <option value="23" <?php if($expiryyear=='23'){echo 'selected="selected"';}?>>2023</option>
-                <option value="24" <?php if($expiryyear=='24'){echo 'selected="selected"';}?>>2024</option>
-                <option value="25" <?php if($expiryyear=='25'){echo 'selected="selected"';}?>>2025</option>
+              	<option value="2015" <?php if($expiryyear=='15'){echo 'selected="selected"';}?>>2015</option>
+                <option value="2016" <?php if($expiryyear=='16'){echo 'selected="selected"';}?>>2016</option>
+                <option value="2017" <?php if($expiryyear=='17'){echo 'selected="selected"';}?>>2017</option>
+                <option value="2018" <?php if($expiryyear=='18'){echo 'selected="selected"';}?>>2018</option>
+                <option value="2019" <?php if($expiryyear=='19'){echo 'selected="selected"';}?>>2019</option>
+                <option value="2020" <?php if($expiryyear=='20'){echo 'selected="selected"';}?>>2020</option>
+                <option value="2021" <?php if($expiryyear=='21'){echo 'selected="selected"';}?>>2021</option>
+                <option value="2022" <?php if($expiryyear=='22'){echo 'selected="selected"';}?>>2022</option>
+                <option value="2023" <?php if($expiryyear=='23'){echo 'selected="selected"';}?>>2023</option>
+                <option value="2024" <?php if($expiryyear=='24'){echo 'selected="selected"';}?>>2024</option>
+                <option value="2025" <?php if($expiryyear=='25'){echo 'selected="selected"';}?>>2025</option>
               </select>
             </div>
           </div>

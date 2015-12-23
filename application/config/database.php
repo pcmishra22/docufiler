@@ -45,18 +45,18 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-//$db['default']['hostname'] = 'localhost';
-//$db['default']['username'] = 'root';
-//$db['default']['password'] = '';
+$db['default']['hostname'] = 'localhost';
+$db['default']['username'] = 'root';
+$db['default']['password'] = '';
 
 
 //$db['default']['hostname'] = 'poc.cgsn9zsdibh6.us-west-2.rds.amazonaws.com';
 
 //$db['default']['hostname'] = '52.89.168.94';
 
-$db['default']['hostname'] = '172.31.7.112';
-$db['default']['username'] = 'Docudb';
-$db['default']['password'] = 'Docufiler1';
+//$db['default']['hostname'] = '172.31.7.112';
+//$db['default']['username'] = 'Docudb';
+//$db['default']['password'] = 'Docufiler1';
 
 
 $db['default']['database'] = 'docudb';
