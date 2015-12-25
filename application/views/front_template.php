@@ -144,11 +144,13 @@
                 <a href="#" class="dropdown-toggle hvr-sweep-to-bottom padd" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <span class="right-arrow"><img src="<?php echo base_url();?>images/frontend/upload.png" /></span>Upload <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                <li><a href="<?php echo base_url();?>users/uploadfiles">Upload Files</a></li>
-					<li role="separator" class="divider"></li>
-				<li><a href="<?php echo base_url();?>users/listfiles">List Files</a></li>
-					<li role="separator" class="divider"></li>
-                  </ul>
+                	<li><a href="<?php echo base_url();?>users/uploadfiles">Upload Files</a></li>
+						<li role="separator" class="divider"></li>
+					<li><a href="<?php echo base_url();?>users/listfiles">List Files</a></li>
+						<li role="separator" class="divider"></li>
+                	<li><a href="<?php echo base_url();?>users/previewfiles">Preview Files</a></li>
+						<li role="separator" class="divider"></li>
+               </ul>
               </li>
               
               <li class="dropdown">

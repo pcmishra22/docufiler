@@ -35,6 +35,14 @@ class Users_model extends CI_Model {
         }
 
 	}
+	//get user file
+	function userFilesByUserId($id)
+	{
+			$sql = "SELECT * FROM user_files where userid='$id' order by id limit 0,19" ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}
 	//get file details by id
 	function getFile($id)
 	{

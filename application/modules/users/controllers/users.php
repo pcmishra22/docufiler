@@ -486,8 +486,8 @@ public function invitefriend()
 					'ACCT' => $carddetails[0]['cardno'], 						
 					'EXPDATE' => $carddetails[0]['expirymonth'].$carddetails[0]['expiryyear'], 			
 					'CVV2' => $carddetails[0]['cardcvv'], 
-					'FIRSTNAME' => $carddetails[0]['cardholdername'], 
-					'LASTNAME' => $carddetails[0]['cardholdername'], 
+					'FIRSTNAME' => $carddetails[0]['cardholderfname'], 
+					'LASTNAME' => $carddetails[0]['cardholderlname'], 
 					'STREET' => $carddetails[0]['baddress'], 
 					'CITY' => $carddetails[0]['bcity'], 
 					'STATE' => $carddetails[0]['bstate'], 					
@@ -518,7 +518,6 @@ public function invitefriend()
 		$result = curl_exec($curl);
 		//echo $result.'<br /><br />';
 		curl_close($curl);
-
 		// Parse the API response
 		$data['result_array'] = $this->NVPToArray($result);
 		//save data to database table
@@ -580,19 +579,15 @@ public function invitefriend()
 				$headers  = 'MIME-Version: 1.0' . "\r\n";
 				$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 				$headers .= "From: ".$from."\r\nReply-To: ".$from; 
-				  
 				$email = $this->session->userdata('email');
-				
 				$subject = 'Thanks for your order';
 				
-				echo $body;exit;
-				
-				if(mail($email,$subject,$body,$headers)){
-						echo "email send";             
+				if(@mail($email,$subject,$body,$headers)){
+						//echo "email send";             
 				}
 				else
 				{
-					echo "email  not send ";
+					//echo "email  not send ";
 				}
 		
 		
@@ -826,6 +821,22 @@ public function invitefriend()
 			readfile($file);
 			exit;
 	  }
+	  //preview files
+	  public function previewfiles()
+	  {
+		  		//check for user login
+				$this->loginCheck();
+				//set data in session
+				$data['userdetails']=$this->users_model->userDetailsById($this->session->userdata('userid'));
+		  		
+				//user files details
+				$data['filedetails']=$this->users_model->userFilesByUserId($this->session->userdata('userid'));
+				//template settings
+				$this->template->set_template('front');
+				$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+				$this->template->write_view('content','previewfiles',$data);
+				$this->template->render();
+	  }
 	  //user list files
 	  public function listfiles()
 	  {
@@ -862,18 +873,15 @@ public function invitefriend()
 	  //file upload 
 	  public function uploadfiles()
 	  {
-		  //echo $hostname = gethostbyaddr($_SERVER['REMOTE_ADDR']);
-		  //echo '<pre>';
-		 // print_r($_SERVER);
-		  //echo '</pre>';
-		  //die;
-		  //get user details by id
-		  		$data['userdetails']=$this->users_model->userDetailsById($this->session->userdata('userid'));
-		  		//set data in session
-				$this->template->set_template('front');
-				$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
-				$this->template->write_view('content','uploadfiles',$data);
-				$this->template->render();
+		  	//check for user login
+			$this->loginCheck();
+			//get user details by id
+		  	$data['userdetails']=$this->users_model->userDetailsById($this->session->userdata('userid'));
+		  	//set data in session
+			$this->template->set_template('front');
+			$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+			$this->template->write_view('content','uploadfiles',$data);
+			$this->template->render();
 	  }
 	   //cardinfo information
 	  public function cardinfo($id='')
@@ -1040,9 +1048,16 @@ public function invitefriend()
 						$this->session->set_userdata('firstname',$result[0]['firstname']);
 						$this->session->set_userdata('lastname', $result[0]['lastname']);
 					//set data in session
+					
+					
+					//total files by user
+					$data['totalfiles']=$this->users_model->record_count_total_files($this->session->userdata('userid'));
+					//total files
+					$this->session->set_userdata('totalfiles', $data['totalfiles']);
+					//set template
 					$this->template->set_template('front');
 					$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
-					$this->template->write_view('content', 'dashboard');
+					$this->template->write_view('content', 'dashboard',$data);
 					$this->template->render();
 							 
 				}
