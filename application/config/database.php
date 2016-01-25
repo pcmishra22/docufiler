@@ -47,7 +47,7 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
-$db['default']['password'] = 'ROOT1234';
+$db['default']['password'] = '';
 
 
 //$db['default']['hostname'] = 'poc.cgsn9zsdibh6.us-west-2.rds.amazonaws.com';

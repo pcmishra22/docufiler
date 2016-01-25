@@ -43,6 +43,14 @@ class Users_model extends CI_Model {
 			$result = $query->result_array();
 			return @$result;
 	}
+	//get files whose image is not created yet
+	function imageNotConvertedFiles()
+	{
+			$sql = "SELECT id,uniquename FROM user_files where is_image_created='0'" ; 
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;
+	}
 	//get file details by id
 	function getFile($id)
 	{
