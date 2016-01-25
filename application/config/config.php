@@ -274,6 +274,7 @@ $config['cookie_domain']	= "";
 $config['cookie_path']		= "/";
 $config['cookie_secure']	= FALSE;
 
+
 /*
 |--------------------------------------------------------------------------
 | Global XSS Filtering

@@ -12,6 +12,11 @@ class Users extends MX_Controller{
 		$this->load->library("pagination");
 		$this->load->library('s3');
 	  }
+	  //checking cron
+	  public function cron()
+	  {
+		  echo 'cron testing';
+	  }
 	  //select subscription
 	  public function subscription()
 	  {
@@ -590,29 +595,6 @@ public function invitefriend()
 					//echo "email  not send ";
 				}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		//template
 		$this->template->set_template('front');
 		$this->template->write('title', 'Welcome to the Docufiler Billing !');
@@ -727,8 +709,17 @@ public function invitefriend()
 			//$s3->putBucket($bucket, S3::ACL_PUBLIC_READ);
 			$sourcePath = $_FILES['file']['tmp_name']; 			// Storing source path of the file in a variable
 			$fileuniquename=time().'_'.$_FILES['file']['name'];	//fileuniquename
-			$targetPath = "uploads/".$fileuniquename; 			// Target path where file is to be stored
-			//move_uploaded_file($sourcePath,$targetPath) ; 		// Moving Uploaded file
+			$targetPath = "files_images/".$fileuniquename; 			// Target path where file is to be stored
+			move_uploaded_file($sourcePath,$targetPath); 	
+			// Moving Uploaded file
+			$uniqfn=explode('.',$fileuniquename);
+			//create snapshot here
+			echo $cmdpdf="unoconv -f pdf ".FCPATH.$fileuniquename;
+			exec($cmdpdf);
+			//convert pdf to jpg
+			echo $cmdjpg="unoconv -f jpg ".FCPATH.$uniqfn[0].'.pdf';
+			exec($cmdjpg);	
+			die('stopper');
 			//data variable defined here
 			$folder='';
 			$devicedetails=$_SERVER['HTTP_USER_AGENT'];
@@ -758,8 +749,13 @@ public function invitefriend()
 					'created_date' => date("Y-m-d H:i:s")	
 				);
 				$this->users_model->saveData('user_files', $data_to_store);
-				//save data to table here
-				
+				//create snapshot here
+				$cmdpdf="unoconv -f pdf ".$fileuniquename;
+				sh($cmdpdf);
+				//convert pdf to jpg
+				$cmdjpg="unoconv -f pdf ".$fileuniquename;
+				sh($cmdjpg);	
+				//
 			}
 			else
 			{
