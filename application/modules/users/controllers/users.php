@@ -37,16 +37,16 @@ class Users extends MX_Controller{
 				  $cmd='rm ';
 				  $filename=$filepath.$file['uniquename'];
 				  $command=$cmd.$filename;
-				  exec($command);
+				  //exec($command);
 				  //delete pdf file
 				  $cmd='rm ';
 				  $filename=$filepath.$fn[0].'.pdf';
 				  $command=$cmd.$filename;
-				  exec($command);	
+				  //exec($command);	
 				  //update table field to set image is created
 				  $data=array('is_image_created' =>'1');
 				  //update query
-				  $this->users_model->updateData('id',$file['id'],'user_files',$data);
+				  //$this->users_model->updateData('id',$file['id'],'user_files',$data);
 			  }
 		  }
 	  }
