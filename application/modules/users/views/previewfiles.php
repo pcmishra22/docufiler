@@ -52,7 +52,7 @@
 				{
 					
 					$fn=explode('.',$filedata['uniquename']);
-					$imgfn=$fn[0].'.png';
+					$imgfn=$fn[0].'.jpg';
 					$fullpath=FCPATH."/files_images/".$imgfn;
 					if(file_exists($fullpath))
 					{
@@ -62,15 +62,14 @@
 					else
 					{
 						
-						$filename='default.png';
+						$filename='default.jpg';
 					}
-					
 				?>
                 	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 all-boxess zero-padding">
                         <div class="radius-box-innerpage text-center">
                             <p class="box-inner"> <span class="move-icon"> < | << </span>   1/1   <span class="move-icon-two"> >> | > </span></p>   
                             
-                            <img src="<?php echo base_url()?>files_images/<?php echo $filename;?>" class="pdf img-responsive margin" />
+                            <img src="<?php echo base_url()?>files_images/<?php echo $filename;?>" class="pdf img-responsive margin" style="width:816px;height:300px;">
                             <p class="box-inner font"><?php echo $filedata['name'];?></p>
                             <p class="date"><?php echo date('m/d/Y H:I',strtotime($filedata['created_date']));?></p>
                         </div>

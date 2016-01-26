@@ -30,7 +30,7 @@ class Users extends MX_Controller{
 				  exec($command);
 				  //convert to jpg
 				  $cmd='unoconv -f jpg ';
-				  $filename=$filepath.$file['uniquename'];
+				  $filename=$filepath.$fn[0].'.pdf';
 				  $command=$cmd.$filename;
 				  exec($command);
 				  //delete file after conversion
@@ -746,13 +746,6 @@ public function invitefriend()
 			move_uploaded_file($sourcePath,$targetPath); 	
 			// Moving Uploaded file
 			$uniqfn=explode('.',$fileuniquename);
-			//create snapshot here
-			echo $cmdpdf="unoconv -f pdf ".FCPATH.$fileuniquename;
-			exec($cmdpdf);
-			//convert pdf to jpg
-			echo $cmdjpg="unoconv -f jpg ".FCPATH.$uniqfn[0].'.pdf';
-			exec($cmdjpg);	
-			die('stopper');
 			//data variable defined here
 			$folder='';
 			$devicedetails=$_SERVER['HTTP_USER_AGENT'];
@@ -764,8 +757,8 @@ public function invitefriend()
 			$fcdt=date ("F d Y H:i:s.", filectime($_FILES['file']['name']));
 			$fldt=date ("F d Y H:i:s.", filemtime($_FILES['file']['name']));
 			
-			if($s3->putObjectFile($sourcePath, $bucket , $fileuniquename, S3::ACL_PUBLIC_READ) )
-			{
+			//if($s3->putObjectFile($sourcePath, $bucket , $fileuniquename, S3::ACL_PUBLIC_READ) )
+			//{
 				//save data to table
 				$data_to_store=array(
 					'userid' => $this->session->userdata('userid'),
@@ -782,18 +775,12 @@ public function invitefriend()
 					'created_date' => date("Y-m-d H:i:s")	
 				);
 				$this->users_model->saveData('user_files', $data_to_store);
-				//create snapshot here
-				$cmdpdf="unoconv -f pdf ".$fileuniquename;
-				sh($cmdpdf);
-				//convert pdf to jpg
-				$cmdjpg="unoconv -f pdf ".$fileuniquename;
-				sh($cmdjpg);	
-				//
-			}
-			else
-			{
-				echo 'File not uploaded on S3.';
-			}
+				
+			//}
+			//else
+			//{
+				//echo 'File not uploaded on S3.';
+			//}
 			//s3 upload code here
 		}
 	  }
