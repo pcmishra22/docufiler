@@ -317,7 +317,33 @@ ul.docufilier-navigation-bar li a:hover{text-decoration:none; background-color:#
 
 /*top header*/
 
-	
+	.showme{ 
+display: none;
+}
+.showhim:hover .showme{
+width: 260px;
+    height: 410px;
+    background-color: #000;
+    color: red;
+    display: block;
+    position: absolute;
+    top: 11px;
+    left: 10px;
+    border-radius: 19px;
+  opacity:0.8;
+}
+.showhim:hover .ok{
+display : none;
+}
+.font-size {
+    font-size: 9px;
+  
+    margin-top: 66% !important; padding-left: 10px !important; background-color:#fff !important; 
+  padding-top:10px !important; padding-bottom:10px !important;
+}
+.iconss{width: 20px;
+    height: 20px;
+    margin-right: 10px;}
 	
 	
 	
