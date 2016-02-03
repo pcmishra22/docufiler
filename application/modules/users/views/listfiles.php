@@ -37,7 +37,7 @@
         </div>
         <!--end Tandsp-->
         
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding sign-up-information">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
                 
     
 	
@@ -59,7 +59,7 @@
                 </div>
                 
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 zero-padding border-left">
-                	<h4 class="head-text font-size"> Share/Email/Print/<br />Delete/Download</h4>
+                	<h4 class="head-text font-size" style="margin-top:0 !important;"> Share/Email/Print/<br />Delete/Download</h4>
                 </div>
                 
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 zero-padding border-left">
@@ -110,7 +110,7 @@
                 </div>
                 
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 zero-padding ">
-                	<h5 class="head-text font-size"> <span class="Download"><a href="#"><img src="<?php echo base_url();?>images/frontend/1st.png" /></a></span>
+                	<h5 class="head-text font-size" style="margin-top:0 !important;"> <span class="Download"><a href="#"><img src="<?php echo base_url();?>images/frontend/1st.png" /></a></span>
                     <span class="Download"><a href="#"><img src="<?php echo base_url();?>images/frontend/2nd.png" /></a></span>
                     <span class="Download"><a href="#"><img src="<?php echo base_url();?>images/frontend/3rd.png" /></a></span>
                     <span class="Download"><a href="<?php echo base_url();?>users/deletefile/<?php echo $id;?>"><img src="<?php echo base_url();?>images/frontend/4rth.png" /></a></span>

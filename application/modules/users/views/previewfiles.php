@@ -79,8 +79,8 @@
 								<span class="Download"><a href="#"><img src="<?php echo base_url();?>images/frontend/1st.png" class="iconss"></a></span>
 								<span class="Download"><a href="#"><img src="<?php echo base_url();?>images/frontend/2nd.png" class="iconss"></a></span>
 								<span class="Download"><a href="#"><img src="<?php echo base_url();?>images/frontend/3rd.png" class="iconss"></a></span>
-								<span class="Download"><a href="#"><img src="<?php echo base_url();?>images/frontend/4rth.png" class="iconss"></a></span>
-								<span class="Download"><a href="#"><img src="<?php echo base_url();?>images/frontend/5th.png" class="iconss"></a></span></h5></a>
+								<span class="Download"><a href="<?php echo base_url();?>users/deletefilepreview/<?php echo $filedata['id'];?>"><img src="<?php echo base_url();?>images/frontend/4rth.png" class="iconss"></a></span>
+								<span class="Download"><a href="<?php echo base_url();?>users/downloadfile/<?php echo $filedata['id'];?>"><img src="<?php echo base_url();?>images/frontend/5th.png" class="iconss"></a></span></h5></a>
 							</div>
 							<div class="ok">ok</div>
 						
