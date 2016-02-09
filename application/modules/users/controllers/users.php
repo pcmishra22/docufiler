@@ -127,6 +127,7 @@ class Users extends MX_Controller{
 			
 			//check email exists	 
 				$checkEmail = $this->users_model->register_email_exists($this->input->post('email'));
+			
 			//save data to table	
 				if(!empty($checkEmail[0]))
 				{
@@ -136,7 +137,66 @@ class Users extends MX_Controller{
 				else
 				{
 					$this->session->set_flashdata('flash_message', 'success');
-					$this->users_model->saveData('users', $data_to_store);
+					//save data in user table
+					$uid=$this->users_model->saveData('users', $data_to_store);
+					//save data in menu table
+					$data1 = array(
+						'label' =>'Date',
+						'accountid' =>$uid,
+						'parent_id' => '0',
+						'filescount' => '0'
+					 );
+					$uid1=$this->users_model->saveData('dynnmic_menu', $data1);
+					//record two
+					$data2 = array(
+						'label' =>'Docufiler',
+						'accountid' =>$uid,
+						'parent_id' => '0',
+						'filescount' => '0'
+					 );					 
+					$uid2=$this->users_model->saveData('dynnmic_menu', $data2);
+					//record three
+					$data3 = array(
+						'label' =>'Miscellaneous',
+						'accountid' =>$uid,
+						'parent_id' => '0',
+						'filescount' => '0'
+					 );					 
+					$uid3=$this->users_model->saveData('dynnmic_menu', $data3);					
+					//record four
+					$data4 = array(
+						'label' =>'Today',
+						'accountid' =>$uid,
+						'parent_id' => '1',
+						'filescount' => '0'
+					 );					 
+					$uid4=$this->users_model->saveData('dynnmic_menu', $data4);					
+					
+					//record five
+					$data5 = array(
+						'label' =>'Yerterday',
+						'accountid' =>$uid,
+						'parent_id' => '1',
+						'filescount' => '0'
+					 );					 
+					$uid5=$this->users_model->saveData('dynnmic_menu', $data5);					
+					//record six
+					$data6 = array(
+						'label' =>'Last Week',
+						'accountid' =>$uid,
+						'parent_id' => '1',
+						'filescount' => '0'
+					 );					 
+					$uid6=$this->users_model->saveData('dynnmic_menu', $data6);					
+					//record seven
+					$data7 = array(
+						'label' =>'Last Month',
+						'accountid' =>$uid,
+						'parent_id' => '1',
+						'filescount' => '0'
+					 );					 
+					$uid7=$this->users_model->saveData('dynnmic_menu', $data7);						
+					//redirect to login page
 					redirect('users/login');
 				}
 		  }

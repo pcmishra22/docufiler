@@ -35,6 +35,25 @@ class Users_model extends CI_Model {
         }
 
 	}
+	//get dynamic menu
+	function dynamicSubMenu($menuid)
+	{
+		$this->db->select('*');
+		$this->db->from('dynnmic_menu');
+		$this->db->where('parent_id',$menuid);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+	//get dynamic menu
+	function dynamicMenu($userid)
+	{
+		$this->db->select('*');
+		$this->db->from('dynnmic_menu');
+		$this->db->where('accountid',$userid);
+		$this->db->where('parent_id','0');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
 	//get user file
 	function userFilesByUserId($id)
 	{

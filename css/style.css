@@ -42,7 +42,7 @@ a.hover:hover{background-color:transparent !important; }
 .dark-grey{background-color:#d9d9d9;}
 .white-text{color:#fff;}
 .bottom{    min-height: 677px !important;}
-.nav > li > a.color{color:grey !important; border:1px solid transparent !important;}
+.nav > li > a.color{color:grey !important; border:1px solid transparent !important;font-size:18px;}
 .nav > li > a:focus{background-color:#fff; border:1px solid #f6cf76 !important;}
 .top-header:focus{border:1px solid #f6cf76 !important;}
 

@@ -30,29 +30,51 @@
 	//left panel
 	function LeftPanel()
 	{
-		return '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 right-box zero-padding">
+		$CI = & get_instance();
+		$userid = $CI->session->userdata('userid');
+		$CI->load->model('users/users_model');
+		$result= $CI->users_model->dynamicMenu($userid);
+
+		if(count($result)>0)
+		{
+			$str= '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 right-box zero-padding">';
+			$str.='<ul class="nav nav-list-main">';
+			foreach($result as $menu)
+			{
+				$str.='<li class=""><label class="nav-toggle nav-header top-header"><span class="nav-toggle-icon glyphicon glyphicon-chevron-right"></span> '.$menu['label'].'</label>';
+				$str.='<ul class="nav nav-list nav-left-ml">';
+				//fetch submenu of a menu
+				$submenu= $CI->users_model->dynamicSubMenu($menu['menuid']);
+				foreach($submenu as $menudata)
+				{
+					$str.='<li><a  class="color" href="#">'.$menudata['label'].'</a></li>';	
+				}
+				//fetch submenu
+				$str.='</ul>';
+				$str.='</li>';
+			}
+			$str.='</ul>';
+			$str.='</div>';
+		}
+		else
+		{
+			$str= '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 right-box zero-padding">
         	<ul class="nav nav-list-main">
-      <li class=""><label class="nav-toggle nav-header top-header"><span class="nav-toggle-icon glyphicon glyphicon-chevron-right"></span> Folder 1</label>
+			<li class=""><label class="nav-toggle nav-header top-header"><span class="nav-toggle-icon glyphicon glyphicon-chevron-right"></span> Date</label>
             <ul class="nav nav-list nav-left-ml">
-                <li><a  class="color" href="#">Link</a></li>
-                <li><a  class="color" href="#">Link</a></li>
-                <li><label class="nav-toggle nav-header top-header"><span class="nav-toggle-icon glyphicon glyphicon-chevron-right"></span> Folder1.1</label>
-                    <ul class="nav nav-list nav-left-ml">
-                        <li><a class="color" href="#">Link</a></li>
-                        <li><a class="color" href="#">Link</a></li>
-                        <li><label class="nav-toggle nav-header top-header"><span class="nav-toggle-icon glyphicon glyphicon-chevron-right"></span> Folder 1.1.1</label>
-                            <ul class="nav nav-list nav-left-ml">
-                                <li><a class="color" href="#">Link</a></li>
-                                <li><a class="color" href="#">Link</a></li>
-                            </ul><!--nav-left-ml-->
-                        </li><!--li blank-->
-                    </ul><!--nav-left-ml-->
-                </li><!--li blank-->
+                <li><a  class="color" href="#">Today</a></li>
+                <li><a  class="color" href="#">Yesterday</a></li>
+				<li><a  class="color" href="#">Last Week</a></li>
+                <li><a  class="color" href="#">Last Month</a></li>
             </ul><!--nav-left-ml-->
-        </li><!--li class-""-->
-        
-        
-    </ul><!--nav-list-main-->
-        </div>';
+			</li><!--li class-""-->
+			<li class=""><label class="nav-toggle nav-header top-header"><span class="nav-toggle-icon glyphicon glyphicon-chevron-right"></span> Docufiler</label>
+			</li><!--li class-""-->
+			<li class=""><label class="nav-toggle nav-header top-header"><span class="nav-toggle-icon glyphicon glyphicon-chevron-right"></span> Miscellaneous</label>
+			</li><!--li class-""-->
+			</ul><!--nav-list-main-->
+			</div>';
+		}
+		return $str;
 	}
 	
