@@ -50,6 +50,27 @@ class Users extends MX_Controller{
 			  }
 		  }
 	  }
+	  //dynamic menu
+	  public function dynamicmenu()
+	  {
+	    //variable assignments.................................................
+	    $pstr='';
+        //get data from database...............................................
+        $result=$this->users_model->dynamicSubMenu($this->input->post('id'));
+        //check counter
+        if(count($result)>0)
+	  	{
+            $pstr='<ul class="nav nav-list nav-left-ml nested">';
+            foreach($result as $resultdata)
+            {
+                $submenuid= $this->users_model->dynamicSubMenu($resultdata['menuid']);
+                $pstr.='<li><a onclick="submenu('.$resultdata['menuid'].');" class="color" href="javascript:void(0);">'.$resultdata['label'].'('.count($submenuid).')</a><span id="'.$resultdata['menuid'].'"></span></li>';
+            }
+            $pstr.='</ul>';
+	  	}
+        //echo string........................................................
+        echo $pstr;
+	  }
 	  //select subscription
 	  public function subscription()
 	  {

@@ -54,6 +54,14 @@ class Users_model extends CI_Model {
 		$query = $this->db->get();
 		return $query->result_array();
 	}
+	//get menu details
+	function dynamicMenuSQL()
+	{
+			$sql = "SELECT * FROM dynnmic_menu where parent_id=0";
+			$query = $this->db->query($sql);
+			$result = $query->result_array();
+			return @$result;	
+	}
 	//get user file
 	function userFilesByUserId($id)
 	{

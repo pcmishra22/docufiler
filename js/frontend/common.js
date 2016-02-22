@@ -1,4 +1,5 @@
 //Common javascript function
+
 $('#dragandrophandler').click(function(e) {
     $(this).find('input[type="file"]').click();
 });
@@ -6,7 +7,21 @@ $('#dragandrophandler').click(function(e) {
 $('#dragandrophandler input').click(function(e) {
     e.stopPropagation();
 });
+//function to create submenu
+function submenu(val)
+{
+    $.ajax
+      ({
+        url: baseUrl+"users/dynamicmenu",
+        type: "POST",
+        data: "id="+val,
+        success: function(data)
+        {
+          $('#'+val).html(data);
+        }
+    });
 
+}
 function sendFileToServer(formData,status)
 {
     var uploadURL =baseUrl+"users/upload"; //Upload URL

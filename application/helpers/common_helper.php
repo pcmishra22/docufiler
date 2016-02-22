@@ -27,12 +27,101 @@
                 <li><a href="#">Automobile</a></li>
              </ul> ';
 	}
-	//left panel
-	function LeftPanel()
+	//built tree
+	function buildtree($src_arr, $parent_id = 0, $tree = array())
+	{
+		foreach($src_arr as $idx => $row)
+		{
+			if($row['parent_id'] == $parent_id)
+			{
+				foreach($row as $k => $v)
+					$tree[$row['menuid']][$k] = $v;
+				unset($src_arr[$idx]);
+				$tree[$row['menuid']]['children'] = buildtree($src_arr, $row['menuid']);
+			}
+		}
+		ksort($tree);
+		return $tree;
+	}	
+    //to get recursive data of a node
+	function fetch_recursive($src_arr, $currentid, $parentfound = false, $cats = array())
+	{
+		foreach($src_arr as $row)
+		{
+			if((!$parentfound && $row['menuid'] == $currentid) || $row['parent_id'] == $currentid)
+			{
+				$rowdata = array();
+				foreach($row as $k => $v)
+					$rowdata[$k] = $v;
+				$cats[] = $rowdata;
+				if($row['parent_id'] == $currentid)
+					$cats = array_merge($cats, fetch_recursive($src_arr, $row['menuid'], true));
+			}
+		}
+		return $cats;
+	}
+	//print list of an array
+	function printList($array = null) {
+        if (count($array)) {
+            echo "<ul>";
+
+            foreach ($array as $item) {
+                echo "<li>";
+                echo $item['label'];
+                if (count($item['children'])) {
+                    echo '&nbsp;&nbsp;'.count($item['children']);
+					printList($item['children']);
+                }
+                echo "</li>";
+            }
+
+            echo "</ul>";
+        }
+    }
+	//get all the children
+	function getChildren($parent)
 	{
 		$CI = & get_instance();
 		$userid = $CI->session->userdata('userid');
 		$CI->load->model('users/users_model');
+		$result= $CI->users_model->dynamicMenuSQL($parent);
+
+		$children = array();
+		for($i=0;$i<count($result);$i++)
+			{
+			$children[$i] = array();
+			$children[$i]['label'] = $result[$i]['label'];
+			$children[$i]['children'] = getChildren($result[$i]['menuid']);
+			$i++;
+			}
+			return $children;
+	}
+	//left panel
+	function LeftPanel()
+	{
+		/*
+		$CI = & get_instance();
+		$userid = $CI->session->userdata('userid');
+		$CI->load->model('users/users_model');
+		$result= $CI->users_model->dynamicMenuSQL();
+		
+		$getdata=buildtree($result);
+		$printdata=printList($getdata);
+		
+		
+		$getdata=fetch_recursive($result,6);
+		echo '<pre>';
+		print_r($getdata);
+		print_r($printdata);
+		echo '</pre>';
+		die('stopper.........');
+		*/
+		
+		$CI = & get_instance();
+		$userid = $CI->session->userdata('userid');
+		$CI->load->model('users/users_model');
+		//$userid=23;
+        $userid = $CI->session->userdata('userid');
 		$result= $CI->users_model->dynamicMenu($userid);
 
 		if(count($result)>0)
@@ -41,13 +130,15 @@
 			$str.='<ul class="nav nav-list-main">';
 			foreach($result as $menu)
 			{
-				$str.='<li class=""><label class="nav-toggle nav-header top-header"><span class="nav-toggle-icon glyphicon glyphicon-chevron-right"></span> '.$menu['label'].'</label>';
+                $submenu= $CI->users_model->dynamicSubMenu($menu['menuid']);
+                $str.='<li class="	"><label class="nav-toggle nav-header top-header"><span class="nav-toggle-icon glyphicon glyphicon-chevron-right"></span> '.$menu['label'].'('.count($submenu).')</label>';
 				$str.='<ul class="nav nav-list nav-left-ml">';
 				//fetch submenu of a menu
-				$submenu= $CI->users_model->dynamicSubMenu($menu['menuid']);
+
 				foreach($submenu as $menudata)
 				{
-					$str.='<li><a  class="color" href="#">'.$menudata['label'].'</a></li>';	
+                    $submenuid= $CI->users_model->dynamicSubMenu($menudata['menuid']);
+					$str.='<li><a onclick="submenu('.$menudata['menuid'].');" class="color" href="javascript:void(0);">'.$menudata['label'].'('.count($submenuid).')</a><span id="'.$menudata['menuid'].'"></span></li>';
 				}
 				//fetch submenu
 				$str.='</ul>';
