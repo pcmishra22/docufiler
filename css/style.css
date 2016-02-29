@@ -76,13 +76,14 @@ a.hover:hover{background-color:transparent !important; }
 .nav-list-main{padding-left:0px;padding-right:0px;margin-bottom:0;}
 span.nav-toggle-icon{font-size: 11px !important;
     top: -1px !important; border: 1px solid #afafaf;}
-/*	
+	
 .glyphicon-chevron-right:before {
     content: "\2b";
 }	
 .glyphicon-chevron-down:before {
 content: "\2212";}
 
+/*
 *.nav-list-main li>label.nav-toggle::before {
   position: absolute;
   top: 6px;
