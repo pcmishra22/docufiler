@@ -50,6 +50,22 @@ class Users extends MX_Controller{
 			  }
 		  }
 	  }
+	  //save menu 
+	  public function savedynamicmenu()
+	  {
+		$fileid=$this->input->post('fileid'); 
+		$folderid=$this->input->post('folderid'); 
+		//data to store
+		$data = array(
+                    'menuid' => $folderid,
+                    'fileid' => $fileid,
+					'accountid' => $this->session->userdata('userid')
+        ); 	
+		//save 
+		$this->users_model->saveData('files_category_meu', $data);
+		//message
+		echo 'File save in this category.';
+	  }
 	  //dynamic menu
 	  public function dynamicmenu()
 	  {
@@ -64,7 +80,7 @@ class Users extends MX_Controller{
             foreach($result as $resultdata)
             {
                 $submenuid= $this->users_model->dynamicSubMenu($resultdata['menuid']);
-                $pstr.='<li><a onclick="submenu('.$resultdata['menuid'].');" class="color" href="javascript:void(0);">'.$resultdata['label'].'('.count($submenuid).')</a><span id="'.$resultdata['menuid'].'"></span></li>';
+                $pstr.='<li id="'.$resultdata['menuid'].'" ondrop="drop(event,this.id)" ondragover="allowDrop(event)"><a onclick="submenu('.$resultdata['menuid'].');" class="color" href="javascript:void(0);">'.$resultdata['label'].'('.count($submenuid).')</a><span id="'.$resultdata['menuid'].'"></span></li>';
             }
             $pstr.='</ul>';
 	  	}

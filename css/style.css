@@ -19,7 +19,9 @@ header{background-color:#f5d079;}
 a.hover:hover{background-color:transparent !important; }
 
 
-
+.error{
+	color:red;
+}
 
 .grey{background-color:#f2f2f2; min-height: 640px !important;
 }
@@ -34,11 +36,13 @@ a.hover:hover{background-color:transparent !important; }
     position: relative;
     bottom: 4px;
     right: 13px;}
+
+#ddmenubg2{
+    overflow:scroll;
+	overflow-y:hidden;
+	height:640px;
 	
-	
-	
-	
-	
+}
 .dark-grey{background-color:#d9d9d9;}
 .white-text{color:#fff;}
 .bottom{    min-height: 677px !important;}
@@ -71,9 +75,15 @@ a.hover:hover{background-color:transparent !important; }
     padding: 0;}
 .nav-list-main{padding-left:0px;padding-right:0px;margin-bottom:0;}
 span.nav-toggle-icon{font-size: 11px !important;
-    top: -1px !important;}
+    top: -1px !important; border: 1px solid #afafaf;}
+/*	
+.glyphicon-chevron-right:before {
+    content: "\2b";
+}	
+.glyphicon-chevron-down:before {
+content: "\2212";}
 
-/**.nav-list-main li>label.nav-toggle::before {
+*.nav-list-main li>label.nav-toggle::before {
   position: absolute;
   top: 6px;
   right: 10px;

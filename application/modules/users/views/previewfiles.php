@@ -65,7 +65,7 @@
 						$filename='default.jpg';
 					}
 				?>
-                	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 all-boxess zero-padding">
+                	<div id="<?php echo $filedata['id'];?>" class="col-lg-3 col-md-3 col-sm-6 col-xs-6 all-boxess zero-padding" draggable="true" ondragstart="drag(event)">
                         <div class="radius-box-innerpage text-center showhim">
                             <p class="box-inner"> <span class="move-icon"> < | << </span>   1/1   <span class="move-icon-two"> >> | > </span></p>   
                             

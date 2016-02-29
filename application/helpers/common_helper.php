@@ -126,19 +126,19 @@
 
 		if(count($result)>0)
 		{
-			$str= '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 right-box zero-padding">';
+			$str= '<span id="msg" class="error"></span><div id="ddmenubg2" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 right-box zero-padding">';
 			$str.='<ul class="nav nav-list-main">';
 			foreach($result as $menu)
 			{
                 $submenu= $CI->users_model->dynamicSubMenu($menu['menuid']);
-                $str.='<li class="	"><label class="nav-toggle nav-header top-header"><span class="nav-toggle-icon glyphicon glyphicon-chevron-right"></span> '.$menu['label'].'('.count($submenu).')</label>';
+                $str.='<li><label class="nav-toggle nav-header top-header"><span class="nav-toggle-icon glyphicon glyphicon-chevron-right"></span> '.$menu['label'].'('.count($submenu).')</label>';
 				$str.='<ul class="nav nav-list nav-left-ml">';
 				//fetch submenu of a menu
 
 				foreach($submenu as $menudata)
 				{
                     $submenuid= $CI->users_model->dynamicSubMenu($menudata['menuid']);
-					$str.='<li><a onclick="submenu('.$menudata['menuid'].');" class="color" href="javascript:void(0);">'.$menudata['label'].'('.count($submenuid).')</a><span id="'.$menudata['menuid'].'"></span></li>';
+					$str.='<li id='.$menudata['menuid'].' ondrop="drop(event,this.id)" ondragover="allowDrop(event)"><a onclick="submenu('.$menudata['menuid'].');" class="color" href="javascript:void(0);">'.$menudata['label'].'('.count($submenuid).')</a><span id="'.$menudata['menuid'].'"></span></li>';
 				}
 				//fetch submenu
 				$str.='</ul>';

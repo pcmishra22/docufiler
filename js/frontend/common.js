@@ -1,5 +1,18 @@
 //Common javascript function
-
+//alert('here now................');
+$(function(){
+    $(window).scroll(function() {
+		//alert(document.getElementById("ddmenubg2").offsetWidth)
+        if ($(this).scrollLeft() > 75) {
+            $("#ddmenubg2:hidden").css('visibility','visible');
+            //$("#ddmenubg2:hidden").fadeIn('slow');
+        }
+        else {
+            //$("#ddmenubg2:visible").fadeOut("slow");
+        }
+    });
+});
+//
 $('#dragandrophandler').click(function(e) {
     $(this).find('input[type="file"]').click();
 });
@@ -22,6 +35,38 @@ function submenu(val)
     });
 
 }
+//allow drop
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+//allow drag
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+//allow ajax call
+function ajaxcall(fileid,folderid)
+{
+	//alert(fileid);
+	//alert(folderid);
+	
+    $.ajax
+      ({
+        url: baseUrl+"users/savedynamicmenu",
+        type: "POST",
+        data: "fileid="+fileid+"&folderid="+folderid,
+        success: function(val)
+        {
+			$('#msg').html(val);
+        }
+    });
+}
+//allow drop
+function drop(ev,id) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ajaxcall(data,id);
+}
+//send file to server
 function sendFileToServer(formData,status)
 {
     var uploadURL =baseUrl+"users/upload"; //Upload URL
