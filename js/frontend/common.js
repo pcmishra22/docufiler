@@ -30,7 +30,19 @@ function submenu(val)
         data: "id="+val,
         success: function(data)
         {
-          $('#'+val).html(data);
+          $('#c'+val).html(data);
+		  		
+				//reload jquery for navigation
+				$( '.tree li' ).each( function() {
+						if( $( this ).children( 'ul' ).length > 0 ) {
+								$( this ).addClass( 'parent' );     
+						}
+				});
+				//reload click event after ajax				
+				$( '.tree li.parent > a' ).click( function( ) {
+						$( this ).parent().toggleClass( 'active' );
+						$( this ).parent().children( 'ul' ).slideToggle( 'fast' );
+				});
         }
     });
 
@@ -46,10 +58,7 @@ function drag(ev) {
 //allow ajax call
 function ajaxcall(fileid,folderid)
 {
-	//alert(fileid);
-	//alert(folderid);
-	
-    $.ajax
+	$.ajax
       ({
         url: baseUrl+"users/savedynamicmenu",
         type: "POST",
@@ -59,6 +68,7 @@ function ajaxcall(fileid,folderid)
 			$('#msg').html(val);
         }
     });
+	
 }
 //allow drop
 function drop(ev,id) {

@@ -37,11 +37,10 @@ a.hover:hover{background-color:transparent !important; }
     bottom: 4px;
     right: 13px;}
 
-#ddmenubg2{
-    overflow:scroll;
-	overflow-y:hidden;
-	height:640px;
-	
+.scroller{
+	min-height:650px;
+	overflow-y:scroll;
+	overflow-x:scroll;
 }
 .dark-grey{background-color:#d9d9d9;}
 .white-text{color:#fff;}

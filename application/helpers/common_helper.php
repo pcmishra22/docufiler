@@ -96,8 +96,171 @@
 			}
 			return $children;
 	}
-	//left panel
 	function LeftPanel()
+	{
+		$CI = & get_instance();
+		$userid = $CI->session->userdata('userid');
+		$CI->load->model('users/users_model');
+		//$userid=23;
+        $userid = $CI->session->userdata('userid');
+		$result= $CI->users_model->dynamicMenu($userid);
+		//string to render
+		$str='<span id="msg" class="error"></span>';
+		$str.='<div id="wrapper" class="scroller">
+		<div class="tree">
+		<ul>';
+		if(count($result)>0)
+		{
+			foreach($result as $menu)
+			{
+						$submenu= $CI->users_model->dynamicSubMenu($menu['menuid']);
+						$str.='<li>';
+						$str.='<a id="'.$menu['menuid'].'" href="javascript:void(0);" ondrop="drop(event,this.id)" ondragover="allowDrop(event)">'.$menu['label'].'('.count($submenu).')</a>';	
+			
+			
+						if(count($submenu)>0)
+						{
+							$str.='<ul>';	
+							foreach($submenu as $menudata)
+							{
+								$submenuid= $CI->users_model->dynamicSubMenu($menudata['menuid']);	
+								$str.='<li>';
+								$str.='<a id="'.$menudata['menuid'].'" href="javascript:void(0);" ondrop="drop(event,this.id)" ondragover="allowDrop(event)" onclick="submenu('.$menudata['menuid'].');">'.$menudata['label'].'('.count($submenuid).')</a>';
+								if(count($submenuid)>0)
+								{
+									$str.='<ul id="c'.$menudata['menuid'].'"></ul>';
+								}
+								else
+								{
+									$str.='</li>';	
+								}
+							}
+							$str.='</ul>';							
+						}
+						else
+						{
+							$str.='</li>';	
+						}	
+			
+			
+			}
+		}	
+		
+		$str.='</ul>
+		</div>
+		</div>';
+		return $str;
+	}
+	function LeftPanel2()
+	{
+		$CI = & get_instance();
+		$userid = $CI->session->userdata('userid');
+		$CI->load->model('users/users_model');
+		//$userid=23;
+        $userid = $CI->session->userdata('userid');
+		$result= $CI->users_model->dynamicMenu($userid);
+		
+		
+		$str='<div class="wrapper">
+			  <div class="tree>
+				<ul>';
+				if(count($result)>0)
+				{
+					foreach($result as $menu)
+					{
+						$submenu= $CI->users_model->dynamicSubMenu($menu['menuid']);
+						$str.='<li>';
+						$str.='<a href="#">'.$menu['label'].'('.count($submenu).')</a>';
+						if(count($submenu)>0)
+						{
+							$str.='<ul>';	
+							foreach($submenu as $menudata)
+							{
+								$submenuid= $CI->users_model->dynamicSubMenu($menudata['menuid']);	
+								$str.='<li id="'.$menudata['menuid'].'">';
+								$str.='<a href="javascript:void(0);" onclick="submenu('.$menudata['menuid'].');">'.$menudata['label'].'('.count($submenuid).')</a>';
+								if(count($submenuid)>0)
+								{
+									$str.='<ul></ul>';
+								}
+								else
+								{
+									$str.='</li>';	
+								}
+							}
+							$str.='</ul>';							
+						}
+						else
+						{
+							$str.='</li>';	
+						}	
+						
+					}
+				}
+		$str.='</ul></div></div>';
+		return $str;
+	}
+	function LeftPanel1()
+	{
+		$CI = & get_instance();
+		$userid = $CI->session->userdata('userid');
+		$CI->load->model('users/users_model');
+		//$userid=23;
+        $userid = $CI->session->userdata('userid');
+		$result= $CI->users_model->dynamicMenu($userid);
+		if(count($result)>0)
+		{
+			$str= '<span id="msg" class="error"></span>
+			<div id="ddmenubg2" class="easy-tree">';
+			$str.='<ul>';
+			foreach($result as $menu)
+			{
+                $submenu= $CI->users_model->dynamicSubMenu($menu['menuid']);
+                $str.='<li>'.$menu['label'].'('.count($submenu).')';
+				$str.='<ul>';
+				//fetch submenu of a menu
+
+				foreach($submenu as $menudata)
+				{
+                    $submenuid= $CI->users_model->dynamicSubMenu($menudata['menuid']);
+					$str.='<li id='.$menudata['menuid'].' onclick="submenu('.$menudata['menuid'].');" ondrop="drop(event,this.id)" ondragover="allowDrop(event)">';
+					$str.='<ul id="c'.$menudata['menuid'].'"></ul>';
+					$str.=$menudata['label'].'&nbsp;('.count($submenuid).')</li>';
+				}
+				//fetch submenu
+				$str.='</ul>';
+				$str.='</li>';
+			}
+			$str.='</ul>';
+			$str.='</div>';
+		}
+		//echo $str;
+		
+		/*
+		$str= 	'
+					<div class="easy-tree">
+						<ul>
+							<li>Example 3
+								<ul>
+									<li>Example 1</li>
+									<li>Example 2
+										<ul>
+											<li>Example 1</li>
+											<li>Example 2</li>
+											<li>Example 3</li>
+											<li>Example 4</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				';
+				*/
+		return $str;
+	}
+	//left panel
+	function LeftPanel11()
 	{
 		/*
 		$CI = & get_instance();
@@ -126,19 +289,25 @@
 
 		if(count($result)>0)
 		{
-			$str= '<span id="msg" class="error"></span><div id="ddmenubg2" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 right-box zero-padding">';
+			$str= '<span id="msg" class="error"></span>
+			<div id="ddmenubg2" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 right-box zero-padding">';
 			$str.='<ul class="nav nav-list-main">';
 			foreach($result as $menu)
 			{
                 $submenu= $CI->users_model->dynamicSubMenu($menu['menuid']);
-                $str.='<li><label class="nav-toggle nav-header top-header"><span class="nav-toggle-icon glyphicon glyphicon-chevron-right"></span> '.$menu['label'].'('.count($submenu).')</label>';
+                $str.='<li>
+				<label class="nav-toggle nav-header top-header">
+				<span class="nav-toggle-icon glyphicon glyphicon-chevron-right">
+				</span> '.$menu['label'].'('.count($submenu).')</label>';
 				$str.='<ul class="nav nav-list nav-left-ml">';
 				//fetch submenu of a menu
 
 				foreach($submenu as $menudata)
 				{
                     $submenuid= $CI->users_model->dynamicSubMenu($menudata['menuid']);
-					$str.='<li id='.$menudata['menuid'].' ondrop="drop(event,this.id)" ondragover="allowDrop(event)"><a onclick="submenu('.$menudata['menuid'].');" class="color" href="javascript:void(0);">'.$menudata['label'].'('.count($submenuid).')</a><span id="'.$menudata['menuid'].'"></span></li>';
+
+					$str.='<li id='.$menudata['menuid'].' ondrop="drop(event,this.id)" ondragover="allowDrop(event)"><a onclick="submenu('.$menudata['menuid'].');" class="color" href="javascript:void(0);">'.$menudata['label'].'('.count($submenuid).')</a><span id="c'.$menudata['menuid'].'"></span></li>';
+
 				}
 				//fetch submenu
 				$str.='</ul>';

@@ -292,11 +292,61 @@
  <script src="<?php echo base_url();?>js/frontend/bootstrap.min.js"></script>
  <script src="<?php echo base_url();?>js/frontend/common.js"></script>
     
-    <script>
+	
+<link rel="stylesheet" href="<?php echo base_url(); ?>css/tv/css/style.css">
+
+<script type="text/javascript">
+
+		$( document ).ready( function( ) {
+				$( '.tree li' ).each( function() {
+						if( $( this ).children( 'ul' ).length > 0 ) {
+								$( this ).addClass( 'parent' );     
+						}
+				});
+				
+				$( '.tree li.parent > a' ).click( function( ) {
+						$( this ).parent().toggleClass( 'active' );
+						$( this ).parent().children( 'ul' ).slideToggle( 'fast' );
+				});
+				
+		});
+    function test()
+{
+alert("test");
+}    
+	</script>
+<script>
+
+/*            $(document).ready(function() {
+                $('.demo').ntm();
+            });
+
+    (function ($) {
+        function init() {
+            $('.easy-tree').EasyTree({
+                addable: true,
+                editable: true,
+                deletable: true
+            });
+        }
+        window.onload = init();
+    })(jQuery)
+	*/
+</script>
+<script>
+function test()
+{
+	alert('test is calling');
+}
+        </script>	
+<script>
+/*
 $('ul.nav-left-ml').toggle();
+$('ul.nav-left-ml nested').toggle();
 $('label.nav-toggle span').click(function () {
   $(this).parent().parent().children('ul.nav-left-ml').toggle(300);
   var cs = $(this).attr("class");
+
   if(cs == 'nav-toggle-icon glyphicon glyphicon-chevron-right') {
     $(this).removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-down');
   }
@@ -304,6 +354,7 @@ $('label.nav-toggle span').click(function () {
     $(this).removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-right');
   }
 });
+*/
 </script>
 </body>
 </html>

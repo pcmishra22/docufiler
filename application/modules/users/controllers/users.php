@@ -70,22 +70,25 @@ class Users extends MX_Controller{
 	  public function dynamicmenu()
 	  {
 	    //variable assignments.................................................
-	    $pstr='';
+	    $str='';
         //get data from database...............................................
-        $result=$this->users_model->dynamicSubMenu($this->input->post('id'));
-        //check counter
-        if(count($result)>0)
-	  	{
-            $pstr='<ul class="nav nav-list nav-left-ml nested">';
-            foreach($result as $resultdata)
-            {
-                $submenuid= $this->users_model->dynamicSubMenu($resultdata['menuid']);
-                $pstr.='<li id="'.$resultdata['menuid'].'" ondrop="drop(event,this.id)" ondragover="allowDrop(event)"><a onclick="submenu('.$resultdata['menuid'].');" class="color" href="javascript:void(0);">'.$resultdata['label'].'('.count($submenuid).')</a><span id="'.$resultdata['menuid'].'"></span></li>';
-            }
-            $pstr.='</ul>';
-	  	}
-        //echo string........................................................
-        echo $pstr;
+		$submenu= $this->users_model->dynamicSubMenu($this->input->post('id'));
+		if(count($submenu)>0)
+		{
+			foreach($submenu as $menudata)
+			{
+				$submenuid= $this->users_model->dynamicSubMenu($menudata['menuid']);
+				$str.='<li>';
+				$str.='<a style="border:1px;" id="'.$menudata['menuid'].'" href="javascript:void(0);" ondrop="drop(event,this.id)" ondragover="allowDrop(event)" onclick="submenu('.$menudata['menuid'].');">'.$menudata['label'].'('.count($submenuid).')</a>';
+								
+				if(count($submenuid)>0)
+				{
+					$str.='<ul id="c'.$menudata['menuid'].'"></ul>';
+				}
+				$str.='</li>';
+			}		
+		}
+        echo $str;
 	  }
 	  //select subscription
 	  public function subscription()
@@ -1178,6 +1181,7 @@ public function invitefriend()
 	  //dashboard method calling
 	  public function dashboard()
 	  {
+		  
 			//check for user login
 			//$this->loginCheck();
 			//check for user login end here
