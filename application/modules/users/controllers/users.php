@@ -824,7 +824,7 @@ public function invitefriend()
 	  }
 	  //file upload ajax call
 	  public function upload()
-	  {
+	  {		
 		if(!empty($_FILES))
 		{
 			// Bucket Name
@@ -832,18 +832,21 @@ public function invitefriend()
 			
 			//get accesskey from database
 			$appdetails=$this->users_model->getSettings();
+		
 			//AWS access info
 			if (!defined('awsAccessKey')) define('awsAccessKey', $appdetails[0]['awsAccessKey']);
 			if (!defined('awsSecretKey')) define('awsSecretKey', $appdetails[0]['awsSecretKey']);
 			
 			//instantiate the class
+			
+
 			$s3 = new S3(awsAccessKey, awsSecretKey);
 
 			//$s3->putBucket($bucket, S3::ACL_PUBLIC_READ);
 			$sourcePath = $_FILES['file']['tmp_name']; 			// Storing source path of the file in a variable
 			$fileuniquename=time().'_'.$_FILES['file']['name'];	//fileuniquename
 			$targetPath = "files_images/".$fileuniquename; 			// Target path where file is to be stored
-			move_uploaded_file($sourcePath,$targetPath); 	
+			copy($sourcePath,$targetPath); 	
 			// Moving Uploaded file
 			$uniqfn=explode('.',$fileuniquename);
 			//data variable defined here
@@ -857,8 +860,8 @@ public function invitefriend()
 			$fcdt=date ("F d Y H:i:s.", filectime($_FILES['file']['name']));
 			$fldt=date ("F d Y H:i:s.", filemtime($_FILES['file']['name']));
 			
-			//if($s3->putObjectFile($sourcePath, $bucket , $fileuniquename, S3::ACL_PUBLIC_READ) )
-			//{
+			if($s3->putObjectFile($sourcePath, $bucket , $fileuniquename, S3::ACL_PUBLIC_READ) )
+			{
 				//save data to table
 				$data_to_store=array(
 					'userid' => $this->session->userdata('userid'),
@@ -874,13 +877,14 @@ public function invitefriend()
 					'size' => $_FILES["file"]["size"],
 					'created_date' => date("Y-m-d H:i:s")	
 				);
+				//save data to server.
 				$this->users_model->saveData('user_files', $data_to_store);
 				
-			//}
-			//else
-			//{
-				//echo 'File not uploaded on S3.';
-			//}
+			}
+			else
+			{
+				echo 'File not uploaded on S3.';
+			}
 			//s3 upload code here
 		}
 	  }
