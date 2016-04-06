@@ -44,6 +44,16 @@ class Users_model extends CI_Model {
 		$query = $this->db->get();
 		return $query->result_array();
 	}
+	//get payment details by user id
+	function paymentDetailsById($userid)
+	{
+		$this->db->select('*');
+		$this->db->from('billing');
+		$this->db->where('userid',$userid);
+		$this->db->where('status','Success');
+		$query = $this->db->get();
+		return $query->result_array();	
+	}
 	//get dynamic menu
 	function dynamicMenu($userid)
 	{
@@ -61,6 +71,15 @@ class Users_model extends CI_Model {
 			$query = $this->db->query($sql);
 			$result = $query->result_array();
 			return @$result;	
+	}
+	//all user files by user id
+	function allUserFilesByUserId($userid)
+	{
+		$this->db->select('*');
+		$this->db->from('user_files');
+		$this->db->where('userid',$userid);
+		$query = $this->db->get();
+		return $query->result_array();
 	}
 	//get user file
 	function userFilesByUserId($id)

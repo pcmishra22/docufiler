@@ -83,7 +83,18 @@ $template['static_front']['regions'] = array(
 $template['static_front']['parser'] = 'parser';
 $template['static_front']['parser_method'] = 'parse';
 $template['static_front']['parse_template'] = FALSE;
-
+//front1 template design changes
+$template['front1']['template'] = 'front1_template.php';
+$template['front1']['regions'] = array(
+   'header',
+  'title',
+  'content',
+  'sidebar',
+  'footer',
+);
+$template['front1']['parser'] = 'parser';
+$template['front1']['parser_method'] = 'parse';
+$template['front1']['parse_template'] = FALSE;
 //front template design changes
 $template['front']['template'] = 'front_template.php';
 $template['front']['regions'] = array(

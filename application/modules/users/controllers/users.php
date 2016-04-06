@@ -90,12 +90,19 @@ class Users extends MX_Controller{
 		}
         echo $str;
 	  }
-	  //select subscription
+	  //select subscription 
 	  public function subscription()
 	  {
 		$data=array();
 		$data['subscriptiondetails']=$this->users_model->subscriptionDetails();
 		$this->load->view('subscription',$data);
+	  }
+	  //select subscription 
+	  public function filesubscription()
+	  {
+		$data=array();
+		$data['subscriptiondetails']=$this->users_model->subscriptionDetails();
+		$this->load->view('filesubscription',$data);
 	  }
 	  //promo details
 	  public function promodiscount()
@@ -127,12 +134,18 @@ class Users extends MX_Controller{
 		
 		if($this->session->userdata('userid')>0)
 		{
+			//set plan name
 			$this->session->set_userdata('planname',$planname);
-			redirect('users/billingorder');
-		}
-		
-		
-				
+			//check for referal
+			if(strpos(@$_SERVER['HTTP_REFERER'],'filesubscription'))
+			{
+				redirect('users/filebillingorder');
+			}
+			else
+			{
+				redirect('users/billingorder');
+			}				
+		}		
 		if(isset($_REQUEST['submit']))
 		{
 				$data_to_store_account = array(
@@ -729,7 +742,16 @@ public function invitefriend()
 				}
 		
 		//template
-		$this->template->set_template('front');
+		
+		
+		if(strpos(@$_SERVER['HTTP_REFERER'],'filebillingorder'))
+		{
+			$this->template->set_template('front1');
+		}
+		else
+		{
+			$this->template->set_template('front');
+		}
 		$this->template->write('title', 'Welcome to the Docufiler Billing !');
 		$this->template->write_view('content','payment',$data);
 		$this->template->render();	
@@ -748,6 +770,21 @@ public function invitefriend()
 			$this->template->set_template('front');
 			$this->template->write('title', 'Welcome to the Docufiler Billing !');
 			$this->template->write_view('content','billingorder',$data);
+			$this->template->render();  
+	  }
+	  //billing order
+	  public function filebillingorder()
+	  {
+		  $name=$this->session->userdata('planname');
+		  if($name=='')
+			  redirect("users/subscription");
+
+			$data=array();
+			$data['subscriptiondetails']=$this->users_model->subscriptionDetails();	
+			$data['cardinfo']=$this->users_model->userCardList($this->session->userdata('userid'));				
+			$this->template->set_template('front1');
+			$this->template->write('title', 'Welcome to the Docufiler Billing !');
+			$this->template->write_view('content','filebillingorder',$data);
 			$this->template->render();  
 	  }
 	  //billing address data
@@ -1028,11 +1065,42 @@ public function invitefriend()
 			$this->loginCheck();
 			//get user details by id
 		  	$data['userdetails']=$this->users_model->userDetailsById($this->session->userdata('userid'));
-		  	//set data in session
-			$this->template->set_template('front');
-			$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
-			$this->template->write_view('content','uploadfiles',$data);
-			$this->template->render();
+		  	//get total files from session
+			$totalfiles=count($this->users_model->allUserFilesByUserId($this->session->userdata('userid')));
+			//check for payment details
+			$payment=$this->users_model->paymentDetailsById($this->session->userdata('userid'));
+			
+			if($totalfiles>50)
+			{
+				
+					if(count($payment)>0)
+					{
+						//paid user
+						//set template
+						$this->template->set_template('front');
+						$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+						$this->template->write_view('content','uploadfiles',$data);
+						$this->template->render();
+					}
+					else
+					{
+						//free user
+						//set template
+						$this->template->set_template('front');
+						$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+						$this->template->write_view('content','warninguploadfiles',$data);
+						$this->template->render();	
+					}
+			}
+			else
+			{
+				//set template
+				$this->template->set_template('front');
+				$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+				$this->template->write_view('content','uploadfiles',$data);
+				$this->template->render();	
+			}	
+
 	  }
 	   //cardinfo information
 	  public function cardinfo($id='')
