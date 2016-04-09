@@ -651,6 +651,8 @@ public function invitefriend()
 
 		// Loop through $request_params array to generate the NVP string.
 		
+	
+		
 		$nvp_string = '';
 		foreach($request_params as $var=>$val)
 		{
@@ -667,6 +669,7 @@ public function invitefriend()
 				curl_setopt($curl, CURLOPT_POSTFIELDS, $nvp_string);
 
 		$result = curl_exec($curl);
+
 		//echo $result.'<br /><br />';
 		curl_close($curl);
 		// Parse the API response
@@ -997,17 +1000,41 @@ public function invitefriend()
 	  //download file
 	  public function downloadfile($id)
 	  {
+			// Bucket Name
+			$bucket="docufiler";
+			//get accesskey from database
+			$appdetails=$this->users_model->getSettings();
+			//AWS access info
+			if (!defined('awsAccessKey')) define('awsAccessKey', $appdetails[0]['awsAccessKey']);
+			if (!defined('awsSecretKey')) define('awsSecretKey', $appdetails[0]['awsSecretKey']);
+							
+			//instantiate the class
+			$s3 = new S3(awsAccessKey, awsSecretKey);
 			$filedetails=$this->users_model->getFile($id);	 
 			$file=$filedetails[0]['location'];
-			header('Content-Description: File Transfer');
-			header('Content-Type: application/octet-stream');
-			header('Content-Disposition: attachment; filename="'.$file.'"');
-			header('Expires: 0');
-			header('Cache-Control: must-revalidate');
-			header('Pragma: public');
-			header('Content-Length: ' . filesize($file));
-			readfile($file);
-			exit;
+			$filesize=$filedetails[0]['size'];
+			$filename=$filedetails[0]['uniquename'];	
+			$objInfo = $s3->getObjectInfo($bucket, $filename);
+			
+			if($objInfo['type']=='image/jpeg')
+				$mime='image/jpg';
+			else
+				$mime='application/octet-stream';
+			
+			//$obj = $s3->getObject($bucket, $filename);
+
+			 header( 'Expires: Mon, 1 Apr 1974 05:00:00 GMT' );
+			 header( 'Pragma: public' );
+			 header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
+			 header('Content-Description: File Transfer');
+			 header('Content-Type: application/octet-stream');
+			 header( 'Content-Length: '.$objInfo['size'] );
+			 header( 'Content-Disposition: attachment; filename="'.basename($file).'"' );
+			 header( 'Content-Transfer-Encoding: binary' );
+			 
+			 readfile( $file );  
+			 exit();
+			
 	  }
 	  //preview files
 	  public function previewfiles()
@@ -1069,7 +1096,7 @@ public function invitefriend()
 			$totalfiles=count($this->users_model->allUserFilesByUserId($this->session->userdata('userid')));
 			//check for payment details
 			$payment=$this->users_model->paymentDetailsById($this->session->userdata('userid'));
-			
+			//$totalfiles=55;
 			if($totalfiles>50)
 			{
 				

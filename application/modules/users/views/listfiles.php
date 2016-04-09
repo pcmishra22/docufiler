@@ -114,8 +114,27 @@
                     <span class="Download"><a href="#"><img src="<?php echo base_url();?>images/frontend/2nd.png" /></a></span>
                     <span class="Download"><a href="#"><img src="<?php echo base_url();?>images/frontend/3rd.png" /></a></span>
                     <span class="Download"><a href="<?php echo base_url();?>users/deletefile/<?php echo $id;?>"><img src="<?php echo base_url();?>images/frontend/4rth.png" /></a></span>
-                    <span class="Download"><a href="<?php echo base_url();?>users/downloadfile/<?php echo $id;?>"><img src="<?php echo base_url();?>images/frontend/5th.png" /></a></span></h5>
-                </div>
+                    <?php
+					if($filetype=='image/jpeg')
+					{
+					?>
+						<span class="Download">
+						<a href="<?php echo $location;?>" target="_blank">
+						<img src="<?php echo base_url();?>images/frontend/5th.png" />
+						</a>
+						</span>
+					<?php					
+					}
+					else
+					{
+					?>
+						<span class="Download"><a href="<?php echo base_url();?>users/downloadfile/<?php echo $id;?>"><img src="<?php echo base_url();?>images/frontend/5th.png" /></a></span>
+					<?php					
+					}
+					?>
+					
+					</h5>
+				</div>
                 
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 zero-padding ">
                 	<h5 class="head-text"> 1</h5>
