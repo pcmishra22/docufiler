@@ -118,8 +118,8 @@ class Users extends MX_Controller{
 	  //signup page calling
 	  public function signup($id='')
 	  {
-		if($id=='')
-			redirect('users/subscription');
+		//if($id=='')
+			//redirect('users/subscription');
 		
 		
 		$planname='';
@@ -342,7 +342,7 @@ public function invitefriend()
 		$this->users_model->saveData('users',$data);
         //update user details table 
 		$data=array(
-			'emailid' => $this->input->post('email'),
+			'email' => $this->input->post('email'),
 			'user_id' => $this->session->userdata('userid'),
 			'create_datetime' => date("Y-m-d H:i:s")
 			
@@ -391,7 +391,7 @@ public function invitefriend()
 				$email = $this->input->post('email');
 				$subject = 'Invite User';
 				
-				echo $body;exit;
+				//echo $body;exit;
 				
 				if(mail($email,$subject,$body,$headers)){
 						echo "email send";             
@@ -436,7 +436,7 @@ public function invitefriend()
 					$resetid=time();		
 			   		//update user table
 					$data=array('passwordreset' => $resetid);
-					$this->users_model->updateData('email',$this->input->post('email'),'users',$data);
+					$this->users_model->updateData('emailid',$this->input->post('email'),'users',$data);
 					//update user table
 					$body='';
 			   		$activation_url=base_url().'users/resetpassword/'.$resetid;
@@ -1096,7 +1096,7 @@ public function invitefriend()
 			$totalfiles=count($this->users_model->allUserFilesByUserId($this->session->userdata('userid')));
 			//check for payment details
 			$payment=$this->users_model->paymentDetailsById($this->session->userdata('userid'));
-			//$totalfiles=55;
+			$totalfiles=55;
 			if($totalfiles>50)
 			{
 				
@@ -1129,6 +1129,7 @@ public function invitefriend()
 			}	
 
 	  }
+
 	   //cardinfo information
 	  public function cardinfo($id='')
 	  {

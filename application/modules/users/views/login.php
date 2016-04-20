@@ -135,10 +135,10 @@
 				</form>
 			</div>
 			<!--//End-login-form-->
-			 <!-----start-copyright---->
+			 <!-----start-copyright
    					<div class="copy-right">
-						<p>Files save in <a href="<?php echo base_url();?>">DOCUFILER</a></p> 
-					</div>
+						<p>Files save in <a href="">DOCUFILER</a></p> 
+					</div>---->
 				<!-----//end-copyright---->
 		</div>
 			 <!-----//end-main---->

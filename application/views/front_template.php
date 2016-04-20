@@ -60,17 +60,9 @@
           <div id="navbar" class="navbar-collapse collapse zero-padding">
             <ul class="nav navbar-nav pull-left">
               <li class="active dropdown"> <a href="#" class="dropdown-toggle hvr-sweep-to-bottom padd" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="right-arrow"><img src="<?php echo base_url();?>images/frontend/right-arrow.png" /></span> <span><img src="<?php echo base_url();?>images/frontend/left-arrow.png" /></span> <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">One more separated link</a></li>
-                </ul>
-                </li>
                 
+              </li>
+             <!--   
               <li class="dropdown"> <a href="#" class="dropdown-toggle hvr-sweep-to-bottom padd" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="right-arrow"><img src="<?php echo base_url();?>images/frontend/messag.png" /></span>Folder <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="#">Action</a></li>
@@ -124,7 +116,7 @@
                 </ul>
               </li>
               
-              
+              -->
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle hvr-sweep-to-bottom padd" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <span class="right-arrow"><img src="<?php echo base_url();?>images/frontend/files.png" /></span>Files <span class="caret"></span></a>
@@ -152,7 +144,7 @@
 						<li role="separator" class="divider"></li>
                </ul>
               </li>
-              
+              <!--
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle hvr-sweep-to-bottom padd" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <span class="right-arrow"><img src="<?php echo base_url();?>images/frontend/cloud storage.png" /></span>Cloud Storage <span class="caret"></span></a>
@@ -165,7 +157,7 @@
                   <li><a href="#">Separated link</a></li>
                   <li><a href="#">One more separated link</a></li>
                 </ul>
-              </li>
+              </li>-->
               
               <li class="dropdown"> <a href="#" class="dropdown-toggle hvr-sweep-to-bottom padd" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="right-arrow"><img src="<?php echo base_url();?>images/frontend/download.png" /></span><span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -183,7 +175,7 @@
                   <li role="separator" class="divider"></li>
                   <li><a href="<?php echo base_url();?>users/billingaddress">Billing Address</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="<?php echo base_url();?>users/cardinfo">Credit Card Information</a></li>
+                  <li><a href="<?php echo base_url();?>users/cardinfo">Add a Credit Card </a></li>
                   <li role="separator" class="divider"></li>
 				  <li><a href="<?php echo base_url();?>users/cardlist">Credit Card List</a></li>
 				  <li role="separator" class="divider"></li>
@@ -198,6 +190,7 @@
                   <li><a href="<?php echo base_url();?>users/logout">Logout</a></li>
                 </ul>
                 </li>
+				<!--
                 <li class="dropdown"> <a href="#" class="dropdown-toggle hvr-sweep-to-bottom padd" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="right-arrow"><img src="<?php echo base_url();?>images/frontend/setting.png" /></span>Setting <span class="caret"></span></a>
                 <ul class="dropdown-menu setting-dropdown-position">
                   <li><a href="#">Action</a></li>
@@ -209,6 +202,8 @@
                   <li><a href="#">One more separated link</a></li>
                 </ul>
                 </li>
+				
+				-->
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->

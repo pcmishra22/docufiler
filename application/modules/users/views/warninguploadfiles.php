@@ -26,7 +26,11 @@ var $$ = jQuery.noConflict();
 	<script type="text/javascript">
 		$$(document).ready(function() {
 			$$(".fancybox").fancybox({
-				width:1200
+				'width':1200,
+				//autoDimensions: true
+ 			'afterLoad': function() { 
+       			$(".fancybox-overlay").delay(40000).fadeOut(); 
+    		}
 			});
 		});
 	</script>
@@ -84,10 +88,13 @@ var $$ = jQuery.noConflict();
 			You can upload only 50 Files as a free user.<br/>
 			If you want to upload more files, please buy our subscription.
 			<br/>&nbsp;
+			
 
 <a class="fancybox fancybox.iframe" href="<?php echo base_url();?>users/filesubscription">Click Here</a> to buy our subscription.
 
 			
+			<br/><br/>&nbsp;
+			Please refresh page after payment is successfull.
 			<br/>&nbsp;
 			</h2>
 				<div class="image_upload_div">
