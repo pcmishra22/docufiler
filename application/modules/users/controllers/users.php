@@ -143,7 +143,7 @@ class Users extends MX_Controller{
 			}
 			else
 			{
-				redirect('users/billingorder');
+				//redirect('users/billingorder');
 			}				
 		}		
 		if(isset($_REQUEST['submit']))
@@ -763,9 +763,10 @@ public function invitefriend()
 	  //billing order
 	  public function billingorder()
 	  {
+		  //die('here now............');
 		  $name=$this->session->userdata('planname');
 		  if($name=='')
-			  redirect("users/subscription");
+			  //redirect("users/subscription");
 
 			$data=array();
 			$data['subscriptiondetails']=$this->users_model->subscriptionDetails();	

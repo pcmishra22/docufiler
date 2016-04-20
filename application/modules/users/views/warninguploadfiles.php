@@ -26,11 +26,13 @@ var $$ = jQuery.noConflict();
 	<script type="text/javascript">
 		$$(document).ready(function() {
 			$$(".fancybox").fancybox({
-				'width':1200,
+				'width':1200
 				//autoDimensions: true
- 			'afterLoad': function() { 
+ 			/*
+			'afterLoad': function() { 
        			$(".fancybox-overlay").delay(40000).fadeOut(); 
     		}
+			*/
 			});
 		});
 	</script>
