@@ -975,6 +975,10 @@ public function invitefriend()
 			//get file details by id
 			$filedetails=$this->users_model->getFile($id);
 			$filename=$filedetails[0]['uniquename'];
+			//remove file from preview folder
+			$foldername='files_images/';
+			unlink($foldername.$filename);
+			//remove file from preview folder
 			// Bucket Name
 			$bucket="docufiler";
 			//get accesskey from database

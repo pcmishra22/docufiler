@@ -1,12 +1,12 @@
 
 	<!-- Add jQuery library -->
-	<script type="text/javascript" src="<?php echo base_url()?>fancybox/lib/jquery-1.10.1.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.0.js"></script>
 
 	<!-- Add mousewheel plugin (this is optional) -->
 	<script type="text/javascript" src="<?php echo base_url()?>fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
-<script>
-var $$ = jQuery.noConflict();
-</script>
+	<script>
+	var $$ = jQuery.noConflict();
+	</script>
 	<!-- Add fancyBox main JS and CSS files -->
 	<script type="text/javascript" src="<?php echo base_url()?>fancybox/source/jquery.fancybox.js?v=2.1.5"></script>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen" />
