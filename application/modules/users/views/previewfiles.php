@@ -43,10 +43,12 @@
 
 	<!--Right-side-file-->
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding white-backgroud">
-        	<div class="all-catogeries change clearfix">
+        	<div class="all-catogeries change clearfix"  onscroll="scrollData()">
             
-            	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-                 <?php
+            	<div id="faq-result" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+                 <input type="hidden" class="pagenum" value="1" />
+				 
+				 <?php
 				$cnt=0;
 				foreach($filedetails as $filedata)
 				{
@@ -91,9 +93,7 @@
 				$cnt++;
 				if($cnt%4==0)
 				{
-					?>
-
-                    <?php
+					
 				}
 				}
 				?>
@@ -101,12 +101,13 @@
                 </div>
                 
               
-
-        
+<p class="navigation">
+<span id="loader-icon" style="margin-left:500px;display:none;"><img src="<?php echo base_url()?>images/loader.gif" /></span>
+</p>
         </div><!--col-lg-10-->
         
         
-        
+
 
 
 		</div>
@@ -126,3 +127,33 @@
 		</div><!--col-lg-12-->
 </div><!--middle-->
 <!--end of middle section-->
+<script src="<?php echo base_url();?>js/frontend/jquery.min.js"></script>
+<script>
+$(window).scroll(function(){
+if ($(window).scrollTop() >= $(document).height() - $(window).height()-100){
+//if($(".pagenum:last").val() <= $(".rowcount").val()) {
+var pagenum = parseInt($(".pagenum:last").val()) + 1;
+getresult('<?php echo base_url();?>users/previewfilesdata/'+pagenum);
+//}
+}
+});
+
+//function getresult
+function getresult(url) {
+$.ajax({
+url: url,
+type: "GET",
+data:  {rowcount:$("#rowcount").val()},
+beforeSend: function(){
+$('#loader-icon').show();
+},
+complete: function(){
+$('#loader-icon').hide();
+},
+success: function(data){
+$("#faq-result").append(data);
+},
+error: function(){} 	        
+});
+}
+</script>

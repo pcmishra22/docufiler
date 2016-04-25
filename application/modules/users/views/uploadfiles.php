@@ -15,7 +15,7 @@
         <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 zero-padding">
         	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding dark-yellow-box">
             	<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 zero-padding text-size">
-                <span class="files-number"><img src="<?php echo base_url();?>images/frontend/no of files.png" /></span>3,765 Files
+                <span class="files-number"><img src="<?php echo base_url();?>images/frontend/no of files.png" /></span><?php echo $totalfiles;?> Files
                 </div>
                 
                 <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 zero-padding">

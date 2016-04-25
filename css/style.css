@@ -155,37 +155,39 @@ body.color-login{
 .text-size{font-size: 27px;}
 .files-number{padding-right:7%;}
 #search-text-input{
-           position: relative;
+    position: relative;
     left: 25%;
-              color: #000;  
-           outline: 0;
+    color: #000;  
+    outline: 0;
     border: 0;
     border-bottom-left-radius: 7px;
     border-top-left-radius: 7px;
     float: left;
+	/*
     height: 26px;
-     margin: .4em 0 0 .5em;
+    */
+	margin: .4em 0 0 .5em;
     outline: 0;
     padding: .4em 0 .4em .6em;
     width: 60%;
     font-size: 14px;
-   padding-bottom: 19px;
+	padding-bottom: 19px;
     padding-top: 19px;
-        }
+    }
          
-        #button-holder{
-           background-color: #f1f1f1;
+    #button-holder{
+    background-color: #f1f1f1;
     border-bottom-right-radius: 7px;
     border-top-right-radius: 7px;
     border-left: 3px solid #adadad;
     cursor: pointer;
     float: left;
-    height: 38px;
+    height: 58px;
     margin: 6px 0 4px 0;
     text-align: center;
     width: 8%;
     padding-bottom: 0px;
-    padding-top: 8px;position: relative;
+    padding-top: 21px;position: relative;
     left: 25%;
         }
          

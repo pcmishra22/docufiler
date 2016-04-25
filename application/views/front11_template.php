@@ -19,10 +19,7 @@
 <!--start of middle section-->
 
 <?php echo $content;?>
-<div class="footer clearfix">
 
- 
-</div>
 <!--end of middle section-->
 
      <script type="text/javascript">

@@ -139,7 +139,12 @@ class Users extends MX_Controller{
 			//check for referal
 			if(strpos(@$_SERVER['HTTP_REFERER'],'filesubscription'))
 			{
-				redirect('users/filebillingorder');
+				$usercardlist=count($this->users_model->userCardList($this->session->userdata('userid')));
+				//user card list
+				if($usercardlist>0)
+					redirect('users/filebillingorder');
+				else
+					redirect('users/filecardinfo');
 			}
 			else
 			{
@@ -818,6 +823,45 @@ public function invitefriend()
 		<?php
 	  }
 	   //billing address information
+	  public function filebillingaddress()
+	  {
+		  	//check for user login
+			$this->loginCheck();
+			//check for user login end here
+
+		  	if(isset($_REQUEST['address']) || isset($_REQUEST['city']) || isset($_REQUEST['state']) || isset($_REQUEST['zip']))
+			{
+				//update password
+				$data1=array(
+					'baddress' => $this->input->post('address'),
+					'bcity' => $this->input->post('city'),
+					'bstate' => $this->input->post('state'),
+					'bzip' => $this->input->post('zip')
+					);
+				
+				$this->users_model->updateData('id',$this->input->post('cc'),'user_cardinfo',$data1);
+				//redirected to login page
+				$this->session->set_flashdata('flash_message', 'updated');
+				//get user details by id
+		  		$data['carddetails']=$this->users_model->userCardList($this->session->userdata('userid'));
+				//redirect to billing order page
+				redirect('users/filebillingorder');
+			}
+			else
+			{	//total files by user
+		  		$data['totalfiles']=count($this->users_model->allUserFilesByUserId($this->session->userdata('userid')));		
+				//get user details by id
+		  		$data['carddetails']=$this->users_model->userCardList($this->session->userdata('userid'));
+		  		//set data in session
+				$this->template->set_template('front1');
+				$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+				$this->template->write_view('content','filebillingaddress',$data);
+				$this->template->render();
+			}
+	  
+	  
+	  }
+	  //billing address information
 	  public function billingaddress()
 	  {
 		  	//check for user login
@@ -839,15 +883,18 @@ public function invitefriend()
 				$this->session->set_flashdata('flash_message', 'updated');
 				//get user details by id
 		  		$data['carddetails']=$this->users_model->userCardList($this->session->userdata('userid'));
-		  		//set data in session
+		  		
+
+				//set data in session
 				$this->template->set_template('front');
 				$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
 				$this->template->write_view('content','billingaddress',$data);
 				$this->template->render();
 			}
 			else
-			{
-		  		//get user details by id
+			{	//total files by user
+		  		$data['totalfiles']=count($this->users_model->allUserFilesByUserId($this->session->userdata('userid')));		
+				//get user details by id
 		  		$data['carddetails']=$this->users_model->userCardList($this->session->userdata('userid'));
 		  		//set data in session
 				$this->template->set_template('front');
@@ -1057,6 +1104,62 @@ public function invitefriend()
 				$this->template->write_view('content','previewfiles',$data);
 				$this->template->render();
 	  }
+	  //
+	  public function previewfilesdata($id)
+	  {
+		  $filedetails=$this->users_model->userFilesDataByUserId($this->session->userdata('userid'),$id);
+		  if(count($filedetails)>0)
+		  {
+				$cnt=0;
+				foreach($filedetails as $filedata)
+				{
+					
+					$fn=explode('.',$filedata['uniquename']);
+					$imgfn=$fn[0].'.jpg';
+					$fullpath=FCPATH."/files_images/".$imgfn;
+					if(file_exists($fullpath))
+					{
+						
+						$filename=$imgfn;
+					}
+					else
+					{
+						
+						$filename='default.jpg';
+					}
+				?>
+				<input type="hidden" class="pagenum" value="<?php echo $id;?>" />
+                	<div id="<?php echo $filedata['id'];?>" class="col-lg-3 col-md-3 col-sm-6 col-xs-6 all-boxess zero-padding" draggable="true" ondragstart="drag(event)">
+                        <div class="radius-box-innerpage text-center showhim">
+                            <p class="box-inner"> <span class="move-icon"> < | << </span>   1/1   <span class="move-icon-two"> >> | > </span></p>   
+                            
+                            <img src="<?php echo base_url()?>files_images/<?php echo $filename;?>" class="pdf img-responsive margin" style="width:816px;height:300px;">
+                            <p class="box-inner font"><?php echo $filedata['name'];?></p>
+                            <p class="date"><?php echo date('m/d/Y H:I',strtotime($filedata['created_date']));?></p>
+							
+							
+							<div class="showme">
+								<a href="javascript:void(0);" onclick="javascript:alert('pop');"><h5 class="head-text font-size"> 
+								<span class="Download"><a href="#"><img src="<?php echo base_url();?>images/frontend/1st.png" class="iconss"></a></span>
+								<span class="Download"><a href="#"><img src="<?php echo base_url();?>images/frontend/2nd.png" class="iconss"></a></span>
+								<span class="Download"><a href="#"><img src="<?php echo base_url();?>images/frontend/3rd.png" class="iconss"></a></span>
+								<span class="Download"><a href="<?php echo base_url();?>users/deletefilepreview/<?php echo $filedata['id'];?>"><img src="<?php echo base_url();?>images/frontend/4rth.png" class="iconss"></a></span>
+								<span class="Download"><a href="<?php echo base_url();?>users/downloadfile/<?php echo $filedata['id'];?>"><img src="<?php echo base_url();?>images/frontend/5th.png" class="iconss"></a></span></h5></a>
+							</div>
+							
+						
+						
+						</div>
+                    </div>
+  <?php
+				$cnt++;
+				if($cnt%4==0)
+				{
+					
+				}
+				}					
+		  }		
+	  }
 	  //user list files
 	  public function listfiles()
 	  {
@@ -1098,10 +1201,11 @@ public function invitefriend()
 			//get user details by id
 		  	$data['userdetails']=$this->users_model->userDetailsById($this->session->userdata('userid'));
 		  	//get total files from session
-			$totalfiles=count($this->users_model->allUserFilesByUserId($this->session->userdata('userid')));
+			$totalfiles=count($this->users_model->allUserFilesByUserId($this->session->userdata('userid')));		
 			//check for payment details
 			$payment=$this->users_model->paymentDetailsById($this->session->userdata('userid'));
 			$totalfiles=55;
+			$data['totalfiles']=$totalfiles;
 			if($totalfiles>50)
 			{
 				
@@ -1135,7 +1239,62 @@ public function invitefriend()
 
 	  }
 
-	   //cardinfo information
+	  //cardinfo from file
+	  public function filecardinfo($id='')
+	  {
+		$data=array();
+			//check for user login
+			$this->loginCheck();
+			//check for user login end here cardtype
+		  	if(isset($_REQUEST['cardname']) || isset($_REQUEST['cardno']) || isset($_REQUEST['cardcvv']) || isset($_REQUEST['expirymonth']) || isset($_REQUEST['expiryyear']))
+			{
+				//update password
+				$data1=array(
+					'userid' => $this->session->userdata('userid'),
+					'cardname' => $this->input->post('cardtype'),
+					'cardholderfname' => $this->input->post('fname'),
+					'cardholderlname' => $this->input->post('lname'),
+					'cardno' => $this->input->post('cardno'),
+					'cardcvv' => $this->input->post('cvv'),
+					'expirymonth' => $this->input->post('expirymonth'),
+					'expiryyear' => $this->input->post('expiryyear'),
+					'create_datetime' => date("Y-m-d H:i:s")	
+					);
+				
+				if($_REQUEST['id']!='')
+				{
+					//update data to table
+					$this->users_model->updateData('id',$id,'user_cardinfo',$data1);
+					//redirected to login page
+					$this->session->set_flashdata('flash_message', 'updated');
+				}
+				else
+				{
+					//save data to table
+					$this->users_model->saveData('user_cardinfo',$data1);
+					//redirected to login page
+					$this->session->set_flashdata('flash_message', 'added');
+				}
+
+				redirect('users/filebillingaddress');
+			}
+			else
+			{
+				//card details by id
+				if($id!='')
+					$data['carddetails']=$this->users_model->cardDetailsById($id);
+		  		//total files by user
+				 $data['totalfiles']=$this->users_model->record_count_total_files($this->session->userdata('userid'));
+				//set data in session
+				$this->template->set_template('front1');
+				$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
+				$this->template->write_view('content','filecardinfo',$data);
+				$this->template->render();
+			}
+	  
+	    
+	  }
+	  //cardinfo information
 	  public function cardinfo($id='')
 	  {
 			$data=array();

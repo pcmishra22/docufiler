@@ -84,10 +84,19 @@ class Users_model extends CI_Model {
 	//get user file
 	function userFilesByUserId($id)
 	{
-			$sql = "SELECT * FROM user_files where userid='$id' order by id limit 0,19" ; 
+			$sql = "SELECT * FROM user_files where userid='$id' order by id limit 0,4" ; 
 			$query = $this->db->query($sql);
 			$result = $query->result_array();
 			return @$result;
+	}
+	//userfiles data by userid
+	function userFilesDataByUserId($userid,$id)
+	{
+		$start=($id-1)*4;
+		$sql = "SELECT * FROM user_files where userid='$userid' order by id limit $start,4" ; 
+		$query = $this->db->query($sql);
+		$result = $query->result_array();
+		return @$result;
 	}
 	//get files whose image is not created yet
 	function imageNotConvertedFiles()
