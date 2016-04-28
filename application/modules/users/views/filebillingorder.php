@@ -149,7 +149,13 @@ function planchange(val)
 							 </span> <input type="checkbox" name="agree" id="agree" value="yes" class="pricing-checkbox">
                              <span id="agreeerror" style="background-color: white;"></span>
 							 <ul class="button-personal-plan other-page">
-                        	<li><a href="javascript:void(0);" onclick="return formvalidate();" class="household-plan-a">
+                        	<li><a href="javascript: window.history.back();" class="household-plan-a">
+							Back</a></li>
+							&nbsp;
+							<li><a href="<?php echo base_url();?>users/filecardinfo" class="household-plan-a">
+							Add a new credit card</a></li>
+							&nbsp;
+							<li><a href="javascript:void(0);" onclick="return formvalidate();" class="household-plan-a">
 							<span>
 							<img src="<?php echo base_url()?>images/frontend/tag25.png" class="img-responsive star" </span>
 							Get <?php echo $name;?>  Plan</a></li>

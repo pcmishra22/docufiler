@@ -38,6 +38,10 @@ else
 		}
 		</style>
         <script type="text/javascript">
+		function backFunction()
+		{
+			window.history.back();
+		}
 /**
   * Basic jQuery Validation Form Demo Code
   * Copyright Sam Deering 2012
@@ -147,7 +151,8 @@ else
             </div>
           </div>
                     
-                    <input type="submit" class="submitt correction" onclick="myFunction()" value="UPDATE"/>
+                     <input type="button" class="submitt correction" onclick="backFunction()" value="Back"/>
+					<input type="submit" class="submitt correction" onclick="myFunction()" value="UPDATE"/>
                 </form>
             </div>
         </div>

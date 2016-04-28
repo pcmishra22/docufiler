@@ -12,7 +12,7 @@
             	<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 zero-padding text-size">
                 <span class="files-number"><img src="<?php echo base_url();?>images/frontend/no of files.png" /></span>
 				<?php
-				echo $this->session->userdata('totalfiles');
+				echo $totalfiles;
 				?> Files
                 </div>
                 
@@ -151,7 +151,7 @@ complete: function(){
 $('#loader-icon').hide();
 },
 success: function(data){
-$("#faq-result").append(data);
+$("#faq-result").html(data);
 },
 error: function(){} 	        
 });

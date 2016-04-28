@@ -610,18 +610,16 @@ public function invitefriend()
 	  public function payment()
 	  {
 		//set data array	
-		
 		$carddetails=$this->users_model->cardDetailsById($_REQUEST['cardname']);
 		$substype=$_REQUEST['Annually'];
 		$price=$_REQUEST['dataprice'];
 		$discount=$_REQUEST['datadiscount'];
 		$total=$_REQUEST['datatotal'];
-		
+		$total=number_format($total, 2, '.', '');
 		//set data in session
 		
 		// Set sandbox (test mode) to true/false.
 		$sandbox = TRUE;
-
 		// Set PayPal API version and credentials.
 		$api_version = '85.0';
 		$api_endpoint = $sandbox ? 'https://api-3t.sandbox.paypal.com/nvp' : 'https://api-3t.paypal.com/nvp';
@@ -656,13 +654,16 @@ public function invitefriend()
 
 		// Loop through $request_params array to generate the NVP string.
 		
+	//echo '<pre>';
+	//print_r($request_params);
+	//echo '</pre>';
 	
-		
 		$nvp_string = '';
 		foreach($request_params as $var=>$val)
 		{
 			$nvp_string .= '&'.$var.'='.urlencode($val);	
 		}
+//echo $nvp_string; 		
 
 		// Send NVP string to PayPal and store response
 		$curl = curl_init();
@@ -679,9 +680,11 @@ public function invitefriend()
 		curl_close($curl);
 		// Parse the API response
 		$data['result_array'] = $this->NVPToArray($result);
+		$tid='';
+		$tid=@$data['result_array']['TRANSACTIONID'];
 		//save data to database table
 		$data_to_store=array(
-			'transactionid' => $data['result_array']['TRANSACTIONID'],
+			'transactionid' => $tid,
 			'accountno' => $this->session->userdata('userid'), 
 			'userid' => $this->session->userdata('userid'),
 			'created_date' => date("Y-m-d H:i:s"),
@@ -1099,6 +1102,12 @@ public function invitefriend()
 				//user files details
 				$data['filedetails']=$this->users_model->userFilesByUserId($this->session->userdata('userid'));
 				//template settings
+				
+				//total files by user
+					$data['totalfiles']=$this->users_model->record_count_total_files($this->session->userdata('userid'));
+				//total files
+			
+				
 				$this->template->set_template('front');
 				$this->template->write('title', 'Welcome to the Docufiler Admin Dashboard !');
 				$this->template->write_view('content','previewfiles',$data);

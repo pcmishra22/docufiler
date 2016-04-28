@@ -92,8 +92,10 @@ class Users_model extends CI_Model {
 	//userfiles data by userid
 	function userFilesDataByUserId($userid,$id)
 	{
-		$start=($id-1)*4;
-		$sql = "SELECT * FROM user_files where userid='$userid' order by id limit $start,4" ; 
+		//$start=($id-1)*4;
+		$start=0;
+		$end=$id*4;
+		$sql = "SELECT * FROM user_files where userid='$userid' order by id limit $start,$end" ; 
 		$query = $this->db->query($sql);
 		$result = $query->result_array();
 		return @$result;

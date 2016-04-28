@@ -9,7 +9,7 @@
 				{
 				?>
 	<img src="<?php echo base_url();?>images/frontend/checked21.png" class="tick">
-	This transaction is completed sucessfully .
+	This transaction is completed sucessfully. You can upload file now.
 	</h1>
 				<?php
 				}
@@ -21,7 +21,7 @@
 				This transaction is not completed.
 				<?php
 					echo $result_array['L_LONGMESSAGE0'];
-					print_r($result_array);
+					//print_r($result_array);
 				?>
 				</h1>
 					<?php
