@@ -94,6 +94,10 @@
 					$location=$userfiles->location;
 					$size=$userfiles->size;
 					$created_date=$userfiles->created_date;
+					
+					
+					
+					
 			?>
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding border-top border-bottom text-center">
@@ -115,22 +119,22 @@
                     <span class="Download"><a href="#"><img src="<?php echo base_url();?>images/frontend/3rd.png" /></a></span>
                     <span class="Download"><a href="<?php echo base_url();?>users/deletefile/<?php echo $id;?>"><img src="<?php echo base_url();?>images/frontend/4rth.png" /></a></span>
                     <?php
-					if($filetype=='image/jpeg')
-					{
+					//if($filetype=='image/jpeg')
+					//{
 					?>
-						<span class="Download">
+						<!--<span class="Download">
 						<a href="<?php echo $location;?>" target="_blank">
 						<img src="<?php echo base_url();?>images/frontend/5th.png" />
 						</a>
-						</span>
+						</span>-->
 					<?php					
-					}
-					else
-					{
+					//}
+					//else
+					//{
 					?>
 						<span class="Download"><a href="<?php echo base_url();?>users/downloadfile/<?php echo $id;?>"><img src="<?php echo base_url();?>images/frontend/5th.png" /></a></span>
 					<?php					
-					}
+					//}
 					?>
 					
 					</h5>

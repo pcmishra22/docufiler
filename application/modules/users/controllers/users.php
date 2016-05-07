@@ -1052,6 +1052,31 @@ public function invitefriend()
 
 			redirect('users/listfiles');
 	  }
+	  //df
+	  public function df()
+	  { 
+	  
+			$file=FCPATH."downloaded/1462026746_IMG_2015.JPG"; //file location 
+			if(file_exists($file)) {
+			
+			header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename='.basename($file));
+            header('Content-Transfer-Encoding: binary');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($file));
+            ob_clean();
+            flush();
+            readfile($file);
+            exit;
+			}
+			else {
+				die('The provided file path is not valid.');
+			}
+	  }
+	  
 	  //download file
 	  public function downloadfile($id)
 	  {
@@ -1069,26 +1094,25 @@ public function invitefriend()
 			$file=$filedetails[0]['location'];
 			$filesize=$filedetails[0]['size'];
 			$filename=$filedetails[0]['uniquename'];	
-			$objInfo = $s3->getObjectInfo($bucket, $filename);
-			
-			if($objInfo['type']=='image/jpeg')
-				$mime='image/jpg';
-			else
-				$mime='application/octet-stream';
-			
-			//$obj = $s3->getObject($bucket, $filename);
-
-			 header( 'Expires: Mon, 1 Apr 1974 05:00:00 GMT' );
-			 header( 'Pragma: public' );
-			 header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
-			 header('Content-Description: File Transfer');
-			 header('Content-Type: application/octet-stream');
-			 header( 'Content-Length: '.$objInfo['size'] );
-			 header( 'Content-Disposition: attachment; filename="'.basename($file).'"' );
-			 header( 'Content-Transfer-Encoding: binary' );
-			 
-			 readfile( $file );  
-			 exit();
+			$dfile=FCPATH."downloaded/".$filename;
+			$url=$s3->getObject($bucket, $filename,$dfile);
+			if(file_exists($dfile)) {
+				header('Content-Description: File Transfer');
+				header('Content-Type: application/octet-stream');
+				header('Content-Disposition: attachment; filename='.basename($dfile));
+				header('Content-Transfer-Encoding: binary');
+				header('Expires: 0');
+				header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+				header('Pragma: public');
+				header('Content-Length: ' . filesize($dfile));
+				ob_clean();
+				flush();
+				readfile($dfile);
+				exit;
+			}
+			else {
+				die('The provided file path is not valid.');
+			}
 			
 	  }
 	  //preview files
