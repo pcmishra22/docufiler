@@ -16,33 +16,47 @@ class Users extends MX_Controller{
 	  public function cron()
 	  {
 		  $files=$this->users_model->imageNotConvertedFiles();
+
 		  $filepath='/var/www/html/docufiler/files_images/';
 		  if(count($files)>0)
 		  {
 			  foreach($files as $file)
 			  {
+				//check file type	
+				$farray = explode('.', $file['uniquename']);
+				$fextension = end($farray);
+				$fn=explode('.',$file['uniquename']);
+				//filepath
+				$filename=$filepath.$file['uniquename'];
+				//check file extension
+				if($fextension!='pdf')  
+				{
 				  //convert to pdf
 				  $cmd='unoconv -f pdf ';
-				  $fn=explode('.',$file['uniquename']);
-				  //filepath
-				  $filename=$filepath.$file['uniquename'];
 				  $command=$cmd.$filename;
 				  exec($command);
+				}
+				  //convert -density 300 p.pdf -quality 100 o.jpg
 				  //convert to jpg
-				  $cmd='unoconv -f jpg ';
+				  //$cmd='unoconv -f jpg ';
+				  $cmd='convert -density 300 ';
 				  $filename=$filepath.$fn[0].'.pdf';
-				  $command=$cmd.$filename;
+				  $filename2=$filepath.$fn[0].'.jpg';
+				  $cmd2=' -quality 100 ';
+				  $command=$cmd.$filename.$cmd2.'    '.$filename2;
 				  exec($command);
+				  /*
 				  //delete file after conversion
 				  $cmd='rm ';
 				  $filename=$filepath.$file['uniquename'];
 				  $command=$cmd.$filename;
-				  //exec($command);
+				  exec($command);
 				  //delete pdf file
 				  $cmd='rm ';
 				  $filename=$filepath.$fn[0].'.pdf';
 				  $command=$cmd.$filename;
-				  //exec($command);	
+				  exec($command);	
+				  */
 				  //update table field to set image is created
 				  $data=array('is_image_created' =>'1');
 				  //update query
