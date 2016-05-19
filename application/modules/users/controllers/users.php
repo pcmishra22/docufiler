@@ -41,7 +41,7 @@ class Users extends MX_Controller{
 				  //$cmd='unoconv -f jpg ';
 				  $cmd='convert -density 300 ';
 				  $filename=$filepath.$fn[0].'.pdf';
-				  $filename2=$filepath.$fn[0].'-0.jpg';
+				  $filename2=$filepath.$fn[0].'.jpg';
 				  $cmd2=' -quality 100 ';
 				  $command=$cmd.$filename.$cmd2.'    '.$filename2;
 				  exec($command);
