@@ -54,7 +54,7 @@
 				{
 					
 					$fn=explode('.',$filedata['uniquename']);
-					$imgfn=$fn[0].'.jpg';
+					$imgfn=$fn[0].'-0.jpg';
 					$fullpath=FCPATH."/files_images/".$imgfn;
 					if(file_exists($fullpath))
 					{

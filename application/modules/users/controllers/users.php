@@ -60,7 +60,7 @@ class Users extends MX_Controller{
 				  //update table field to set image is created
 				  $data=array('is_image_created' =>'1');
 				  //update query
-				  //$this->users_model->updateData('id',$file['id'],'user_files',$data);
+				  $this->users_model->updateData('id',$file['id'],'user_files',$data);
 			  }
 		  }
 	  }
