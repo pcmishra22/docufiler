@@ -1162,17 +1162,28 @@ public function invitefriend()
 				{
 					
 					$fn=explode('.',$filedata['uniquename']);
-					$imgfn=$fn[0].'-0.jpg';
+					
+					$imgfn=$fn[0].'.jpg';
+					$imgfn0=$fn[0].'-0.jpg';
+					
 					$fullpath=FCPATH."/files_images/".$imgfn;
+					$fullpath0=FCPATH."/files_images/".$imgfn0;
+					
 					if(file_exists($fullpath))
 					{
-						
 						$filename=$imgfn;
 					}
 					else
 					{
+						if(file_exists($fullpath0))
+						{
+							$filename=$imgfn0;
+						}
+						else
+						{
+							$filename='default.jpg';
+						}
 						
-						$filename='default.jpg';
 					}
 				?>
 				<input type="hidden" class="pagenum" value="<?php echo $id;?>" />

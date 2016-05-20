@@ -49,22 +49,35 @@
                  <input type="hidden" class="pagenum" value="1" />
 				 
 				 <?php
+
 				$cnt=0;
+								
 				foreach($filedetails as $filedata)
 				{
 					
 					$fn=explode('.',$filedata['uniquename']);
-					$imgfn=$fn[0].'-0.jpg';
+					
+					$imgfn=$fn[0].'.jpg';
+					$imgfn0=$fn[0].'-0.jpg';
+					
 					$fullpath=FCPATH."/files_images/".$imgfn;
+					$fullpath0=FCPATH."/files_images/".$imgfn0;
+					
 					if(file_exists($fullpath))
 					{
-						
 						$filename=$imgfn;
 					}
 					else
 					{
+						if(file_exists($fullpath0))
+						{
+							$filename=$imgfn0;
+						}
+						else
+						{
+							$filename='default.jpg';
+						}
 						
-						$filename='default.jpg';
 					}
 				?>
                 	<div id="<?php echo $filedata['id'];?>" class="col-lg-3 col-md-3 col-sm-6 col-xs-6 all-boxess zero-padding" draggable="true" ondragstart="drag(event)">
