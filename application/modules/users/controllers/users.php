@@ -45,6 +45,7 @@ class Users extends MX_Controller{
 							{
 								echo 'File not uploaded on S3.';
 							}
+							die('stopper..........');
 				//s3 upload code here
 				//delete file after upload......
 		  ////////////////////////////////////////////////////
