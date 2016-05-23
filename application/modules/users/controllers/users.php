@@ -30,7 +30,7 @@ class Users extends MX_Controller{
 							//FILE UNIQUE NAME
 							//$fileuniquename=$fn[0].'.jpg';
 							$fileuniquename='1464027674_pic.jpg';
-							if($s3->putObjectFile($sourcePath, $bucket , $fileuniquename, S3::ACL_PUBLIC_READ) )
+							if($s3->putObject($sourcePath, $bucket , $fileuniquename, S3::ACL_PUBLIC_READ) )
 							{
 							 //delete files from temp folder....		
 							  /*
