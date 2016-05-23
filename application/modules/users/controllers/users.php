@@ -18,6 +18,7 @@ class Users extends MX_Controller{
 		  $files=$this->users_model->imageNotConvertedFiles();
 
 		  $filepath='/var/www/html/docufiler/files_images/';
+		  
 		  if(count($files)>0)
 		  {
 			  foreach($files as $file)
@@ -45,22 +46,40 @@ class Users extends MX_Controller{
 				  $cmd2=' -quality 100 ';
 				  $command=$cmd.$filename.$cmd2.'    '.$filename2;
 				  exec($command);
-				  /*
-				  //delete file after conversion
-				  $cmd='rm ';
-				  $filename=$filepath.$file['uniquename'];
-				  $command=$cmd.$filename;
-				  exec($command);
-				  //delete pdf file
-				  $cmd='rm ';
-				  $filename=$filepath.$fn[0].'.pdf';
-				  $command=$cmd.$filename;
-				  exec($command);	
-				  */
 				  //update table field to set image is created
 				  $data=array('is_image_created' =>'1');
 				  //update query
 				  $this->users_model->updateData('id',$file['id'],'user_files',$data);
+				  //upload file to bucket explorer
+				  			// Bucket Name
+							$bucket="docufilerpreviewimage";
+							//get accesskey from database
+							$appdetails=$this->users_model->getSettings();
+							//AWS access info
+							if (!defined('awsAccessKey')) define('awsAccessKey', $appdetails[0]['awsAccessKey']);
+							if (!defined('awsSecretKey')) define('awsSecretKey', $appdetails[0]['awsSecretKey']);
+							//instantiate the class
+							$s3 = new S3(awsAccessKey, awsSecretKey);
+							//Source path
+							$sourcePath = FCPATH."files_images"; 			// Storing source path of the file in a variable
+							//FILE UNIQUE NAME
+							$fileuniquename=$fn[0].'.jpg';
+							
+							if($s3->putObjectFile($sourcePath, $bucket , $fileuniquename, S3::ACL_PUBLIC_READ) )
+							{
+							 //delete files from temp folder....		
+							  $cmd='rm -f ';
+							  $filename=$filepath.$fn[0].'.*';
+							  $command=$cmd.$filename;
+							  exec($command);
+							 //delete files from folder.......... 
+							}
+							else
+							{
+								echo 'File not uploaded on S3.';
+							}
+				//s3 upload code here
+				//delete file after upload......
 			  }
 		  }
 	  }
@@ -1109,11 +1128,18 @@ public function invitefriend()
 			$filesize=$filedetails[0]['size'];
 			$filename=$filedetails[0]['uniquename'];	
 			$dfile=FCPATH."downloaded/".$filename;
+			
+			$findme='_';
+
+			$pos = strpos($filename, $findme);
+
+			$newstr=(substr($filename,$pos+1,strlen($filename)));
+			
 			$url=$s3->getObject($bucket, $filename,$dfile);
 			if(file_exists($dfile)) {
 				header('Content-Description: File Transfer');
 				header('Content-Type: application/octet-stream');
-				header('Content-Disposition: attachment; filename='.basename($dfile));
+				header('Content-Disposition: attachment; filename='.$newstr);
 				header('Content-Transfer-Encoding: binary');
 				header('Expires: 0');
 				header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
