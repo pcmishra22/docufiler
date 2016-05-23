@@ -26,7 +26,7 @@ class Users extends MX_Controller{
 							//instantiate the class
 							$s3 = new S3(awsAccessKey, awsSecretKey);
 							//Source path
-							echo $sourcePath = FCPATH."files_images"; 			// Storing source path of the file in a variable
+							echo $sourcePath = FCPATH."files_images/"; 			// Storing source path of the file in a variable
 							//FILE UNIQUE NAME
 							//$fileuniquename=$fn[0].'.jpg';
 							$fileuniquename='1464027674_pic.jpg';
