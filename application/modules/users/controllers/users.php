@@ -15,6 +15,39 @@ class Users extends MX_Controller{
 	  //checking cron
 	  public function cron()
 	  {
+							//upload file to bucket explorer
+				  			// Bucket Name
+							$bucket="docufilerpreviewimage";
+							//get accesskey from database
+							$appdetails=$this->users_model->getSettings();
+							//AWS access info
+							if (!defined('awsAccessKey')) define('awsAccessKey', $appdetails[0]['awsAccessKey']);
+							if (!defined('awsSecretKey')) define('awsSecretKey', $appdetails[0]['awsSecretKey']);
+							//instantiate the class
+							$s3 = new S3(awsAccessKey, awsSecretKey);
+							//Source path
+							$sourcePath = FCPATH."files_images"; 			// Storing source path of the file in a variable
+							//FILE UNIQUE NAME
+							//$fileuniquename=$fn[0].'.jpg';
+							$fileuniquename='1464027674_pic.jpg';
+							if($s3->putObjectFile($sourcePath, $bucket , $fileuniquename, S3::ACL_PUBLIC_READ) )
+							{
+							 //delete files from temp folder....		
+							  /*
+							  $cmd='rm -f ';
+							  $filename=$filepath.$fn[0].'.*';
+							  $command=$cmd.$filename;
+							  exec($command);
+							  */
+							 //delete files from folder.......... 
+							}
+							else
+							{
+								echo 'File not uploaded on S3.';
+							}
+				//s3 upload code here
+				//delete file after upload......
+		  ////////////////////////////////////////////////////
 		  $files=$this->users_model->imageNotConvertedFiles();
 
 		  $filepath='/var/www/html/docufiler/files_images/';
@@ -50,36 +83,7 @@ class Users extends MX_Controller{
 				  $data=array('is_image_created' =>'1');
 				  //update query
 				  $this->users_model->updateData('id',$file['id'],'user_files',$data);
-				  //upload file to bucket explorer
-				  			// Bucket Name
-							$bucket="docufilerpreviewimage";
-							//get accesskey from database
-							$appdetails=$this->users_model->getSettings();
-							//AWS access info
-							if (!defined('awsAccessKey')) define('awsAccessKey', $appdetails[0]['awsAccessKey']);
-							if (!defined('awsSecretKey')) define('awsSecretKey', $appdetails[0]['awsSecretKey']);
-							//instantiate the class
-							$s3 = new S3(awsAccessKey, awsSecretKey);
-							//Source path
-							$sourcePath = FCPATH."files_images"; 			// Storing source path of the file in a variable
-							//FILE UNIQUE NAME
-							$fileuniquename=$fn[0].'.jpg';
-							
-							if($s3->putObjectFile($sourcePath, $bucket , $fileuniquename, S3::ACL_PUBLIC_READ) )
-							{
-							 //delete files from temp folder....		
-							  $cmd='rm -f ';
-							  $filename=$filepath.$fn[0].'.*';
-							  $command=$cmd.$filename;
-							  exec($command);
-							 //delete files from folder.......... 
-							}
-							else
-							{
-								echo 'File not uploaded on S3.';
-							}
-				//s3 upload code here
-				//delete file after upload......
+				  
 			  }
 		  }
 	  }
