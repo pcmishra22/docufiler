@@ -1195,34 +1195,15 @@ public function invitefriend()
 					$fn=explode('.',$filedata['uniquename']);
 					
 					$imgfn=$fn[0].'.jpg';
-					$imgfn0=$fn[0].'-0.jpg';
 					
-					$fullpath=FCPATH."/files_images/".$imgfn;
-					$fullpath0=FCPATH."/files_images/".$imgfn0;
 					
-					if(file_exists($fullpath))
-					{
-						$filename=$imgfn;
-					}
-					else
-					{
-						if(file_exists($fullpath0))
-						{
-							$filename=$imgfn0;
-						}
-						else
-						{
-							$filename='default.jpg';
-						}
-						
-					}
 				?>
 				<input type="hidden" class="pagenum" value="<?php echo $id;?>" />
                 	<div id="<?php echo $filedata['id'];?>" class="col-lg-3 col-md-3 col-sm-6 col-xs-6 all-boxess zero-padding" draggable="true" ondragstart="drag(event)">
                         <div class="radius-box-innerpage text-center showhim">
                             <p class="box-inner"> <span class="move-icon"> < | << </span>   1/1   <span class="move-icon-two"> >> | > </span></p>   
                             
-                            <img src="<?php echo base_url()?>files_images/<?php echo $filename;?>" class="pdf img-responsive margin" style="width:816px;height:300px;">
+                            <img src="https://s3-us-west-2.amazonaws.com/docufilerpreviewimage/<?php echo $imgfn;?>" class="pdf img-responsive margin" style="width:816px;height:300px;">
                             <p class="box-inner font"><?php echo $filedata['name'];?></p>
                             <p class="date"><?php echo date('m/d/Y H:I',strtotime($filedata['created_date']));?></p>
 							
