@@ -330,7 +330,10 @@ class S3 {
 	public static function putObjectFile($file, $bucket, $uri, $acl = self::ACL_PRIVATE, $metaHeaders = array(), $contentType = null) {
 		return self::putObject(S3::inputFile($file), $bucket, $uri, $acl, $metaHeaders, $contentType);
 	}
-
+	
+	public static function putObjectFile1($file, $bucket, $uri, $acl = self::ACL_PRIVATE, $metaHeaders = array(), $contentType = null) {
+		return self::putObject(S3::inputResource(fopen($file, "rb"), filesize($file)), $bucket, $uri, $acl);
+	}
 
 	/**
 	* Put an object from a string (legacy function)
