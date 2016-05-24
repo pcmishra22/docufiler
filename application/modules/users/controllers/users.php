@@ -33,58 +33,71 @@ class Users extends MX_Controller{
 				//filepath
 				$filename=$filepath.$file['uniquename'];
 				//check file extension
-				if($fextension!='pdf')  
+				if($fextension!='jpg')  
 				{
-				  //convert to pdf
-				  $cmd='unoconv -f pdf ';
-				  $command=$cmd.$filename;
-				  exec($command);
+					if($fextension!='pdf')  
+					{
+					  //convert to pdf
+					  $cmd='unoconv -f pdf ';
+					  $command=$cmd.$filename;
+					  exec($command);
+					}
+					//convert to jpg
+					$cmd='convert -density 300 ';
+					$filename=$filepath.$fn[0].'.pdf';
+					$filename2=$filepath.$fn[0].'.jpg';
+					$cmd2=' -quality 100 ';
+					$command=$cmd.$filename.$cmd2.'    '.$filename2;
+					exec($command);						
 				}
-				  //convert -density 300 p.pdf -quality 100 o.jpg
-				  //convert to jpg
-				  //$cmd='unoconv -f jpg ';
-				  $cmd='convert -density 300 ';
-				  $filename=$filepath.$fn[0].'.pdf';
-				  $filename2=$filepath.$fn[0].'.jpg';
-				  $cmd2=' -quality 100 ';
-				  $command=$cmd.$filename.$cmd2.'    '.$filename2;
-				  exec($command);
-				  //update table field to set image is created
-				  $data=array('is_image_created' =>'1');
-				  //update query
-				  $this->users_model->updateData('id',$file['id'],'user_files',$data);
-				  // Bucket Name
-							$bucket="docufilerpreviewimage";
-							//get accesskey from database
-							$appdetails=$this->users_model->getSettings();
-							//AWS access info
-							if (!defined('awsAccessKey')) define('awsAccessKey', $appdetails[0]['awsAccessKey']);
-							if (!defined('awsSecretKey')) define('awsSecretKey', $appdetails[0]['awsSecretKey']);
-							//instantiate the class
-							$s3 = new S3(awsAccessKey, awsSecretKey);
-							//Source path
-							 $sourcePath = FCPATH."files_images/"; 			// Storing source path of the file in a variable
-							//FILE UNIQUE NAME
-							$fileuniquename=$fn[0].'.jpg';
-							//$fileuniquename='1464017955_s.jpg';
-							$sourcePathname=$sourcePath.$fileuniquename;
-							if($s3->putObjectFile1($sourcePathname, $bucket , $fileuniquename, S3::ACL_PUBLIC_READ) )
-							{
-							 //delete files from temp folder....		
-							  
-							  $cmd='rm -f ';
-							  $filename=$sourcePath.$fn[0].'.*';
-							  $command=$cmd.$filename;
-							  exec($command);
-							  
-							 //delete files from folder.......... 
-							}
+				//check which file is created...............
+				$fullpath=FCPATH."/files_images/".$fn[0].'.jpg';
+				$previewfile='';
+				if(file_exists($fullpath))
+				{
+						$previewfile=$fn[0].'.jpg';
+				}
+				if($previewfile=='')
+				{
+					$fullpath=FCPATH."/files_images/".$fn[0].'-0.jpg';
+					if(file_exists($fullpath))
+					{
+						$previewfile=$fn[0].'-0.jpg';
+					}	
+				}
+				//update table field to set image is created
+				$data=array(
+					'is_image_created' =>'1',
+					'previewimagename' =>$previewfile
+				);
+				//update query
+				$this->users_model->updateData('id',$file['id'],'user_files',$data);
+				// Bucket Name
+				$bucket="docufilerpreviewimage";
+				//get accesskey from database
+				$appdetails=$this->users_model->getSettings();
+				//AWS access info
+				if (!defined('awsAccessKey')) define('awsAccessKey', $appdetails[0]['awsAccessKey']);
+				if (!defined('awsSecretKey')) define('awsSecretKey', $appdetails[0]['awsSecretKey']);
+				//instantiate the class
+				$s3 = new S3(awsAccessKey, awsSecretKey);
+				//Source path
+				$sourcePath = FCPATH."files_images/"; 			// Storing source path of the file in a variable
+				//FILE UNIQUE NAME
+				$fileuniquename=$previewfile;
+				$sourcePathname=$sourcePath.$fileuniquename;
+				if($s3->putObjectFile1($sourcePathname, $bucket , $fileuniquename, S3::ACL_PUBLIC_READ) )
+				{
+					//delete files from temp folder....				  
+					$cmd='rm -f ';
+					$filename=$sourcePath.$fn[0].'.*';
+					$command=$cmd.$filename;
+					exec($command);
+				}
 							else
 							{
 								echo 'File not uploaded on S3.';
 							}
-				//s3 upload code here
-				//delete file after upload......
 			  }
 		  }
 	  }
