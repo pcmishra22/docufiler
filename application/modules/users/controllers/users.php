@@ -15,7 +15,7 @@ class Users extends MX_Controller{
 	  //checking cron
 	  public function cron()
 	  {
-							//upload file to bucket explorer
+		//upload file to bucket explorer
 
 		  ////////////////////////////////////////////////////
 		  $files=$this->users_model->imageNotConvertedFiles();
@@ -92,7 +92,7 @@ class Users extends MX_Controller{
 					$cmd='rm -f ';
 					$filename=$sourcePath.$fn[0].'.*';
 					$command=$cmd.$filename;
-					exec($command);
+					//exec($command);
 				}
 							else
 							{
