@@ -182,7 +182,9 @@ function promocodechange(val)
 				success: function(resp) 
 				{
 					$('#promodiscount').html($('#inner_1',resp).html());
-					$('#total').html($('#inner_2',resp).html());	
+					$('#total').html($('#inner_2',resp).html());
+					//val change
+					$('#datatotal').val($('#inner_2',resp).html().slice(1, -1));	
 				}
 			});
 }
