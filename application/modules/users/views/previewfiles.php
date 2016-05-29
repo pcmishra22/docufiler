@@ -52,7 +52,12 @@
 				foreach($filedetails as $filedata)
 				{
 					$fn=explode('.',$filedata['uniquename']);
-					$imgfn=$fn[0].'.jpg';				
+					//$imgfn=$fn[0].'.jpg';		
+					$imgfn=$filedata['previewimagename'];	
+					if($imgfn=='')
+					{
+						$imgfn='default.jpg';	
+					}						
 				?>
                 	<div id="<?php echo $filedata['id'];?>" class="col-lg-3 col-md-3 col-sm-6 col-xs-6 all-boxess zero-padding" draggable="true" ondragstart="drag(event)">
                         <div class="radius-box-innerpage text-center showhim">
