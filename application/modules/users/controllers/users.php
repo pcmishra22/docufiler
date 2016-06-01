@@ -1205,9 +1205,18 @@ public function invitefriend()
 				foreach($filedetails as $filedata)
 				{
 					
-					$fn=explode('.',$filedata['uniquename']);
+					//$fn=explode('.',$filedata['uniquename']);
 					
-					$imgfn=$fn[0].'.jpg';
+					//$imgfn=$fn[0].'.jpg';
+					
+					
+					$fn=explode('.',$filedata['uniquename']);
+					//$imgfn=$fn[0].'.jpg';		
+					$imgfn=$filedata['previewimagename'];	
+					if($imgfn=='')
+					{
+						$imgfn='default.jpg';	
+					}	
 					
 					
 				?>
@@ -1215,8 +1224,8 @@ public function invitefriend()
                 	<div id="<?php echo $filedata['id'];?>" class="col-lg-3 col-md-3 col-sm-6 col-xs-6 all-boxess zero-padding" draggable="true" ondragstart="drag(event)">
                         <div class="radius-box-innerpage text-center showhim">
                             <p class="box-inner"> <span class="move-icon"> < | << </span>   1/1   <span class="move-icon-two"> >> | > </span></p>   
-                            
                             <img src="https://s3-us-west-2.amazonaws.com/docufilerpreviewimage/<?php echo $imgfn;?>" class="pdf img-responsive margin" style="width:816px;height:300px;">
+                            
                             <p class="box-inner font"><?php echo $filedata['name'];?></p>
                             <p class="date"><?php echo date('m/d/Y H:I',strtotime($filedata['created_date']));?></p>
 							
