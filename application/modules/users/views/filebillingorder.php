@@ -115,7 +115,10 @@ function planchange(val)
 					
 					<input type="hidden" name="dataprice" id="dataprice" value="<?php echo $planprice;?>">
 					<input type="hidden" name="datadiscount" id="datadiscount" value="<?php echo $discount;?>">
+					
 					<input type="hidden" name="datatotal" id="datatotal" value="<?php echo $total;?>">
+					<input type="hidden" name="promodiscountamt" id="promodiscountamt" value="0.00">
+					<input type="hidden" name="promocodename" id="promocodename" value="">
 					
                     	<div class="Annually-monthly">
                         	<div class="Monthly"><h3 class="white-text"> <input type="radio" name="Annually" class="radio-annually" value="annually" onclick="planchange(this.value)"/>Annually</h3></div>
@@ -126,8 +129,9 @@ function planchange(val)
 							<span id="plandetails">
 								<h5 class="text-charges"><span>Plan Charges:</span><span class="pull-right" id="planprice">$<?php echo $planprice;?></span></h5>
 								<h5 class="text-charges"><span>Discount:</span><span class="pull-right" id="discount">$<?php echo $discount;?></span></h5>
+								<h5 class="text-charges"><span>Total :</span><span class="pull-right">$<?php echo $total;?></span></h5>
 								<h5 class="text-charges"><span>Promotional Discount:</span><span class="pull-right" id="promodiscount">$<?php echo $promodiscount;?></span></h5>
-								<h5 class="text-charges"><span>Total Order:</span><span class="pull-right" id="total">$<?php echo $total;?></span></h5>
+								<h5 class="text-charges"><span>You Pay :</span><span class="pull-right" id="total">$<?php echo $total;?></span></h5>
                             </span>
 							<span id="carderror" style="background-color: white;"></span>
 							<select class="select" name="cardname" id="cardname">
@@ -184,7 +188,10 @@ function promocodechange(val)
 					$('#promodiscount').html($('#inner_1',resp).html());
 					$('#total').html($('#inner_2',resp).html());
 					//val change
-					$('#datatotal').val($('#inner_2',resp).html().slice(1, -1));	
+					$('#datatotal').val($('#inner_2',resp).html().slice(1, -1));
+					$('#promodiscountamt').val($('#inner_1',resp).html().slice(1, -1));	
+					alert(val)
+					$('#promocodename').val(val);										
 				}
 			});
 }

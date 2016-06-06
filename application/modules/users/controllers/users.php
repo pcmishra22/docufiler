@@ -667,6 +667,8 @@ public function invitefriend()
 		$discount=$_REQUEST['datadiscount'];
 		$total=$_REQUEST['datatotal'];
 		$total=number_format($total, 2, '.', '');
+		$promocodename=$_REQUEST['promocodename'];
+		$promodiscountamt=$_REQUEST['promodiscountamt'];
 		//set data in session
 		
 		// Set sandbox (test mode) to true/false.
@@ -742,7 +744,9 @@ public function invitefriend()
 			'ccno' => $carddetails[0]['cardno'],
 			'ccname' => $carddetails[0]['cardname'],
 			'amt' => $total,
-			'status' => $data['result_array']['ACK']
+			'status' => $data['result_array']['ACK'],
+			'promocodename' => $promocodename,
+			'promodiscountamt' => $promodiscountamt
 		);
 		//save transaction to database 
 		$this->users_model->saveData('billing', $data_to_store);
