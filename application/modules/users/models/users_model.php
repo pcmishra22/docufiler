@@ -238,6 +238,14 @@ class Users_model extends CI_Model {
             $result = $query->result_array();
             return $result[0]['total'];
 	}
+	//total file processing
+	function record_count_total_files_processing($id)
+	{
+			$sql = "SELECT count(*) as total FROM user_files where userid='$id' and is_image_created='0'"; 
+            $query = $this->db->query($sql);
+            $result = $query->result_array();
+            return $result[0]['total'];
+	}
 	//delete card
 	function deleteCard($id)
 	{

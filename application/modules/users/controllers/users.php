@@ -21,7 +21,6 @@ class Users extends MX_Controller{
 		  $files=$this->users_model->imageNotConvertedFiles();
 
 		  $filepath='/var/www/html/docufiler/files_images/';
-		  
 		  if(count($files)>0)
 		  {
 			  foreach($files as $file)
@@ -659,7 +658,7 @@ public function invitefriend()
 		}	
 		//payment
 	  public function payment()
-	  {
+	  {		
 		//set data array	
 		$carddetails=$this->users_model->cardDetailsById($_REQUEST['cardname']);
 		$substype=$_REQUEST['Annually'];
@@ -984,10 +983,7 @@ public function invitefriend()
 			if (!defined('awsSecretKey')) define('awsSecretKey', $appdetails[0]['awsSecretKey']);
 			
 			//instantiate the class
-			
-
 			$s3 = new S3(awsAccessKey, awsSecretKey);
-
 			//$s3->putBucket($bucket, S3::ACL_PUBLIC_READ);
 			$sourcePath = $_FILES['file']['tmp_name']; 			// Storing source path of the file in a variable
 			$fileuniquename=time().'_'.$_FILES['file']['name'];	//fileuniquename
@@ -1300,7 +1296,7 @@ public function invitefriend()
 			$totalfiles=count($this->users_model->allUserFilesByUserId($this->session->userdata('userid')));		
 			//check for payment details
 			$payment=$this->users_model->paymentDetailsById($this->session->userdata('userid'));
-			//$totalfiles=55;
+			$totalfiles=55;
 			$data['totalfiles']=$totalfiles;
 			if($totalfiles>50)
 			{
