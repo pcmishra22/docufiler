@@ -1296,7 +1296,7 @@ public function invitefriend()
 			$totalfiles=count($this->users_model->allUserFilesByUserId($this->session->userdata('userid')));		
 			//check for payment details
 			$payment=$this->users_model->paymentDetailsById($this->session->userdata('userid'));
-			$totalfiles=55;
+			//$totalfiles=55;
 			$data['totalfiles']=$totalfiles;
 			if($totalfiles>50)
 			{

@@ -57,13 +57,17 @@
 					if($imgfn=='')
 					{
 						$imgfn='default.jpg';	
-					}						
+					}		
+			
+					$imgpath="https://s3-us-west-2.amazonaws.com/docufilerpreviewimage/".$imgfn;
+					$type='';
+					
 				?>
                 	<div id="<?php echo $filedata['id'];?>" class="col-lg-3 col-md-3 col-sm-6 col-xs-6 all-boxess zero-padding" draggable="true" ondragstart="drag(event)">
                         <div class="radius-box-innerpage text-center showhim">
                             <p class="box-inner"> <span class="move-icon"> < | << </span>   1/1   <span class="move-icon-two"> >> | > </span></p>   
                             
-                            <img src="https://s3-us-west-2.amazonaws.com/docufilerpreviewimage/<?php echo $imgfn;?>" class="pdf img-responsive margin" style="width:816px;height:300px;">
+                            <img src="data:image/<?=$type.";base64,".base64_encode(file_get_contents($imgpath))?>" class="pdf img-responsive margin" style="width:816px;height:300px;">
                             <p class="box-inner font"><?php echo $filedata['name'];?></p>
                             <p class="date"><?php echo date('m/d/Y H:I',strtotime($filedata['created_date']));?></p>
 							
