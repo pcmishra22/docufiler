@@ -53,14 +53,17 @@
 				{
 					$fn=explode('.',$filedata['uniquename']);
 					//$imgfn=$fn[0].'.jpg';		
-					$imgfn=$filedata['previewimagename'];	
+					$imgfn=$filedata['previewimagename'];
+					
 					if($imgfn=='')
 					{
 						$imgfn='default.jpg';	
 					}		
 			
+					$imgfnext=explode('.',$imgfn);	
+				
 					$imgpath="https://s3-us-west-2.amazonaws.com/docufilerpreviewimage/".$imgfn;
-					$type='';
+					$type=$imgfnext[count($imgfnext)-1];
 					
 				?>
                 	<div id="<?php echo $filedata['id'];?>" class="col-lg-3 col-md-3 col-sm-6 col-xs-6 all-boxess zero-padding" draggable="true" ondragstart="drag(event)">

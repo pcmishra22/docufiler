@@ -1218,8 +1218,10 @@ public function invitefriend()
 						$imgfn='default.jpg';	
 					}	
 					
+					$imgfnext=explode('.',$imgfn);
+					
 					$imgpath="https://s3-us-west-2.amazonaws.com/docufilerpreviewimage/".$imgfn;
-					$type='';
+					$type=$imgfnext[count($imgfnext)-1];
 					
 					
 				?>
